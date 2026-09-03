@@ -1,0 +1,11 @@
+# Single-stage version of the same app, kept only to compare image sizes.
+# Everything needed to build it stays inside the shipped image.
+FROM golang:1.22-alpine
+
+WORKDIR /src
+COPY go.mod ./
+COPY main.go ./
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /out/server main.go
+
+EXPOSE 8080
+ENTRYPOINT ["/out/server"]

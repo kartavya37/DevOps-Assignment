@@ -1,0 +1,15 @@
+{
+  "name": "react-hello-world",
+  "version": "1.0.0",
+  "description": "Hello World React app for the Docker homework",
+  "scripts": {
+    "build": "mkdir -p dist && cp public/index.html dist/index.html && esbuild src/index.jsx --bundle --minify --outfile=dist/bundle.js"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.23.1"
+  }
+}
