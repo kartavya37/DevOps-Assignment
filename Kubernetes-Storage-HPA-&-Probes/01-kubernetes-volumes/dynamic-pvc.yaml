@@ -1,0 +1,14 @@
+# Dynamic provisioning: the claim names the StorageClass "standard".
+# The minikube hostpath provisioner creates a new PV for this claim.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dynamic-pvc
+  namespace: s13-volumes
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi

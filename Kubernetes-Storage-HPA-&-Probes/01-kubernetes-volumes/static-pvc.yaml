@@ -1,0 +1,17 @@
+# The claim asks for 500Mi with storageClassName "manual".
+# Kubernetes binds it to s13-static-pv because the class and access mode match.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: static-pvc
+  namespace: s13-volumes
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+  selector:
+    matchLabels:
+      type: s13-static

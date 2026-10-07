@@ -1,0 +1,12 @@
+# A small client Pod. Use it to send HTTP requests to the Service from inside the cluster.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client
+  namespace: s13-probes
+spec:
+  terminationGracePeriodSeconds: 1
+  containers:
+    - name: curl
+      image: curlimages/curl:8.10.1
+      command: ["sleep", "3600"]

@@ -1,0 +1,18 @@
+# A PersistentVolume that the administrator creates by hand (static provisioning).
+# storageClassName "manual" stops the default StorageClass from provisioning a new volume.
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: s13-static-pv
+  labels:
+    type: s13-static
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /tmp/s13-static-pv
+    type: DirectoryOrCreate

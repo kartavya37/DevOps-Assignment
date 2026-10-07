@@ -1,0 +1,32 @@
+# HorizontalPodAutoscaler (autoscaling/v2) for the hpa-demo Deployment.
+# Target: keep the average CPU utilization of the Pods near 50% of the CPU request.
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-demo
+  namespace: s13-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hpa-demo
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 0
+    scaleDown:
+      # Demo value. The default is 300 seconds (5 minutes).
+      # A short window lets the demo show the scale-down quickly.
+      stabilizationWindowSeconds: 60
+      policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 15

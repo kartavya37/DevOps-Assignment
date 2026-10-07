@@ -1,0 +1,38 @@
+# Load generator: 3 busybox Pods that send HTTP requests to the Service in a loop.
+# The CPU limit keeps the load small because other workloads share the cluster.
+# Delete this Deployment to stop the load.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-generator
+  namespace: s13-hpa
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: load-generator
+  template:
+    metadata:
+      labels:
+        app: load-generator
+    spec:
+      # busybox sh ignores SIGTERM. A short grace period stops the load quickly.
+      terminationGracePeriodSeconds: 2
+      containers:
+        - name: load
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              echo "Sending requests to http://hpa-demo-service ..."
+              while true; do
+                wget -q -O /dev/null http://hpa-demo-service
+              done
+          resources:
+            requests:
+              cpu: 50m
+              memory: 16Mi
+            limits:
+              cpu: 200m
+              memory: 32Mi

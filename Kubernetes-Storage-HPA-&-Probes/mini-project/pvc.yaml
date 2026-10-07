@@ -1,0 +1,14 @@
+# 500Mi ReadWriteOnce claim. The default StorageClass "standard" provisions the volume.
+# All Pods run on the single minikube node, so they can share one RWO volume.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: web-data
+  namespace: s13-webapp
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi

@@ -1,0 +1,28 @@
+# One busybox Pod that sends HTTP requests to web-service in a loop.
+# Each wget call fetches the page 100 times. This uses less CPU in the
+# load generator than one wget process per request, so more load reaches nginx.
+# Delete this Pod to stop the load.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: load-generator
+  namespace: s13-webapp
+spec:
+  terminationGracePeriodSeconds: 2
+  containers:
+    - name: load
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          URLS=$(for i in $(seq 1 100); do printf "http://web-service/ "; done)
+          echo "Sending requests to http://web-service ..."
+          while true; do
+            wget -q -O /dev/null $URLS
+          done
+      resources:
+        requests:
+          cpu: 50m
+        limits:
+          cpu: 300m

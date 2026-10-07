@@ -1,0 +1,21 @@
+# BROKEN: the readiness probe checks /ready, which returns 404.
+# The Pod stays Running but not Ready, so the Service has no endpoints.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: readiness-demo
+  namespace: s13-probes
+  labels:
+    app: readiness-demo
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.27
+      ports:
+        - containerPort: 80
+      readinessProbe:
+        httpGet:
+          path: /ready
+          port: 80
+        initialDelaySeconds: 3
+        periodSeconds: 5

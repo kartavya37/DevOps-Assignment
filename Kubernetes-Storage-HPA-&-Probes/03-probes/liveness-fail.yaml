@@ -1,0 +1,21 @@
+# BROKEN: the liveness probe checks /healthz, but nginx returns 404 for that path.
+# After 3 failures, the kubelet kills and restarts the container.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: liveness-demo
+  namespace: s13-probes
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.27
+      ports:
+        - containerPort: 80
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: 80
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        timeoutSeconds: 2
+        failureThreshold: 3

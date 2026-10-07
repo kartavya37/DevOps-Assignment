@@ -1,0 +1,14 @@
+# Output of: kubectl get hpa hpa-demo -n s13-hpa -w   (each line prefixed with the local time)
+# Load generator applied at 17:16:46, deleted at 17:21:48.
+17:16:40  NAME       REFERENCE             TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+17:16:40  hpa-demo   Deployment/hpa-demo   cpu: 0%/50%   1         5         1          2m37s
+17:17:19  hpa-demo   Deployment/hpa-demo   cpu: 12%/50%   1         5         1          3m16s
+17:18:19  hpa-demo   Deployment/hpa-demo   cpu: 126%/50%   1         5         1          4m16s
+17:18:34  hpa-demo   Deployment/hpa-demo   cpu: 126%/50%   1         5         3          4m31s
+17:19:19  hpa-demo   Deployment/hpa-demo   cpu: 62%/50%    1         5         3          5m16s
+17:20:19  hpa-demo   Deployment/hpa-demo   cpu: 48%/50%    1         5         3          6m16s
+17:21:19  hpa-demo   Deployment/hpa-demo   cpu: 47%/50%    1         5         3          7m16s
+17:22:19  hpa-demo   Deployment/hpa-demo   cpu: 38%/50%    1         5         3          8m16s
+17:23:19  hpa-demo   Deployment/hpa-demo   cpu: 0%/50%     1         5         3          9m16s
+17:24:04  hpa-demo   Deployment/hpa-demo   cpu: 0%/50%     1         5         3          10m
+17:24:20  hpa-demo   Deployment/hpa-demo   cpu: 0%/50%     1         5         1          10m
