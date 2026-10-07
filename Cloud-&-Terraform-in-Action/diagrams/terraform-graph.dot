@@ -1,0 +1,38 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_availability_zones.available" [label="data.aws_availability_zones.available"];
+  "aws_iam_instance_profile.ec2" [label="aws_iam_instance_profile.ec2"];
+  "aws_iam_role.ec2" [label="aws_iam_role.ec2"];
+  "aws_iam_role_policy.ec2_read_assets" [label="aws_iam_role_policy.ec2_read_assets"];
+  "aws_instance.web" [label="aws_instance.web"];
+  "aws_internet_gateway.main" [label="aws_internet_gateway.main"];
+  "aws_route_table.public" [label="aws_route_table.public"];
+  "aws_route_table_association.public" [label="aws_route_table_association.public"];
+  "aws_s3_bucket.assets" [label="aws_s3_bucket.assets"];
+  "aws_s3_bucket_public_access_block.assets" [label="aws_s3_bucket_public_access_block.assets"];
+  "aws_s3_bucket_server_side_encryption_configuration.assets" [label="aws_s3_bucket_server_side_encryption_configuration.assets"];
+  "aws_s3_bucket_versioning.assets" [label="aws_s3_bucket_versioning.assets"];
+  "aws_s3_object.deployment_info" [label="aws_s3_object.deployment_info"];
+  "aws_security_group.web" [label="aws_security_group.web"];
+  "aws_subnet.public" [label="aws_subnet.public"];
+  "aws_vpc.main" [label="aws_vpc.main"];
+  "aws_iam_instance_profile.ec2" -> "aws_iam_role.ec2";
+  "aws_iam_role_policy.ec2_read_assets" -> "aws_iam_role.ec2";
+  "aws_iam_role_policy.ec2_read_assets" -> "aws_s3_bucket.assets";
+  "aws_instance.web" -> "aws_iam_instance_profile.ec2";
+  "aws_instance.web" -> "aws_route_table_association.public";
+  "aws_instance.web" -> "aws_security_group.web";
+  "aws_internet_gateway.main" -> "aws_vpc.main";
+  "aws_route_table.public" -> "aws_internet_gateway.main";
+  "aws_route_table_association.public" -> "aws_route_table.public";
+  "aws_route_table_association.public" -> "aws_subnet.public";
+  "aws_s3_bucket_public_access_block.assets" -> "aws_s3_bucket.assets";
+  "aws_s3_bucket_server_side_encryption_configuration.assets" -> "aws_s3_bucket.assets";
+  "aws_s3_bucket_versioning.assets" -> "aws_s3_bucket.assets";
+  "aws_s3_object.deployment_info" -> "aws_instance.web";
+  "aws_s3_object.deployment_info" -> "aws_s3_bucket.assets";
+  "aws_security_group.web" -> "aws_vpc.main";
+  "aws_subnet.public" -> "data.aws_availability_zones.available";
+  "aws_subnet.public" -> "aws_vpc.main";
+}
