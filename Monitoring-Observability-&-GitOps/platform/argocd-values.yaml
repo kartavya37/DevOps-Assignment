@@ -1,0 +1,62 @@
+# Values for Argo CD (chart argo/argo-cd 10.9.7, release "argocd", namespace "argocd").
+# Non-HA install with small resource requests for a shared minikube.
+
+configs:
+  params:
+    # The UI and API use plain HTTP inside the cluster. Use kubectl port-forward to open it.
+    server.insecure: true
+  cm:
+    # Argo CD polls Git every 60 seconds (default is 120s). A Gitea webhook can trigger a refresh sooner.
+    timeout.reconciliation: 60s
+    timeout.reconciliation.jitter: 10s
+
+# Single sign-on and notifications are not necessary for this demo.
+dex:
+  enabled: false
+notifications:
+  enabled: false
+
+controller:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 192Mi
+    limits:
+      memory: 512Mi
+  # Prometheus scrapes Argo CD application metrics (for example argocd_app_info).
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+server:
+  resources:
+    requests:
+      cpu: 20m
+      memory: 64Mi
+    limits:
+      memory: 256Mi
+
+repoServer:
+  resources:
+    requests:
+      cpu: 20m
+      memory: 64Mi
+    limits:
+      memory: 384Mi
+
+applicationSet:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      memory: 128Mi
+
+redis:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      memory: 128Mi

@@ -1,0 +1,28 @@
+# Apply this file one time with kubectl. Do not put it in the "app/" path of the Git repository.
+# It tells Argo CD which repository and path to watch, and where to deploy it.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: s20-gitops-app
+  namespace: argocd
+  # This finalizer makes Argo CD delete the app resources when you delete the Application.
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    # The in-cluster Gitea server. Argo CD pulls from this URL inside the cluster.
+    repoURL: http://gitea-http.gitea.svc.cluster.local:3000/gitops-admin/gitops-demo.git
+    targetRevision: main
+    path: app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: s20-gitops
+  syncPolicy:
+    automated:
+      # prune: delete live resources that are not in Git any more.
+      prune: true
+      # selfHeal: undo manual changes in the cluster (drift) and return to the Git state.
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

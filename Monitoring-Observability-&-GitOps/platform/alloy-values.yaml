@@ -1,0 +1,55 @@
+# Values for Grafana Alloy (chart grafana/alloy 1.13.0, release "alloy", namespace "monitoring").
+# Alloy is the log collector. It reads Pod logs through the Kubernetes API and sends them to Loki.
+# The API method does not need hostPath mounts. One replica is enough for this one-node cluster.
+
+controller:
+  type: deployment
+  replicas: 1
+
+alloy:
+  resources:
+    requests:
+      cpu: 20m
+      memory: 64Mi
+    limits:
+      memory: 256Mi
+  configMap:
+    content: |
+      // Find all Pods in the cluster.
+      discovery.kubernetes "pods" {
+        role = "pod"
+      }
+
+      // Copy useful Kubernetes metadata into Loki labels.
+      discovery.relabel "pods" {
+        targets = discovery.kubernetes.pods.targets
+        rule {
+          source_labels = ["__meta_kubernetes_namespace"]
+          target_label  = "namespace"
+        }
+        rule {
+          source_labels = ["__meta_kubernetes_pod_name"]
+          target_label  = "pod"
+        }
+        rule {
+          source_labels = ["__meta_kubernetes_pod_container_name"]
+          target_label  = "container"
+        }
+        rule {
+          source_labels = ["__meta_kubernetes_pod_label_app"]
+          target_label  = "app"
+        }
+      }
+
+      // Read the container logs through the Kubernetes API.
+      loki.source.kubernetes "pods" {
+        targets    = discovery.relabel.pods.output
+        forward_to = [loki.write.default.receiver]
+      }
+
+      // Send the log lines to Loki.
+      loki.write "default" {
+        endpoint {
+          url = "http://loki.monitoring.svc.cluster.local:3100/loki/api/v1/push"
+        }
+      }

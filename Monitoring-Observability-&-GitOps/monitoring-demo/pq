@@ -1,0 +1,7 @@
+#!/bin/bash
+# pq 'PROMQL' - run an instant PromQL query against Prometheus and print one line per series.
+# Start the port-forward first:
+#   kubectl port-forward -n monitoring svc/kube-prometheus-stack-prometheus 18600:9090
+PROM_URL="${PROM_URL:-http://127.0.0.1:18600}"
+curl -s "$PROM_URL/api/v1/query" --data-urlencode "query=$1" |
+  jq -r '.data.result[] | "\(.metric | del(.__name__) | to_entries | map("\(.key)=\(.value)") | join(",")) => \(.value[1])"'

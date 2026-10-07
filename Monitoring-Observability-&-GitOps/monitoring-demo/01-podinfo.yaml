@@ -1,0 +1,123 @@
+# Demo application: podinfo (a small Go web app).
+# It exposes Prometheus metrics on /metrics, health checks on /healthz and /readyz,
+# and JSON logs on stdout. The frontend calls the backend on POST /echo, so a trace has two services.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podinfo
+  namespace: s20-monitoring
+  labels:
+    app: podinfo
+    part-of: s20-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: podinfo
+  template:
+    metadata:
+      labels:
+        app: podinfo
+        part-of: s20-demo
+    spec:
+      containers:
+        - name: podinfo
+          image: ghcr.io/stefanprodan/podinfo:6.15.0
+          command:
+            - ./podinfo
+            - --port=9898
+            - --level=info
+            - --backend-url=http://podinfo-backend:9898/echo
+            # A service name turns on OpenTelemetry tracing.
+            - --otel-service-name=podinfo-frontend
+          env:
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://jaeger.s20-tracing.svc.cluster.local:4317
+            - name: OTEL_EXPORTER_OTLP_INSECURE
+              value: "true"
+            # Keep 10% of the traces. The backend follows the decision of the caller (parent).
+            - name: OTEL_TRACES_SAMPLER
+              value: parentbased_traceidratio
+            - name: OTEL_TRACES_SAMPLER_ARG
+              value: "0.1"
+          ports:
+            - name: http
+              containerPort: 9898
+          # Liveness: if /healthz fails 3 times, the kubelet restarts the container.
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 10
+            failureThreshold: 3
+          # Readiness: if /readyz fails, Kubernetes removes the Pod from the Service endpoints.
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            periodSeconds: 5
+            failureThreshold: 2
+          # A small CPU limit makes the CPU alert easy to show with the load generator.
+          resources:
+            requests:
+              cpu: 20m
+              memory: 32Mi
+            limits:
+              cpu: 50m
+              memory: 64Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podinfo-backend
+  namespace: s20-monitoring
+  labels:
+    app: podinfo-backend
+    part-of: s20-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: podinfo-backend
+  template:
+    metadata:
+      labels:
+        app: podinfo-backend
+        part-of: s20-demo
+    spec:
+      containers:
+        - name: podinfo-backend
+          image: ghcr.io/stefanprodan/podinfo:6.15.0
+          command:
+            - ./podinfo
+            - --port=9898
+            - --level=info
+            - --otel-service-name=podinfo-backend
+          env:
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://jaeger.s20-tracing.svc.cluster.local:4317
+            - name: OTEL_EXPORTER_OTLP_INSECURE
+              value: "true"
+            # Keep 10% of the traces. The backend follows the decision of the caller (parent).
+            - name: OTEL_TRACES_SAMPLER
+              value: parentbased_traceidratio
+            - name: OTEL_TRACES_SAMPLER_ARG
+              value: "0.1"
+          ports:
+            - name: http
+              containerPort: 9898
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+          resources:
+            requests:
+              cpu: 20m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 64Mi

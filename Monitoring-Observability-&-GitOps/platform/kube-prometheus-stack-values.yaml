@@ -1,0 +1,120 @@
+# Values for kube-prometheus-stack (chart 92.0.0, release "kube-prometheus-stack", namespace "monitoring").
+# The cluster is a small shared minikube. These values keep the footprint small.
+
+# minikube does not expose these control plane components to Prometheus.
+# Disable their ServiceMonitors and rules. If you keep them, they show as "down" and fire alerts.
+kubeEtcd:
+  enabled: false
+kubeControllerManager:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
+
+defaultRules:
+  rules:
+    etcd: false
+    kubeControllerManager: false
+    kubeSchedulerAlerting: false
+    kubeSchedulerRecording: false
+    kubeProxy: false
+    windows: false
+
+windowsMonitoring:
+  enabled: false
+
+prometheus:
+  prometheusSpec:
+    # Short retention and no PersistentVolume: this is a demo cluster.
+    retention: 12h
+    retentionSize: 1GB
+    scrapeInterval: 15s
+    evaluationInterval: 15s
+    # An empty selector selects all objects in all namespaces.
+    # Then ServiceMonitors, PodMonitors and PrometheusRules do not need the "release" label.
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    scrapeConfigSelectorNilUsesHelmValues: false
+    resources:
+      requests:
+        cpu: 100m
+        memory: 400Mi
+      limits:
+        memory: 1Gi
+
+alertmanager:
+  alertmanagerSpec:
+    retention: 24h
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        memory: 128Mi
+
+prometheusOperator:
+  resources:
+    requests:
+      cpu: 20m
+      memory: 64Mi
+    limits:
+      memory: 200Mi
+
+kube-state-metrics:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      memory: 128Mi
+
+prometheus-node-exporter:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 24Mi
+    limits:
+      memory: 64Mi
+
+grafana:
+  # Grafana 13 (the chart default) used 100% of its CPU limit on this small cluster when it
+  # rendered the large default dashboards (internal API server timeouts with SQLite).
+  # Grafana 11.6 does not have this problem, so we pin it.
+  image:
+    tag: "11.6.16"
+  # The admin user and password come from the Secret "grafana-admin".
+  # Create that Secret before the install. Do not store the password in Git.
+  admin:
+    existingSecret: grafana-admin
+    userKey: admin-user
+    passwordKey: admin-password
+  grafana.ini:
+    analytics:
+      check_for_updates: false
+    # SQLite write-ahead log: fewer "database is locked" errors when many requests arrive together.
+    database:
+      wal: true
+    # Anonymous users get the Viewer role. This lets a headless browser take dashboard screenshots.
+    # The admin login continues to work.
+    auth.anonymous:
+      enabled: true
+      org_name: Main Org.
+      org_role: Viewer
+  # The CPU limit protects the shared cluster if Grafana becomes busy.
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: "1"
+      memory: 512Mi
+  # Loki is the log data source. The Loki chart runs in the same namespace.
+  additionalDataSources:
+    - name: Loki
+      uid: loki
+      type: loki
+      access: proxy
+      url: http://loki.monitoring.svc.cluster.local:3100

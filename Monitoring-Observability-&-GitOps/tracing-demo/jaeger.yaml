@@ -1,0 +1,117 @@
+# Jaeger all-in-one (v2) with in-memory storage. For demos only: the traces are lost on restart.
+# podinfo sends spans with OTLP gRPC to port 4317. The Jaeger UI listens on port 16686.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: s20-tracing
+---
+# The default in-memory store keeps 100000 traces. That is too much memory for this cluster.
+# This configuration keeps a maximum of 5000 traces.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jaeger-config
+  namespace: s20-tracing
+data:
+  config.yaml: |
+    service:
+      extensions: [jaeger_storage, jaeger_query, healthcheckv2]
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [jaeger_storage_exporter]
+        # podinfo also sends OpenTelemetry logs. Jaeger stores traces only, so it drops the logs.
+        # (Loki already collects the same logs from the container output.)
+        logs:
+          receivers: [otlp]
+          exporters: [nop]
+    extensions:
+      healthcheckv2:
+        use_v2: true
+        http:
+          endpoint: 0.0.0.0:13133
+      jaeger_query:
+        storage:
+          traces: memstore
+        http:
+          endpoint: 0.0.0.0:16686
+      jaeger_storage:
+        backends:
+          memstore:
+            memory:
+              max_traces: 5000
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+    processors:
+      batch: {}
+    exporters:
+      jaeger_storage_exporter:
+        trace_storage: memstore
+      nop: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger
+  namespace: s20-tracing
+  labels:
+    app: jaeger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger
+  template:
+    metadata:
+      labels:
+        app: jaeger
+    spec:
+      containers:
+        - name: jaeger
+          image: jaegertracing/jaeger:2.22.0
+          args: ["--config", "/etc/jaeger/config.yaml"]
+          volumeMounts:
+            - name: config
+              mountPath: /etc/jaeger
+          ports:
+            - name: otlp-grpc
+              containerPort: 4317
+            - name: otlp-http
+              containerPort: 4318
+            - name: ui
+              containerPort: 16686
+          resources:
+            requests:
+              cpu: 20m
+              memory: 64Mi
+            limits:
+              memory: 256Mi
+      volumes:
+        - name: config
+          configMap:
+            name: jaeger-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger
+  namespace: s20-tracing
+spec:
+  selector:
+    app: jaeger
+  ports:
+    - name: otlp-grpc
+      port: 4317
+      targetPort: otlp-grpc
+    - name: otlp-http
+      port: 4318
+      targetPort: otlp-http
+    - name: ui
+      port: 16686
+      targetPort: ui

@@ -1,0 +1,72 @@
+# Alert rules for the demo application.
+# The Prometheus Operator loads every PrometheusRule (our Helm values use an empty ruleSelector).
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: s20-demo-alerts
+  namespace: s20-monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: s20-demo.rules
+      rules:
+        # Metrics: more than 5% of the requests return a 5xx status code.
+        - alert: PodinfoHighErrorRate
+          expr: |
+            sum by (namespace, service) (rate(http_requests_total{namespace="s20-monitoring", status=~"5.."}[2m]))
+              /
+            sum by (namespace, service) (rate(http_requests_total{namespace="s20-monitoring"}[2m]))
+              > 0.05
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "podinfo returns too many errors"
+            description: "{{ $value | humanizePercentage }} of the requests to Service {{ $labels.service }} return 5xx."
+        # CPU utilization: a container uses more than 80% of its CPU limit.
+        - alert: PodinfoHighCpu
+          expr: |
+            sum by (namespace, pod) (rate(container_cpu_usage_seconds_total{namespace="s20-monitoring", container=~"podinfo|podinfo-backend"}[2m]))
+              /
+            sum by (namespace, pod) (kube_pod_container_resource_limits{namespace="s20-monitoring", container=~"podinfo|podinfo-backend", resource="cpu"})
+              > 0.8
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "podinfo CPU usage is near the limit"
+            description: "Pod {{ $labels.pod }} uses {{ $value | humanizePercentage }} of its CPU limit."
+        # Memory utilization: a container uses more than 90% of its memory limit.
+        - alert: PodinfoHighMemory
+          expr: |
+            sum by (namespace, pod) (container_memory_working_set_bytes{namespace="s20-monitoring", container=~"podinfo|podinfo-backend"})
+              /
+            sum by (namespace, pod) (kube_pod_container_resource_limits{namespace="s20-monitoring", container=~"podinfo|podinfo-backend", resource="memory"})
+              > 0.9
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "podinfo memory usage is near the limit"
+            description: "Pod {{ $labels.pod }} uses {{ $value | humanizePercentage }} of its memory limit."
+        # Application health: a Pod is not ready (the readiness probe fails).
+        - alert: PodinfoPodNotReady
+          expr: |
+            kube_pod_status_ready{namespace="s20-monitoring", condition="false"} == 1
+          for: 30s
+          labels:
+            severity: critical
+          annotations:
+            summary: "A podinfo Pod is not ready"
+            description: "Pod {{ $labels.pod }} fails its readiness probe."
+        # Application health: Prometheus cannot scrape a target.
+        - alert: PodinfoTargetDown
+          expr: |
+            up{namespace="s20-monitoring"} == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Prometheus cannot scrape a podinfo target"
+            description: "Target {{ $labels.instance }} is down."
