@@ -1,0 +1,24 @@
+# The web page. nginx serves this file from /usr/share/nginx/html.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "web-chart.fullname" . }}-html
+  labels:
+    {{- include "web-chart.labels" . | nindent 4 }}
+data:
+  index.html: |
+    <!doctype html>
+    <html>
+    <head><meta charset="utf-8"><title>{{ .Release.Name }} {{ .Values.app.version }}</title></head>
+    <body style="font-family: sans-serif; margin: 40px; background: {{ .Values.app.color }}; color: #ffffff;">
+      <h1>Release {{ .Release.Name }} - {{ .Values.app.version }}</h1>
+      <p>{{ .Values.app.message }}</p>
+      <ul>
+        <li>image: {{ .Values.image.repository }}:{{ .Values.image.tag }}</li>
+        <li>replicas: {{ .Values.replicaCount }}</li>
+        <li>rendered by Helm revision: {{ .Release.Revision }}</li>
+      </ul>
+    </body>
+    </html>
+  version.txt: |
+    version={{ .Values.app.version }} image={{ .Values.image.repository }}:{{ .Values.image.tag }} replicas={{ .Values.replicaCount }} rendered-at-revision={{ .Release.Revision }}

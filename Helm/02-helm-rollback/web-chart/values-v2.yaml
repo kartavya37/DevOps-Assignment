@@ -1,0 +1,10 @@
+# Revision 2: newer image, more replicas, new message.
+replicaCount: 2
+
+image:
+  tag: "1.28-alpine"
+
+app:
+  version: "v2"
+  message: "Version 2: stable release with two replicas."
+  color: "#15803d"

@@ -1,0 +1,20 @@
+# Default values (development environment).
+replicaCount: 1
+
+image:
+  repository: nginx
+  tag: "1.24"
+
+service:
+  port: 80
+  # A fixed NodePort. The class material uses 30090.
+  # This demo uses 30315 because other demos share the same cluster.
+  nodePort: 30315
+
+app:
+  name: notes-app
+  environment: development
+  # The notes that the web page shows.
+  notes:
+    - "Write the Helm chart"
+    - "Test the chart in development"

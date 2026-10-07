@@ -1,0 +1,11 @@
+# Revision 3: the release that we roll back.
+# It shows a wrong message to users, so we return to revision 2.
+replicaCount: 3
+
+image:
+  tag: "1.29-alpine"
+
+app:
+  version: "v3"
+  message: "Version 3: BAD RELEASE - wrong price list shown to users."
+  color: "#b91c1c"

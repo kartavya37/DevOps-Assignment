@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deploy
+  labels:
+    app: {{ .Release.Name }}
+    environment: {{ .Values.app.environment }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+      annotations:
+        # A new ConfigMap gives a new checksum. Then Kubernetes starts new Pods.
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      containers:
+        - name: notes
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-config
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.port }}
+            periodSeconds: 5
+          volumeMounts:
+            - name: html
+              mountPath: /usr/share/nginx/html/index.html
+              subPath: index.html
+      volumes:
+        - name: html
+          configMap:
+            name: {{ .Release.Name }}-config

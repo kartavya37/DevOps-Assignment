@@ -1,0 +1,17 @@
+# Default values = revision 1 of the rollback demo.
+replicaCount: 1
+
+image:
+  repository: nginx
+  tag: "1.27-alpine"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+# The web page shows these values. Each revision uses different values.
+app:
+  version: "v1"
+  message: "Version 1: first release of the web page."
+  color: "#1d4ed8"

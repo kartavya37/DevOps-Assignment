@@ -1,0 +1,6 @@
+Release {{ .Release.Name }} is now at Helm revision {{ .Release.Revision }}.
+App version: {{ .Values.app.version }} | image: {{ .Values.image.repository }}:{{ .Values.image.tag }} | replicas: {{ .Values.replicaCount }}
+
+Open the page:
+  kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "web-chart.fullname" . }} 18310:{{ .Values.service.port }}
+  curl http://localhost:18310/version.txt
