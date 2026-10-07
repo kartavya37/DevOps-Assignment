@@ -1,0 +1,20 @@
+$ brew install minikube
+==> Downloading bottle manifests
+✔︎ Bottle Manifest minikube (1.39.0)
+==> Would install 1 formula:
+minikube 1.39.0
+==> Would install 1 dependency for minikube:
+kubernetes-cli
+==> Fetching downloads for: minikube
+✔︎ Bottle Manifest kubernetes-cli (1.37.1)
+✔︎ Bottle kubernetes-cli (1.37.1)
+✔︎ Bottle minikube (1.39.0)
+==> Installing minikube dependency: kubernetes-cli
+==> Pouring kubernetes-cli--1.37.1.arm64_tahoe.bottle.1.tar.gz
+🍺  /opt/homebrew/Cellar/kubernetes-cli/1.37.1: 261 files, 65.2MB
+==> Installing minikube
+==> Pouring minikube--1.39.0.arm64_tahoe.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/minikube/1.39.0: 11 files, 143.4MB
+==> Caveats
+zsh completions have been installed to:
+  /opt/homebrew/share/zsh/site-functions

@@ -1,0 +1,5 @@
+# A Namespace keeps the objects of this lab apart from other objects in the cluster.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: s9-basics

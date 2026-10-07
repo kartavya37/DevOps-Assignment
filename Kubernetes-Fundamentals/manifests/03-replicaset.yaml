@@ -1,0 +1,22 @@
+# A ReplicaSet keeps a fixed number of identical Pods.
+# If a Pod stops, the ReplicaSet creates a new Pod to replace it.
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: web-rs
+  namespace: s9-basics
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-rs
+  template:
+    metadata:
+      labels:
+        app: web-rs
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27-alpine
+          ports:
+            - containerPort: 80

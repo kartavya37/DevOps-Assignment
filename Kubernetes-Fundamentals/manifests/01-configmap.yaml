@@ -1,0 +1,10 @@
+# A ConfigMap holds configuration data as key-value pairs.
+# The Pod in 02-pod.yaml reads these keys as environment variables.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: s9-basics
+data:
+  APP_COLOR: "blue"
+  APP_MODE: "demo"

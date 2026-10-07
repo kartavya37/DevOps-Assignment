@@ -1,0 +1,14 @@
+# A Service gives a stable name and IP address to a set of Pods.
+# The selector picks the Pods of the web-deploy Deployment.
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-svc
+  namespace: s9-basics
+spec:
+  type: ClusterIP
+  selector:
+    app: web-deploy
+  ports:
+    - port: 80
+      targetPort: 80

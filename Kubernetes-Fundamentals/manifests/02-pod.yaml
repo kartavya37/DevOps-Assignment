@@ -1,0 +1,18 @@
+# A Pod is the smallest object that Kubernetes schedules.
+# This Pod has one nginx container and reads the ConfigMap as environment variables.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-pod
+  namespace: s9-basics
+  labels:
+    app: web-pod
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.27-alpine
+      ports:
+        - containerPort: 80
+      envFrom:
+        - configMapRef:
+            name: app-config
