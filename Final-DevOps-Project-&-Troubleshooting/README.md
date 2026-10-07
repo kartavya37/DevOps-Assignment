@@ -5,6 +5,8 @@
 
 This folder is the `final-devops-project/` folder from the brief. It contains one end-to-end DevOps project for **TaskBoard**, a small task tracker (FastAPI + React + PostgreSQL). The project takes the application from source code to a monitored Kubernetes deployment with CI/CD, DevSecOps, Helm, Terraform and GitOps. It also contains the Final Troubleshooting Challenge with eight broken scenarios.
 
+> **Session 21 homework (Docker Compose):** the manual run, `docker compose up -d --build`, the application test and the backend API tests are in [session-21-homework/README.md](session-21-homework/README.md).
+
 The base of the application is the class project `devops-heros/session21-python`. I changed and extended it (see [Application setup](#4-application-setup)).
 
 ```text
