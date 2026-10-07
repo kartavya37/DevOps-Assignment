@@ -1,0 +1,15 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Session 12 README shows the real output of dummy demo Secret values"
+paths = ['''Kubernetes-Ingress-ConfigMaps-&-Secrets/README\.md$''']
+
+[[allowlists]]
+description = "AWS resource IDs from the Moto emulator in Terraform output"
+regexTarget = "match"
+regexes = ['''(sg|subnet|vpc|igw|nat|rtb|eipalloc|rtbassoc)-[0-9a-z]{8,17}''']
+
+[[allowlists]]
+description = "Base64 form of the Session 21 demo database password (demo-password-123)"
+regexes = ['''^ZGVtby1wYXNzd29yZC0xMjM=$''']

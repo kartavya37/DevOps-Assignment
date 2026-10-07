@@ -1,0 +1,28 @@
+.DS_Store
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# node
+node_modules/
+
+# terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+
+# misc
+.env
+kubeconfig*
+
+# keep command-output logs used as evidence in the READMEs
+!**/logs/*.log
+!**/output/*.log
