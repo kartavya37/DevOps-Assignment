@@ -753,15 +753,34 @@ Jobs 1 to 7 passed: the scans ran and wrote their reports. The Security Gate rea
 
 ### Pipeline execution on GitHub
 
-> **Note:** The screenshots of the GitHub Actions runs will be added here after the push to `kartavya37/DevOps-Assignment`. The local act runs above are the evidence until then.
+I pushed the repository to GitHub on 7 October 2026 (commit `f0640c2`). The push started the workflow [`s17-devsecops.yml`](../.github/workflows/s17-devsecops.yml) on GitHub-hosted runners: [run 37637158546](https://github.com/kartavya37/DevOps-Assignment/actions/runs/37637158546). All 10 jobs completed with **success** in about 5 minutes.
 
-Screenshots to add after the push:
+![GitHub Actions run of the S17 pipeline](screenshots/github-actions-run.png)
 
-1. The workflow graph of a push run: the 10 jobs in one chain, all green.
-2. The "8. Security Gate" log and the job summary table.
-3. The "10. Deploy to Kubernetes (kind)" log with the rollout and the `curl` output.
-4. The package `s17-devsecops-app` on the GHCR packages page.
-5. A pull request run, where jobs 9 and 10 are skipped.
+| Job | Result | Duration |
+|---|---|---|
+| 1. Build | success | 0m 12s |
+| 2. Unit Test | success | 0m 18s |
+| 3. SAST (Bandit) | success | 0m 16s |
+| 4. SCA (pip-audit + Trivy fs) | success | 0m 35s |
+| 5. Secret Scan (Gitleaks) | success | 0m 09s |
+| 6. Docker Build | success | 0m 31s |
+| 7. Container Image Scan (Trivy) | success | 0m 26s |
+| 8. Security Gate | success | 0m 13s |
+| 9. Push Image (GHCR) | success | 0m 25s |
+| 10. Deploy to Kubernetes (kind) | success | 1m 14s |
+
+The jobs run in one chain, in the order of the expected flow. The Security Gate passed, so job 9 pushed `ghcr.io/kartavya37/s17-devsecops-app` with the commit SHA as the tag. Then job 10 deployed that image to a kind cluster. The run stored the reports of all scan jobs as artifacts: `unit-test-report`, `sast-report`, `sca-report`, `secret-scan-report` and `image-scan-report`.
+
+This is the log of the deploy job. It comes from `gh run view 37637158546 --log`:
+
+![GitHub deploy job log](screenshots/github-deploy-smoke-test.png)
+
+`kubectl set image` started a rolling update to the image with the commit SHA tag. The rollout completed with 2 Pods. The smoke test got `healthy` from `/health`, the app status with the `git_sha`, and the security headers `X-Content-Type-Options: nosniff` and `X-Frame-Options: DENY`. The full excerpt is in [`evidence/github-deploy-log.txt`](evidence/github-deploy-log.txt).
+
+The run title on GitHub is "final devops project". GitHub uses the message of the last commit in a push as the run title. One push sent all the assignments, so the three pipelines have the same title.
+
+**Note:** The run shows warnings that Node.js 20 is deprecated for `actions/upload-artifact@v4` and `actions/download-artifact@v4`. The jobs still pass. I kept v4 because the act artifact server does not work with newer versions.
 
 ---
 
@@ -775,7 +794,7 @@ Screenshots to add after the push:
 | Security tools configuration | [`security/`](security/): `bandit.yaml`, `.gitleaks.toml`, `.trivyignore`, `security_gate.py` |
 | Kubernetes manifests | [`k8s/`](k8s/) |
 | Successful pipeline output | act runs above, full logs in [`evidence/`](evidence/) |
-| Screenshots | [`screenshots/`](screenshots/), GitHub screenshots after the push |
+| Screenshots | [`screenshots/`](screenshots/), GitHub run screenshots in [Pipeline execution on GitHub](#pipeline-execution-on-github) |
 | Complete README.md | this file |
 
 ## Run the checks yourself

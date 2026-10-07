@@ -77,7 +77,7 @@ The project includes every stage from the brief:
 | M2 Tests | 14 pytest tests on a temporary SQLite database, `pytest.ini` + `conftest.py`, `pytest -v` output ([section 4](#4-application-setup)) |
 | M3 Git and GitHub | public repository `kartavya37/DevOps-Assignment`, `.gitignore` excludes `.env`, `__pycache__`, `node_modules`, `.venv` |
 | M4 Docker | multi-stage Dockerfiles, non-root users, `docker compose up --build` with 3 services ([section 5](#5-docker-setup)) |
-| M5 CI/CD | workflow on push to `main`, pytest gate, frontend build, both images, GHCR push with the commit SHA tag ([section 9](#9-cicd-pipeline)) |
+| M5 CI/CD | workflow on push to `main`, pytest gate, frontend build, both images, GHCR push with the commit SHA tag, green run on GitHub ([section 9](#9-cicd-pipeline)) |
 | M6 DevSecOps | Trivy on both images, fail on HIGH/CRITICAL, one CVE explained ([section 10](#10-devsecops-implementation)) |
 | M7 Terraform | VPC with 2 public subnets, EKS with a node group, `terraform.tfvars.example`, plan/apply/destroy output, **on the Moto emulator** (no AWS Console screenshot, because I have no AWS account) ([section 8](#8-terraform-infrastructure)) |
 | M8 Kubernetes + Helm | namespace manifest, Helm chart, 2 replicas, ClusterIP Services, Ingress `/` and `/api`, all Pods `Running` ([sections 6](#6-kubernetes-deployment) and [7](#7-helm-deployment)) |
@@ -1579,9 +1579,37 @@ Run 1 above is the run after the fix (one exact allowlist entry for this demo va
 
 ### Pipeline execution on GitHub
 
-> **Note:** The screenshots of the pipeline run on GitHub (Actions tab, job graph, security gate summary, and the GHCR package page with the commit SHA tags) will be added after the push to GitHub. The main session does the push.
+I pushed the repository to GitHub on 7 October 2026 (commit `f0640c2`). The push started the workflow [`s21-final.yml`](../.github/workflows/s21-final.yml) on GitHub-hosted runners: [run 37637158867](https://github.com/kartavya37/DevOps-Assignment/actions/runs/37637158867). All 10 jobs completed with **success** in about 4.5 minutes.
 
-After the push to `main`, GitHub Actions runs all 10 jobs, including the steps that act skips: the GHCR login and push (with `GITHUB_TOKEN`), the kind cluster, the Helm install, `helm test` and the smoke test. The images will be at `ghcr.io/kartavya37/taskboard-backend` and `ghcr.io/kartavya37/taskboard-frontend`, with the commit SHA as tag.
+![GitHub Actions run of the S21 pipeline](screenshots/github-actions-run.png)
+
+| Job | Result | Duration |
+|---|---|---|
+| 1. Build & Test | success | 0m 23s |
+| 2. SAST (Bandit) | success | 0m 13s |
+| 3. SCA (pip-audit, npm audit, Trivy fs) | success | 0m 47s |
+| 4. IaC Scan (Trivy config) | success | 0m 33s |
+| 5. Secret Scan (Gitleaks) | success | 0m 09s |
+| 6. Docker Build | success | 0m 46s |
+| 7. Image Scan (Trivy) | success | 0m 34s |
+| 8. Security Gate | success | 0m 08s |
+| 9. Push Images (GHCR) | success | 0m 36s |
+| 10. Deploy to Kubernetes (kind + Helm) | success | 1m 30s |
+
+On GitHub, the steps that act skips also ran:
+
+- Job 9 pushed `ghcr.io/kartavya37/taskboard-backend` and `ghcr.io/kartavya37/taskboard-frontend` with `GITHUB_TOKEN`. The tag is the commit SHA.
+- Job 10 created a kind cluster and installed the Helm chart with `values-dev.yaml`. Then it ran `helm test` and the API smoke test.
+
+This is the log of the deploy job. It comes from `gh run view 37637158867 --log`:
+
+![GitHub deploy job log](screenshots/github-deploy-smoke-test.png)
+
+Helm installed revision 1. The backend, the frontend and Postgres became ready, and the Postgres PVC is `Bound` on the StorageClass `standard`. The chart test `taskboard-test-api` completed with `Succeeded`. The smoke test got `{"status":"UP"}` from `/health`, and `/ready` reported that the database is `UP`. It also created a task through the API, and the frontend proxy returned version `1.1.0`. The full excerpt is in [`evidence/github-deploy-log.txt`](evidence/github-deploy-log.txt).
+
+The run title on GitHub is "final devops project". GitHub uses the message of the last commit in a push as the run title. One push sent all the assignments, so the three pipelines have the same title.
+
+**Note:** The run shows warnings that Node.js 20 is deprecated for `actions/upload-artifact@v4` and `actions/download-artifact@v4`. The jobs still pass. I kept v4 because the act artifact server does not work with newer versions.
 
 ---
 
@@ -2857,6 +2885,8 @@ All screenshots are in [`screenshots/`](screenshots/). The terminal screenshots 
 
 | Screenshot | Shows |
 |---|---|
+| [`github-actions-run.png`](screenshots/github-actions-run.png) | GitHub Actions: all 10 jobs succeeded on GitHub-hosted runners |
+| [`github-deploy-smoke-test.png`](screenshots/github-deploy-smoke-test.png) | GitHub Actions: Helm deploy to kind, `helm test` and smoke test |
 | [`act-jobs.png`](screenshots/act-jobs.png) | act: all 10 jobs succeeded |
 | [`act-build-test.png`](screenshots/act-build-test.png) | act: tests and frontend build |
 | [`act-scans.png`](screenshots/act-scans.png) | act: SAST, SCA, IaC and image scan output |

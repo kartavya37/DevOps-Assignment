@@ -591,15 +591,36 @@ The page shows the version, the commit and the Pod name (`Host`). I removed the 
 
 ### Pipeline execution on GitHub
 
-> **Note:** The screenshots of the GitHub Actions runs will be added here after the push to `kartavya37/DevOps-Assignment`. The local act runs above are the evidence until then.
+I pushed the repository to GitHub on 7 October 2026 (commit `f0640c2`). The push started the workflow [`s16-cicd.yml`](../.github/workflows/s16-cicd.yml) on GitHub-hosted runners: [run 37637158607](https://github.com/kartavya37/DevOps-Assignment/actions/runs/37637158607). All 8 jobs completed with **success** in about 2.5 minutes.
 
-Screenshots to add after the push:
+![GitHub Actions run of the S16 pipeline](screenshots/github-actions-run.png)
 
-1. The workflow graph of a push run (all jobs green, `deploy` included).
-2. The `CD - Deploy to Kubernetes (kind)` log with the rollout and the `curl` output.
-3. The **Artifacts** section of the run (test reports, `calculator-build`, `docker-image`).
-4. A pull request run, where `deploy` is skipped.
-5. The package `s16-cicd-calculator` on the GHCR packages page.
+| Job | Result | Duration |
+|---|---|---|
+| CI 1 - Lint (flake8) | success | 0m 13s |
+| CI 2 - Test (Python 3.11) | success | 0m 14s |
+| CI 2 - Test (Python 3.12) | success | 0m 12s |
+| CI 2 - Test (Python 3.13) | success | 0m 13s |
+| CI 3 - Build application package | success | 0m 06s |
+| CI 4 - Docker build (push to GHCR on main) | success | 0m 42s |
+| CI - Secrets demo | success | 0m 04s |
+| CD - Deploy to Kubernetes (kind) | success | 1m 02s |
+
+On GitHub, the steps that act skips also ran:
+
+- The `docker-image` job logged in to GHCR with `GITHUB_TOKEN` and pushed `ghcr.io/kartavya37/s16-cicd-calculator`, with the commit SHA as the tag.
+- The `deploy` job created a kind cluster, loaded the image, applied the manifests and tested the app with `curl`.
+- The run stored 6 artifacts: `test-report-py3.11`, `test-report-py3.12`, `test-report-py3.13`, `calculator-build`, `docker-image` and the Docker build record.
+
+This is the log of the deploy job. It comes from `gh run view 37637158607 --log`:
+
+![GitHub deploy job log](screenshots/github-deploy-smoke-test.png)
+
+The rollout completed with 2 Pods, and each Pod uses the image with the commit SHA tag. The smoke test got `{"status":"healthy"}`, the result `15.0` for `10 + 5`, and the `git_sha` of the commit. The full excerpt is in [`evidence/github-deploy-log.txt`](evidence/github-deploy-log.txt).
+
+The run title on GitHub is "final devops project". GitHub uses the message of the last commit in a push as the run title. One push sent all the assignments, so the three pipelines have the same title.
+
+**Note:** The run shows warnings that Node.js 20 is deprecated for `actions/upload-artifact@v4` and `actions/download-artifact@v4`. The jobs still pass. I kept v4 because the act artifact server does not work with newer versions.
 
 ---
 
@@ -612,7 +633,7 @@ Screenshots to add after the push:
 | GitHub Actions workflow | [`../.github/workflows/s16-cicd.yml`](../.github/workflows/s16-cicd.yml) (copy: [`.github/workflows/s16-cicd.yml`](.github/workflows/s16-cicd.yml)) |
 | CI pipeline | jobs `lint`, `test`, `build`, `docker-image`, `secrets-demo` |
 | CD pipeline | job `deploy` (GHCR image + kind cluster), local proof on minikube |
-| Screenshots of pipeline execution | [`screenshots/`](screenshots/), act logs in [`evidence/`](evidence/), GitHub screenshots after the push |
+| Screenshots of pipeline execution | [`screenshots/`](screenshots/), act logs in [`evidence/`](evidence/), GitHub run screenshots in [Pipeline execution on GitHub](#pipeline-execution-on-github) |
 | README.md | this file |
 
 ## Run it yourself

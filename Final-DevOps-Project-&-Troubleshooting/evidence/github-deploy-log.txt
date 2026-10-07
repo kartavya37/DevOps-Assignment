@@ -1,0 +1,74 @@
+# GitHub Actions run 37637158867 (commit f0640c2), job "10. Deploy to Kubernetes (kind + Helm)"
+# Source: gh run view 37637158867 --log (rollout and smoke-test steps)
+
+helm upgrade --install taskboard helm/taskboard -n taskboard --create-namespace \
+  -f helm/taskboard/values-dev.yaml \
+  --set backend.image.repository="$BACKEND_IMAGE" --set backend.image.tag=f0640c267e94d9ab642bbaefa69598ef5c880075 \
+  --set frontend.image.repository="$FRONTEND_IMAGE" --set frontend.image.tag=f0640c267e94d9ab642bbaefa69598ef5c880075 \
+  --set postgres.storage.storageClassName=standard \
+  --set ingress.enabled=false --wait --timeout 5m
+helm list -n taskboard
+kubectl get deploy,sts,pods,svc,pvc -n taskboard -o wide
+Release "taskboard" does not exist. Installing it now.
+NAME: taskboard
+LAST DEPLOYED: Wed Oct  7 14:33:32 2026
+NAMESPACE: taskboard
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+NOTES:
+TaskBoard 1.1.0 is installed as release "taskboard" in namespace "taskboard".
+
+1. Watch the Pods:
+   kubectl get pods -n taskboard -l app.kubernetes.io/instance=taskboard
+3. Run the chart tests:
+   helm test taskboard -n taskboard
+NAME     	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART          	APP VERSION
+taskboard	taskboard	1       	2026-10-07 14:33:32.493627913 +0000 UTC	deployed	taskboard-1.1.0	1.1.0      
+NAME                                 READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                                           SELECTOR
+deployment.apps/taskboard-backend    1/1     1            1           19s   backend      ghcr.io/kartavya37/taskboard-backend:f0640c267e94d9ab642bbaefa69598ef5c880075    app=taskboard-backend,app.kubernetes.io/component=backend,app.kubernetes.io/instance=taskboard,app.kubernetes.io/name=taskboard
+deployment.apps/taskboard-frontend   1/1     1            1           19s   frontend     ghcr.io/kartavya37/taskboard-frontend:f0640c267e94d9ab642bbaefa69598ef5c880075   app=taskboard-frontend,app.kubernetes.io/component=frontend,app.kubernetes.io/instance=taskboard,app.kubernetes.io/name=taskboard
+
+NAME                                  READY   AGE   CONTAINERS   IMAGES
+statefulset.apps/taskboard-postgres   1/1     19s   postgres     postgres:16-alpine
+
+NAME                                      READY   STATUS    RESTARTS   AGE   IP           NODE                      NOMINATED NODE   READINESS GATES
+pod/taskboard-backend-7b99865469-fgfvg    1/1     Running   0          19s   10.244.0.6   s21-final-control-plane   <none>           <none>
+pod/taskboard-frontend-7b9cc66df4-8fxkm   1/1     Running   0          19s   10.244.0.5   s21-final-control-plane   <none>           <none>
+pod/taskboard-postgres-0                  1/1     Running   0          19s   10.244.0.8   s21-final-control-plane   <none>           <none>
+
+NAME                         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE   SELECTOR
+service/taskboard-backend    ClusterIP   10.96.59.207    <none>        8000/TCP   19s   app.kubernetes.io/component=backend,app.kubernetes.io/instance=taskboard,app.kubernetes.io/name=taskboard,app=taskboard-backend
+service/taskboard-frontend   ClusterIP   10.96.185.150   <none>        80/TCP     19s   app.kubernetes.io/component=frontend,app.kubernetes.io/instance=taskboard,app.kubernetes.io/name=taskboard,app=taskboard-frontend
+service/taskboard-postgres   ClusterIP   None            <none>        5432/TCP   19s   app.kubernetes.io/component=postgres,app.kubernetes.io/instance=taskboard,app.kubernetes.io/name=taskboard,app=taskboard-postgres
+
+NAME                                              STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/data-taskboard-postgres-0   Bound    pvc-56c715b6-10ee-4e03-820d-9e88f89e5d5e   1Gi        RWO            standard       <unset>                 19s   Filesystem
+helm test taskboard -n taskboard
+kubectl -n taskboard port-forward svc/taskboard-backend 8000:8000 > /tmp/pf-backend.log 2>&1 &
+kubectl -n taskboard port-forward svc/taskboard-frontend 8080:80 > /tmp/pf-frontend.log 2>&1 &
+sleep 5
+curl -fsS http://localhost:8000/health; echo
+curl -fsS http://localhost:8000/ready; echo
+curl -fsS -X POST http://localhost:8000/api/tasks -H 'Content-Type: application/json' \
+  -d '{"title":"Deployed by GitHub Actions","priority":"HIGH"}'; echo
+curl -fsS http://localhost:8000/api/tasks/stats; echo
+curl -fsS http://localhost:8080/api/info; echo
+curl -fsS -o /dev/null -w "frontend: HTTP %{http_code}\n" http://localhost:8080/
+echo "Deployed \`f0640c267e94d9ab642bbaefa69598ef5c880075\` to kind with Helm. Smoke test passed." >> "$GITHUB_STEP_SUMMARY"
+NAME: taskboard
+LAST DEPLOYED: Wed Oct  7 14:33:32 2026
+NAMESPACE: taskboard
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE:     taskboard-test-api
+Last Started:   Wed Oct  7 14:33:51 2026
+Last Completed: Wed Oct  7 14:33:56 2026
+Phase:          Succeeded
+{"status":"UP"}
+{"status":"READY","database":"UP"}
+{"title":"Deployed by GitHub Actions","description":"","priority":"HIGH","status":"TODO","assignee":"Unassigned","id":1,"created_at":"2026-10-07T14:34:01.693239Z"}
+{"total":1,"todo":1,"inProgress":0,"done":0}
+{"version":"1.1.0","env":"dev"}
+frontend: HTTP 200

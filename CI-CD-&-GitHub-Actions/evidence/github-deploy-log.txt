@@ -1,0 +1,39 @@
+# GitHub Actions run 37637158607 (commit f0640c2), job "CD - Deploy to Kubernetes (kind)"
+# Source: gh run view 37637158607 --log (rollout and smoke-test steps)
+
+kubectl apply -f rendered/namespace.yaml
+kubectl apply -f rendered/deployment.yaml -f rendered/service.yaml
+kubectl -n s16-cicd rollout status deployment/calculator --timeout=120s
+kubectl -n s16-cicd get deploy,rs,pods,svc -o wide
+namespace/s16-cicd created
+deployment.apps/calculator created
+service/calculator created
+Waiting for deployment "calculator" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "calculator" rollout to finish: 1 of 2 updated replicas are available...
+deployment "calculator" successfully rolled out
+NAME                         READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                                            SELECTOR
+deployment.apps/calculator   2/2     2            2           6s    calculator   ghcr.io/kartavya37/s16-cicd-calculator:f0640c267e94d9ab642bbaefa69598ef5c880075   app=calculator
+
+NAME                                    DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                                                                            SELECTOR
+replicaset.apps/calculator-5b4bdb859c   2         2         2       6s    calculator   ghcr.io/kartavya37/s16-cicd-calculator:f0640c267e94d9ab642bbaefa69598ef5c880075   app=calculator,pod-template-hash=5b4bdb859c
+
+NAME                              READY   STATUS    RESTARTS   AGE   IP           NODE                     NOMINATED NODE   READINESS GATES
+pod/calculator-5b4bdb859c-l4rqt   1/1     Running   0          6s    10.244.0.5   s16-cicd-control-plane   <none>           <none>
+pod/calculator-5b4bdb859c-vqpkk   1/1     Running   0          6s    10.244.0.6   s16-cicd-control-plane   <none>           <none>
+
+NAME                 TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+service/calculator   ClusterIP   10.96.15.50   <none>        80/TCP    6s    app=calculator
+kubectl -n s16-cicd port-forward svc/calculator 8080:80 > /tmp/pf.log 2>&1 &
+sleep 5
+curl -fsS http://localhost:8080/health
+echo ""
+curl -fsS "http://localhost:8080/api/calc?op=add&a=10&b=5"
+echo ""
+curl -fsS http://localhost:8080/api/version
+echo ""
+{"status":"healthy"}
+
+{"a":10.0,"b":5.0,"operation":"add","result":15.0}
+
+{"git_sha":"f0640c267e94d9ab642bbaefa69598ef5c880075","python":"3.13.16","version":"1.0.1"}
+

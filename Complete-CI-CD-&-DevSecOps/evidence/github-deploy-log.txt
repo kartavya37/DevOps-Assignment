@@ -1,0 +1,47 @@
+# GitHub Actions run 37637158546 (commit f0640c2), job "10. Deploy to Kubernetes (kind)"
+# Source: gh run view 37637158546 --log (rollout and smoke-test steps)
+
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/deployment.yaml -f k8s/service.yaml
+kubectl -n s17-devsecops set image deployment/devsecops-app app="${IMAGE_NAME}:f0640c267e94d9ab642bbaefa69598ef5c880075"
+kubectl -n s17-devsecops rollout status deployment/devsecops-app --timeout=120s
+kubectl -n s17-devsecops get deploy,rs,pods,svc -o wide
+namespace/s17-devsecops created
+deployment.apps/devsecops-app created
+service/devsecops-app created
+deployment.apps/devsecops-app image updated
+Waiting for deployment "devsecops-app" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "devsecops-app" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "devsecops-app" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "devsecops-app" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "devsecops-app" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "devsecops-app" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "devsecops-app" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "devsecops-app" rollout to finish: 1 old replicas are pending termination...
+deployment "devsecops-app" successfully rolled out
+NAME                            READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                                          SELECTOR
+deployment.apps/devsecops-app   2/2     2            2           14s   app          ghcr.io/kartavya37/s17-devsecops-app:f0640c267e94d9ab642bbaefa69598ef5c880075   app=devsecops-app
+
+NAME                                       DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                                                                          SELECTOR
+replicaset.apps/devsecops-app-5469b8dbf8   0         0         0       14s   app          ghcr.io/kartavya37/s17-devsecops-app:latest                                     app=devsecops-app,pod-template-hash=5469b8dbf8
+replicaset.apps/devsecops-app-7585d9788b   2         2         2       14s   app          ghcr.io/kartavya37/s17-devsecops-app:f0640c267e94d9ab642bbaefa69598ef5c880075   app=devsecops-app,pod-template-hash=7585d9788b
+
+NAME                                 READY   STATUS        RESTARTS   AGE   IP           NODE                          NOMINATED NODE   READINESS GATES
+pod/devsecops-app-5469b8dbf8-57sjb   1/1     Terminating   0          14s   10.244.0.5   s17-devsecops-control-plane   <none>           <none>
+pod/devsecops-app-7585d9788b-97cht   1/1     Running       0          6s    10.244.0.8   s17-devsecops-control-plane   <none>           <none>
+pod/devsecops-app-7585d9788b-sqtkz   1/1     Running       0          14s   10.244.0.7   s17-devsecops-control-plane   <none>           <none>
+
+NAME                    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+service/devsecops-app   ClusterIP   10.96.227.88   <none>        80/TCP    14s   app=devsecops-app
+kubectl -n s17-devsecops port-forward svc/devsecops-app 8080:80 > /tmp/pf.log 2>&1 &
+sleep 5
+curl -fsS http://localhost:8080/health; echo
+curl -fsS http://localhost:8080/api/status; echo
+curl -fsSI http://localhost:8080/ | grep -iE "^(HTTP|x-content-type-options|x-frame-options)"
+{"status":"healthy","timestamp":"2026-10-07T14:34:26.852012Z","uptime_seconds":13.3}
+
+{"app":"DevSecOps Dashboard","git_sha":"f0640c267e94d9ab642bbaefa69598ef5c880075","platform":"Linux","python_version":"3.13.16","status":"running","timestamp":"2026-10-07T14:34:26.861734Z","total_requests":5,"uptime":"00h 00m 13s","version":"2.0.1"}
+
+HTTP/1.1 200 OK
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
