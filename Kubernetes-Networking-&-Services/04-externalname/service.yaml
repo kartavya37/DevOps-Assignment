@@ -1,0 +1,10 @@
+# ExternalName Service: a DNS CNAME alias to a name outside the cluster.
+# It has no selector, no Pods, no ClusterIP, and no endpoints.
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-api
+  namespace: s11-services
+spec:
+  type: ExternalName
+  externalName: api.github.com

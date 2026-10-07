@@ -1,0 +1,18 @@
+# Headless Service: clusterIP None.
+# DNS returns the IP of each Pod, not one virtual IP.
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-headless
+  namespace: s11-services
+  labels:
+    app: web-headless
+spec:
+  clusterIP: None
+  selector:
+    app: web-headless
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP

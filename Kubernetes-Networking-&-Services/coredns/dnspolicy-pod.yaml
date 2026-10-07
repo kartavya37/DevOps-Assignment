@@ -1,0 +1,22 @@
+# Intentionally broken Pod for the DNS troubleshooting drill.
+# dnsPolicy "Default" makes the Pod use the DNS settings of the node.
+# The Pod does not use CoreDNS, so it cannot resolve Service names.
+# Fix: remove the dnsPolicy line, or set it to "ClusterFirst" (the default).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dns-policy-test
+  namespace: s11-services
+spec:
+  dnsPolicy: Default
+  containers:
+    - name: client
+      image: busybox:1.36
+      command: ["sh", "-c", "sleep 36000"]
+      resources:
+        requests:
+          cpu: "5m"
+          memory: "8Mi"
+        limits:
+          cpu: "50m"
+          memory: "32Mi"

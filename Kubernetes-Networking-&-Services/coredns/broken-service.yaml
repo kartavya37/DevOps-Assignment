@@ -1,0 +1,16 @@
+# Intentionally broken Service for the DNS troubleshooting drill.
+# The selector does not match any Pod. The real Pod label is app: web-clusterip.
+# DNS still resolves the name, but the Service has no endpoints.
+apiVersion: v1
+kind: Service
+metadata:
+  name: broken-web
+  namespace: s11-services
+spec:
+  type: ClusterIP
+  selector:
+    app: web-clusterip-typo
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 80

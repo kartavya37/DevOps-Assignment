@@ -1,0 +1,19 @@
+# LoadBalancer Service: asks the cloud provider for an external load balancer.
+# On minikube, "minikube tunnel" gives the EXTERNAL-IP.
+# Port 8081 is not a privileged port, so the tunnel does not need sudo.
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-loadbalancer
+  namespace: s11-services
+  labels:
+    app: web-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: web-loadbalancer
+  ports:
+    - name: http
+      port: 8081
+      targetPort: 80
+      protocol: TCP

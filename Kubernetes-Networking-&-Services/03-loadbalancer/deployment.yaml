@@ -1,0 +1,41 @@
+# Deployment for the LoadBalancer demo.
+# Each nginx Pod writes its own hostname into index.html.
+# This shows which Pod answers each request.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-loadbalancer
+  namespace: s11-services
+  labels:
+    app: web-loadbalancer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-loadbalancer
+  template:
+    metadata:
+      labels:
+        app: web-loadbalancer
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.27-alpine
+          command: ["/bin/sh", "-c"]
+          args:
+            - echo "Hello from pod $(hostname)" > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'
+          ports:
+            - name: http
+              containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "32Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"

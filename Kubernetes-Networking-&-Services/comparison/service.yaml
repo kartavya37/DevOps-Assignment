@@ -1,0 +1,14 @@
+# A ClusterIP Service in front of the Deployment Pods.
+# The ReplicaSet keeps the Pods alive. The Service gives them one stable address.
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-deploy
+  namespace: s11-compare
+spec:
+  selector:
+    app: demo-deploy
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80

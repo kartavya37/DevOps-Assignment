@@ -1,0 +1,19 @@
+# NodePort Service: opens port 30180 on every node.
+# Kubernetes also creates a ClusterIP for traffic inside the cluster.
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-nodeport
+  namespace: s11-services
+  labels:
+    app: web-nodeport
+spec:
+  type: NodePort
+  selector:
+    app: web-nodeport
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      nodePort: 30180
+      protocol: TCP

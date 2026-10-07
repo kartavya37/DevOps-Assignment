@@ -1,0 +1,42 @@
+# StatefulSet for the headless Service demo.
+# serviceName links the Pods to the headless Service.
+# Each Pod gets a stable DNS name: <pod>.web-headless.s11-services.svc.cluster.local
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+  namespace: s11-services
+  labels:
+    app: web-headless
+spec:
+  serviceName: web-headless
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-headless
+  template:
+    metadata:
+      labels:
+        app: web-headless
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.27-alpine
+          command: ["/bin/sh", "-c"]
+          args:
+            - echo "Hello from pod $(hostname)" > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'
+          ports:
+            - name: http
+              containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "32Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"

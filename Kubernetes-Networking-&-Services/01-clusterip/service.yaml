@@ -1,0 +1,18 @@
+# ClusterIP Service: a stable virtual IP inside the cluster only.
+# Clients call port 8080. kube-proxy sends the traffic to port 80 on a Pod.
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-clusterip
+  namespace: s11-services
+  labels:
+    app: web-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: web-clusterip
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 80
+      protocol: TCP

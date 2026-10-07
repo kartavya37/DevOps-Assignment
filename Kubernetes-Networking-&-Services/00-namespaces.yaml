@@ -1,0 +1,12 @@
+# Namespaces for the Session 11 demos.
+# s11-services holds the Service demos and the client Pods.
+# s11-backend holds one extra Service for the cross-namespace DNS test.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: s11-services
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: s11-backend

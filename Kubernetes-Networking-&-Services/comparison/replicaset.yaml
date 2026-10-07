@@ -1,0 +1,27 @@
+# A standalone ReplicaSet with no Deployment.
+# It keeps 2 Pods alive, but it does not do rolling updates.
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: demo-rs
+  namespace: s11-compare
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo-rs
+  template:
+    metadata:
+      labels:
+        app: demo-rs
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.26-alpine
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"

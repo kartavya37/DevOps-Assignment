@@ -1,0 +1,54 @@
+# A StatefulSet with a headless Service and one PVC for each Pod.
+# Pods get ordered names (db-0, db-1) and stable storage.
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: s11-compare
+spec:
+  clusterIP: None
+  selector:
+    app: demo-db
+  ports:
+    - name: tcp
+      port: 80
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+  namespace: s11-compare
+spec:
+  serviceName: db
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo-db
+  template:
+    metadata:
+      labels:
+        app: demo-db
+    spec:
+      containers:
+        - name: db
+          image: busybox:1.36
+          command: ["sh", "-c", "echo \"data of $(hostname)\" >> /data/file.txt; sleep 36000"]
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: "5m"
+              memory: "8Mi"
+            limits:
+              cpu: "50m"
+              memory: "32Mi"
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: standard
+        resources:
+          requests:
+            storage: 64Mi
