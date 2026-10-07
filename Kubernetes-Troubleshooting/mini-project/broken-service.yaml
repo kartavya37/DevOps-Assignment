@@ -1,0 +1,13 @@
+# BROKEN (section 8 challenge): the selector app=wrong-app matches no Pod.
+apiVersion: v1
+kind: Service
+metadata:
+  name: troubleshooting-service
+  namespace: s14-mini
+spec:
+  selector:
+    app: wrong-app
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP

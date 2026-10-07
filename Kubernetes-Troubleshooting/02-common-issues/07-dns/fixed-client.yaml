@@ -1,0 +1,27 @@
+# FIXED: the client uses the fully qualified domain name (FQDN) of the Service.
+# Format: <service>.<namespace>.svc.cluster.local
+apiVersion: v1
+kind: Pod
+metadata:
+  name: orders-client
+  namespace: s14-issues
+spec:
+  terminationGracePeriodSeconds: 1
+  containers:
+    - name: client
+      image: curlimages/curl:8.10.1
+      env:
+        - name: ORDERS_URL
+          value: "http://orders-svc.s14-dns-backend.svc.cluster.local"
+      command:
+        - sh
+        - -c
+        - |
+          while true; do
+            if curl -s -o /dev/null -m 3 "$ORDERS_URL"; then
+              echo "$(date -u +%H:%M:%S) OK: $ORDERS_URL answered"
+            else
+              echo "$(date -u +%H:%M:%S) ERROR: cannot reach $ORDERS_URL (curl exit $?)"
+            fi
+            sleep 5
+          done

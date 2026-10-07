@@ -1,0 +1,12 @@
+# A client Pod with curl and nslookup. Use it to test Services and DNS from inside the cluster.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client
+  namespace: s14-issues
+spec:
+  terminationGracePeriodSeconds: 1
+  containers:
+    - name: curl
+      image: curlimages/curl:8.10.1
+      command: ["sleep", "7200"]

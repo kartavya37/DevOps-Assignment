@@ -1,0 +1,24 @@
+# BROKEN: the Pod reads the key "LOG_LEVEL" (upper case) from app-config.
+# That key does not exist, so the kubelet cannot build the environment (CreateContainerConfigError).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-demo
+  namespace: s14-issues
+spec:
+  terminationGracePeriodSeconds: 1
+  containers:
+    - name: app
+      image: busybox:1.36
+      command: ["sh", "-c", "echo LOG_LEVEL=$LOG_LEVEL APP_MODE=$APP_MODE; sleep 3600"]
+      env:
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: LOG_LEVEL
+        - name: APP_MODE
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: app_mode

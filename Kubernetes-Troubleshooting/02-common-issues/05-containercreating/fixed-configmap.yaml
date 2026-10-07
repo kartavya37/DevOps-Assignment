@@ -1,0 +1,9 @@
+# FIX: create the missing ConfigMap. The kubelet retries the mount and the Pod starts.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-config
+  namespace: s14-issues
+data:
+  index.html: |
+    <h1>Served from the web-config ConfigMap</h1>

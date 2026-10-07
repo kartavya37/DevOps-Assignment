@@ -1,0 +1,9 @@
+# The ConfigMap has the keys "log_level" and "app_mode" (lower case).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: s14-issues
+data:
+  log_level: "info"
+  app_mode: "production"

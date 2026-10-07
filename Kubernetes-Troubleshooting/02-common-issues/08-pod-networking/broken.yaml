@@ -1,0 +1,42 @@
+# BROKEN: the HTTP server listens on 127.0.0.1 (loopback) only.
+# Requests from inside the container work, but requests from other Pods are refused.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory
+  namespace: s14-issues
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory
+  template:
+    metadata:
+      labels:
+        app: inventory
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+        - name: app
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              mkdir -p /www && echo "inventory service OK" > /www/index.html
+              echo "httpd listens on 127.0.0.1:8080"
+              httpd -f -v -p 127.0.0.1:8080 -h /www
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-svc
+  namespace: s14-issues
+spec:
+  selector:
+    app: inventory
+  ports:
+    - port: 80
+      targetPort: 8080

@@ -1,0 +1,25 @@
+# FIXED: DATABASE_URL is set, so the application starts and keeps running.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: crash-demo
+  namespace: s14-issues
+spec:
+  terminationGracePeriodSeconds: 2
+  containers:
+    - name: app
+      image: busybox:1.36
+      env:
+        - name: DATABASE_URL
+          value: "postgres://demo-db.s14-issues.svc.cluster.local:5432/app"
+      command:
+        - sh
+        - -c
+        - |
+          echo "Application starting..."
+          if [ -z "$DATABASE_URL" ]; then
+            echo "FATAL: DATABASE_URL environment variable is missing" >&2
+            exit 1
+          fi
+          echo "Connected to $DATABASE_URL"
+          while true; do echo "Application is healthy"; sleep 10; done

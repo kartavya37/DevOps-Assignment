@@ -1,0 +1,13 @@
+# BROKEN (case A): the selector is app=api-server, but the Pods have app=api.
+# The Service selects no Pods, so it has no endpoints.
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-svc
+  namespace: s14-issues
+spec:
+  selector:
+    app: api-server
+  ports:
+    - port: 80
+      targetPort: 80

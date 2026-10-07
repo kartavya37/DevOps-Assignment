@@ -1,0 +1,12 @@
+# FIXED: the selector matches the Pod label and targetPort matches the container port.
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-svc
+  namespace: s14-issues
+spec:
+  selector:
+    app: api
+  ports:
+    - port: 80
+      targetPort: 80

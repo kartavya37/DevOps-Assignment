@@ -1,0 +1,11 @@
+# BROKEN: the tag "1.27-does-not-exist" is not in the nginx repository.
+# The kubelet fails to pull the image and waits longer before each retry (ImagePullBackOff).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: imagepull-demo
+  namespace: s14-issues
+spec:
+  containers:
+    - name: web
+      image: nginx:1.27-does-not-exist

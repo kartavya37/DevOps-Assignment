@@ -1,0 +1,5 @@
+# One namespace for all common-issue labs.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: s14-issues

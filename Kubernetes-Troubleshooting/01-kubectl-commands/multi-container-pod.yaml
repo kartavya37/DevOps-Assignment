@@ -1,0 +1,40 @@
+# A Pod with two containers. Use it to practise "kubectl logs -c" and "kubectl exec -c".
+# The web container runs nginx. The logger sidecar writes one log line every 3 seconds.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-with-sidecar
+  namespace: s14-commands
+  labels:
+    app: web-with-sidecar
+    tier: frontend
+spec:
+  terminationGracePeriodSeconds: 2
+  containers:
+    - name: web
+      image: nginx:1.27
+      ports:
+        - containerPort: 80
+      resources:
+        requests:
+          cpu: 20m
+          memory: 32Mi
+    - name: logger
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          echo "Application started"
+          echo "Connecting to database..."
+          echo "Database connection successful"
+          i=0
+          while true; do
+            i=$((i+1))
+            echo "$(date -u +%H:%M:%S) heartbeat $i: application is healthy"
+            sleep 3
+          done
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi

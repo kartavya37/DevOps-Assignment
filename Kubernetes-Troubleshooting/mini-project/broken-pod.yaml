@@ -1,0 +1,10 @@
+# BROKEN: the tag "this-tag-does-not-exist" is not in the nginx repository.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: project-broken-pod
+  namespace: s14-mini
+spec:
+  containers:
+    - name: app
+      image: nginx:this-tag-does-not-exist

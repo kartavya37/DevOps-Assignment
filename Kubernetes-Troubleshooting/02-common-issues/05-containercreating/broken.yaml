@@ -1,0 +1,18 @@
+# BROKEN: the Pod mounts the ConfigMap "web-config", but that ConfigMap does not exist.
+# The kubelet cannot prepare the volume, so the Pod stays in ContainerCreating.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: containercreating-demo
+  namespace: s14-issues
+spec:
+  containers:
+    - name: web
+      image: nginx:1.27
+      volumeMounts:
+        - name: config
+          mountPath: /usr/share/nginx/html
+  volumes:
+    - name: config
+      configMap:
+        name: web-config

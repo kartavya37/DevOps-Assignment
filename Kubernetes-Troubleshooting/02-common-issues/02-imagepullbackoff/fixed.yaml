@@ -1,0 +1,10 @@
+# FIXED: the tag 1.27 exists.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: imagepull-demo
+  namespace: s14-issues
+spec:
+  containers:
+    - name: web
+      image: nginx:1.27

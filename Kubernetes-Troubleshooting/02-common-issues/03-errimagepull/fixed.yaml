@@ -1,0 +1,10 @@
+# FIXED: the image comes from Docker Hub (docker.io/library/nginx).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: errimagepull-demo
+  namespace: s14-issues
+spec:
+  containers:
+    - name: web
+      image: docker.io/library/nginx:1.27

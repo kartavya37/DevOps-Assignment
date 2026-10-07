@@ -1,0 +1,11 @@
+# BROKEN: the image name points to a registry host that does not exist.
+# The first pull attempt fails at once with ErrImagePull (DNS lookup of the registry fails).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: errimagepull-demo
+  namespace: s14-issues
+spec:
+  containers:
+    - name: web
+      image: registry.invalid/team/nginx:1.27

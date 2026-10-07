@@ -1,0 +1,13 @@
+# FIXED: the CPU request (100m) fits on the node.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pending-demo
+  namespace: s14-issues
+spec:
+  containers:
+    - name: web
+      image: nginx:1.27
+      resources:
+        requests:
+          cpu: 100m
