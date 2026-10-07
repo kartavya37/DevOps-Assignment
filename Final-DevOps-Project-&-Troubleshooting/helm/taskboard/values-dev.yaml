@@ -1,0 +1,25 @@
+# Development: small, local images from "minikube image load", no autoscaling.
+#   helm upgrade --install taskboard helm/taskboard -n s21-helm --create-namespace -f helm/taskboard/values-dev.yaml
+config:
+  appEnv: dev
+  logLevel: debug
+
+backend:
+  image:
+    repository: taskboard-backend
+    tag: "1.1.0"
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+
+frontend:
+  image:
+    repository: taskboard-frontend
+    tag: "1.1.0"
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+
+hpa:
+  enabled: false
+
+ingress:
+  host: taskboard.s21.local

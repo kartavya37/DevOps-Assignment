@@ -1,0 +1,33 @@
+# "helm test <release>" runs this Pod. It calls the API through the backend Service.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "taskboard.fullname" . }}-test-api
+  labels:
+    {{- include "taskboard.labels" (dict "ctx" . "component" "test") | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  restartPolicy: Never
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 100
+    seccompProfile: {type: RuntimeDefault}
+  containers:
+    - name: curl
+      image: curlimages/curl:latest
+      imagePullPolicy: IfNotPresent
+      command: ["sh", "-c"]
+      args:
+        - >-
+          curl -fsS http://{{ include "taskboard.fullname" . }}-backend:{{ .Values.backend.port }}/ready &&
+          curl -fsS http://{{ include "taskboard.fullname" . }}-backend:{{ .Values.backend.port }}/api/tasks/stats &&
+          curl -fsS -o /dev/null http://{{ include "taskboard.fullname" . }}-frontend/healthz
+      resources:
+        requests: {cpu: 10m, memory: 16Mi}
+        limits: {cpu: 100m, memory: 32Mi}
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]

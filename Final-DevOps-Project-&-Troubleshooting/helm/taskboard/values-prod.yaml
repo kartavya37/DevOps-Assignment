@@ -1,0 +1,36 @@
+# Production: images from GHCR (the CI pipeline pushes them with the Git commit SHA as tag),
+# two or more replicas, HPA, bigger database volume.
+#   helm upgrade --install taskboard helm/taskboard -n taskboard --create-namespace \
+#     -f helm/taskboard/values-prod.yaml --set backend.image.tag=<sha> --set frontend.image.tag=<sha> \
+#     --set database.existingSecret=taskboard-db
+config:
+  appEnv: prod
+  logLevel: info
+
+backend:
+  image:
+    repository: ghcr.io/kartavya37/taskboard-backend
+    pullPolicy: IfNotPresent
+  replicaCount: 2
+  resources:
+    requests: {cpu: 200m, memory: 192Mi}
+    limits: {cpu: "1", memory: 384Mi}
+
+frontend:
+  image:
+    repository: ghcr.io/kartavya37/taskboard-frontend
+    pullPolicy: IfNotPresent
+  replicaCount: 2
+
+postgres:
+  storage:
+    size: 5Gi
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 60
+
+ingress:
+  host: taskboard.example.com

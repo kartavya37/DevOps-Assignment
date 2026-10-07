@@ -1,0 +1,31 @@
+# Ingress (ingress-nginx): "/api" goes to the backend, "/" goes to the frontend.
+# Test from the Mac:
+#   kubectl port-forward -n ingress-nginx svc/ingress-nginx-controller 18700:80
+#   curl -H 'Host: taskboard-debug.s21.local' http://localhost:18700/api/tasks
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: taskboard
+  namespace: s21-troubleshoot
+  labels:
+    app.kubernetes.io/name: taskboard
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: taskboard-debug.s21.local
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: taskboard-backend
+                port:
+                  name: http
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: taskboard-frontend
+                port:
+                  name: http

@@ -1,0 +1,22 @@
+# ServiceMonitor for the backend of the plain-manifest deployment (namespace s21-taskboard).
+# The Helm chart has its own ServiceMonitor template for the Helm and GitOps releases.
+# Prometheus (kube-prometheus-stack in "monitoring") selects all ServiceMonitors in all namespaces.
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: taskboard-backend
+  namespace: s21-monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  namespaceSelector:
+    matchNames:
+      - s21-taskboard
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: taskboard
+      app.kubernetes.io/component: backend
+  endpoints:
+    - port: http          # the NAME of the Service port
+      path: /metrics
+      interval: 15s

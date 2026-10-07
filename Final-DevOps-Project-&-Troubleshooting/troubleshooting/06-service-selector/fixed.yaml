@@ -1,0 +1,18 @@
+# SCENARIO 6 (FIXED): selector app=taskboard-backend (the same label as the Pod template).
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskboard-backend
+  namespace: s21-troubleshoot
+  labels:
+    app: taskboard-backend
+    app.kubernetes.io/name: taskboard
+    app.kubernetes.io/component: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: taskboard-backend
+  ports:
+    - name: http          # the ServiceMonitor uses this port name
+      port: 8000
+      targetPort: http

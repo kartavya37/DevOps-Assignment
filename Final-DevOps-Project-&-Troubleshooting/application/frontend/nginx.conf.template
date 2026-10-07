@@ -1,0 +1,35 @@
+# Nginx configuration for the TaskBoard frontend (non-root, port 8080).
+# The nginx image runs envsubst on this template at start: ${BACKEND_URL} becomes the backend address.
+# Docker Compose: http://backend:8000. Kubernetes: the backend Service.
+server {
+  listen 8080;
+  server_name _;
+  root /usr/share/nginx/html;
+  index index.html;
+  server_tokens off;
+
+  add_header X-Content-Type-Options "nosniff" always;
+  add_header X-Frame-Options "DENY" always;
+  add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+  location / {
+    try_files $uri /index.html;
+  }
+
+  # API proxy for Docker Compose and for "kubectl port-forward" to the frontend.
+  # In Kubernetes, the Ingress sends /api directly to the backend Service.
+  location /api/ {
+    proxy_pass ${BACKEND_URL};
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
+  # Frontend health endpoint for the Kubernetes probes. It does not call the backend.
+  location = /healthz {
+    access_log off;
+    default_type text/plain;
+    return 200 "ok\n";
+  }
+}

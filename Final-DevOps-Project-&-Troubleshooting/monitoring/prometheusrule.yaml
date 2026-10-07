@@ -1,0 +1,124 @@
+# Alert rules for TaskBoard (all namespaces that start with "s21-").
+# Alertmanager shows the alerts. The shared platform has no receiver (no e-mail or Slack).
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: taskboard-alerts
+  namespace: s21-monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: taskboard.traffic
+      rules:
+        # Traffic: the API receives more than 20 requests per second (probes are not counted).
+        - alert: TaskboardHighRequestRate
+          expr: |
+            sum by (namespace) (rate(http_requests_total{namespace=~"s21-.*", handler=~"/api.*"}[1m])) > 20
+          for: 1m
+          labels:
+            severity: warning
+            team: taskboard
+          annotations:
+            summary: "TaskBoard API traffic is high"
+            description: "The API in {{ $labels.namespace }} receives {{ $value | printf \"%.0f\" }} requests per second."
+        # Errors: more than 5% of the API requests return a 5xx status.
+        - alert: TaskboardHighErrorRate
+          expr: |
+            sum by (namespace) (rate(http_requests_total{namespace=~"s21-.*", status="5xx"}[2m]))
+              /
+            sum by (namespace) (rate(http_requests_total{namespace=~"s21-.*"}[2m])) > 0.05
+          for: 2m
+          labels:
+            severity: critical
+            team: taskboard
+          annotations:
+            summary: "TaskBoard API returns too many errors"
+            description: "{{ $value | humanizePercentage }} of the requests in {{ $labels.namespace }} return 5xx."
+        # Latency: the 95th percentile is more than 500 ms.
+        - alert: TaskboardHighLatencyP95
+          expr: |
+            histogram_quantile(0.95, sum by (namespace, le) (rate(http_request_duration_seconds_bucket{namespace=~"s21-.*", handler=~"/api.*"}[5m]))) > 0.5
+          for: 5m
+          labels:
+            severity: warning
+            team: taskboard
+          annotations:
+            summary: "TaskBoard API is slow"
+            description: "p95 latency in {{ $labels.namespace }} is {{ $value | humanizeDuration }}."
+    - name: taskboard.resources
+      rules:
+        # CPU: the backend Pods use more than 80% of their CPU request (the HPA target is 60%).
+        - alert: TaskboardBackendHighCpu
+          expr: |
+            sum by (namespace) (rate(container_cpu_usage_seconds_total{namespace=~"s21-.*", container="backend"}[2m]))
+              /
+            sum by (namespace) (kube_pod_container_resource_requests{namespace=~"s21-.*", container="backend", resource="cpu"}) > 0.8
+          for: 1m
+          labels:
+            severity: warning
+            team: taskboard
+          annotations:
+            summary: "TaskBoard backend CPU is high"
+            description: "Backend Pods in {{ $labels.namespace }} use {{ $value | humanizePercentage }} of their CPU request."
+        # Autoscaling: the HPA is at its maximum replica count.
+        - alert: TaskboardHpaAtMaxReplicas
+          expr: |
+            kube_horizontalpodautoscaler_status_current_replicas{namespace=~"s21-.*"}
+              >= kube_horizontalpodautoscaler_spec_max_replicas{namespace=~"s21-.*"}
+          for: 2m
+          labels:
+            severity: warning
+            team: taskboard
+          annotations:
+            summary: "TaskBoard HPA cannot add more Pods"
+            description: "HPA {{ $labels.horizontalpodautoscaler }} in {{ $labels.namespace }} is at its maximum."
+    - name: taskboard.health
+      rules:
+        # Health: Prometheus cannot scrape a backend Pod.
+        - alert: TaskboardBackendDown
+          expr: |
+            up{namespace=~"s21-.*", container="backend"} == 0
+          for: 1m
+          labels:
+            severity: critical
+            team: taskboard
+          annotations:
+            summary: "Prometheus cannot scrape a TaskBoard backend Pod"
+            description: "Target {{ $labels.instance }} in {{ $labels.namespace }} is down."
+        # Health: a Pod is not ready for more than 1 minute (for example, a readiness probe fails).
+        - alert: TaskboardPodNotReady
+          expr: |
+            sum by (namespace, pod) (kube_pod_status_ready{namespace=~"s21-.*", condition="false"}) == 1
+              unless on (namespace, pod) (kube_pod_status_phase{phase="Succeeded"} == 1)
+          for: 1m
+          labels:
+            severity: warning
+            team: taskboard
+          annotations:
+            summary: "A TaskBoard Pod is not ready"
+            description: "Pod {{ $labels.pod }} in {{ $labels.namespace }} is not ready for more than 1 minute."
+        # Health: a container cannot start (image, configuration or crash problem).
+        - alert: TaskboardContainerWaiting
+          expr: |
+            max by (namespace, pod, container, reason) (
+              kube_pod_container_status_waiting_reason{namespace=~"s21-.*", reason=~"CrashLoopBackOff|ImagePullBackOff|ErrImagePull|CreateContainerConfigError"}
+            ) == 1
+          for: 1m
+          labels:
+            severity: critical
+            team: taskboard
+          annotations:
+            summary: "A TaskBoard container cannot start"
+            description: "Container {{ $labels.container }} in Pod {{ $labels.pod }} ({{ $labels.namespace }}) waits with reason {{ $labels.reason }}."
+        # Storage: a PVC stays Pending (for example, a wrong StorageClass).
+        - alert: TaskboardPvcPending
+          expr: |
+            kube_persistentvolumeclaim_status_phase{namespace=~"s21-.*", phase="Pending"} == 1
+          for: 2m
+          labels:
+            severity: warning
+            team: taskboard
+          annotations:
+            summary: "A TaskBoard PVC is Pending"
+            description: "PVC {{ $labels.persistentvolumeclaim }} in {{ $labels.namespace }} has no volume."

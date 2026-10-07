@@ -1,0 +1,31 @@
+# Argo CD Application for the public GitHub repository (use it after the push to GitHub).
+# The source is the same Helm chart as in Gitea, but Argo CD reads it from GitHub.
+# A public repository needs no Argo CD credentials.
+# The CI pipeline pushes images to GHCR with the commit SHA as tag. To deploy a new version,
+# change backend.image.tag / frontend.image.tag in values-prod.yaml with a commit (or let a bot do it).
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: taskboard-github
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/kartavya37/DevOps-Assignment.git
+    targetRevision: main
+    path: Final-DevOps-Project-&-Troubleshooting/helm/taskboard
+    helm:
+      releaseName: taskboard
+      valueFiles:
+        - values-prod.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: taskboard
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

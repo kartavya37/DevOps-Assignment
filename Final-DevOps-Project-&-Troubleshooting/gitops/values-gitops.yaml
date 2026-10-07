@@ -1,0 +1,13 @@
+# Values for the GitOps environment (namespace s21-gitops). Argo CD uses
+# values-dev.yaml first and then this file. A Git commit that changes this file changes the cluster.
+config:
+  appEnv: gitops-v2
+
+backend:
+  replicaCount: 2
+
+frontend:
+  replicaCount: 2
+
+ingress:
+  host: gitops.taskboard.s21.local

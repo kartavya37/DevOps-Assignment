@@ -1,0 +1,31 @@
+# Argo CD Application: deploy the TaskBoard Helm chart from the in-cluster Gitea repository.
+# Apply it one time:  kubectl apply -f gitops/argocd-application.yaml
+# After that, Git is the source of truth. Argo CD syncs every change in the repository.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: s21-taskboard-gitops
+  namespace: argocd
+  # Delete the application resources in the cluster when the Application is deleted.
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: http://gitea-http.gitea.svc.cluster.local:3000/gitops-admin/taskboard-gitops.git
+    targetRevision: main
+    path: taskboard
+    helm:
+      releaseName: taskboard
+      valueFiles:
+        - values-dev.yaml
+        - values-gitops.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: s21-gitops
+  syncPolicy:
+    automated:
+      prune: true      # delete resources that are not in Git any more
+      selfHeal: true   # undo manual changes in the cluster (drift)
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,9 @@
+# Baseline (working) TaskBoard for the troubleshooting lab. Same as ../../kubernetes/, but namespace s21-troubleshoot,
+# host taskboard-debug.s21.local and one replica.
+# Namespace for the plain-manifest deployment of TaskBoard.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: s21-troubleshoot
+  labels:
+    app.kubernetes.io/part-of: taskboard

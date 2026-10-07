@@ -1,0 +1,27 @@
+# HPA: keep the average backend CPU near 60% of the CPU request (100m).
+# It needs metrics-server and CPU requests on the container.
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: taskboard-backend
+  namespace: s21-troubleshoot
+  labels:
+    app.kubernetes.io/name: taskboard
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: taskboard-backend
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
+  behavior:
+    # Scale down after 60 s of low CPU (the default is 300 s). This makes the demo shorter.
+    scaleDown:
+      stabilizationWindowSeconds: 60

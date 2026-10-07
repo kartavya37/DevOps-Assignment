@@ -1,0 +1,5 @@
+# Namespace for the TaskBoard monitoring objects (ServiceMonitor, PrometheusRule, Grafana dashboard).
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: s21-monitoring

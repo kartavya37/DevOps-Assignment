@@ -1,0 +1,35 @@
+# Gitleaks (secret scan) configuration for the Session 21 project.
+# Run from the project folder: gitleaks dir . --config security/.gitleaks.toml --redact
+# The pipeline scans only this folder, so demo Secret YAML files in other folders do not fail the build.
+
+title = "Session 21 final project secret scan"
+
+# Use all default gitleaks rules (cloud keys, tokens, private keys, passwords in URLs, ...).
+[extend]
+useDefault = true
+
+# Paths that cannot hold a real secret. Keep this list short. Every entry is a risk.
+[[allowlists]]
+description = "Binary screenshots, scan reports and installed packages"
+paths = [
+  '''(^|/)screenshots/.*\.png$''',
+  '''(^|/)reports/''',
+  '''(^|/)node_modules/''',
+]
+
+# AWS resource IDs from the Moto emulator (for example "sg-keigaen1cjhoytpex") are not secrets.
+[[allowlists]]
+description = "AWS resource IDs in Terraform output"
+regexTarget = "match"
+regexes = [
+  '''(sg|subnet|vpc|igw|nat|rtb|eipalloc|rtbassoc)-[0-9a-z]{8,17}''',
+]
+
+# The demo database password "demo-password-123" in base64 form, as the README shows it
+# in the output of "kubectl get secret". It is a known demo value, not a real secret.
+# Gitleaks found it in the README during a pipeline run, and the security gate stopped the run.
+[[allowlists]]
+description = "Base64 form of the demo database password in README output"
+regexes = [
+  '''^ZGVtby1wYXNzd29yZC0xMjM=$''',
+]

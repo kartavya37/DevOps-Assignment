@@ -1,0 +1,50 @@
+# Shared platform install (Helm values). Same file as Monitoring-Observability-&-GitOps/platform/gitea-values.yaml.
+# The Session 20 platform install uses it. This project reuses that platform and does not install it again.
+# Values for Gitea (chart gitea-charts/gitea 12.7.0, release "gitea", namespace "gitea").
+# Gitea is the in-cluster Git server for GitOps. Argo CD pulls from it.
+# It uses SQLite, so the chart does not install PostgreSQL or Valkey.
+
+postgresql:
+  enabled: false
+postgresql-ha:
+  enabled: false
+valkey:
+  enabled: false
+valkey-cluster:
+  enabled: false
+
+persistence:
+  enabled: true
+  size: 1Gi
+
+resources:
+  requests:
+    cpu: 20m
+    memory: 96Mi
+  limits:
+    memory: 384Mi
+
+gitea:
+  # The admin user name and password come from the Secret "gitea-admin" (keys: username, password).
+  # Create that Secret before the install. Do not store the password in Git.
+  admin:
+    existingSecret: gitea-admin
+    passwordMode: keepUpdated
+  config:
+    database:
+      DB_TYPE: sqlite3
+    session:
+      PROVIDER: memory
+    cache:
+      ADAPTER: memory
+    queue:
+      TYPE: level
+    server:
+      ROOT_URL: http://gitea-http.gitea.svc.cluster.local:3000/
+    service:
+      DISABLE_REGISTRATION: true
+    repository:
+      DEFAULT_BRANCH: main
+    webhook:
+      # Let Gitea send webhooks to Services inside the cluster (for example Argo CD).
+      ALLOWED_HOST_LIST: private,*.svc.cluster.local

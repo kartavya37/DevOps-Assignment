@@ -1,0 +1,9 @@
+# Trivy ignore file (SCA "trivy fs", container image scans and the IaC "trivy config" scan).
+#
+# Add one ID per line ONLY when the risk is accepted, with a reason and an expiry date.
+# The security gate does not count ignored findings. Review this file before each expiry date.
+
+# AWS-0104 (CRITICAL, terraform/security.tf): the EKS cluster and node security groups allow all outbound traffic.
+# Reason: the nodes must reach GHCR/ECR, the AWS APIs and the NAT gateway. The VPC has no proxy or VPC endpoints yet.
+# Plan: add VPC endpoints (ECR, S3, STS) and an egress proxy, then restrict egress to them.
+AWS-0104 exp:2027-03-31

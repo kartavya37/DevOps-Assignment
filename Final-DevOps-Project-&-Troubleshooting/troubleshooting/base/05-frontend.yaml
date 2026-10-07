@@ -1,0 +1,92 @@
+# TaskBoard frontend (React static files served by non-root Nginx on port 8080).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskboard-frontend
+  namespace: s21-troubleshoot
+  labels:
+    app: taskboard-frontend
+    app.kubernetes.io/name: taskboard
+    app.kubernetes.io/component: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taskboard-frontend
+  template:
+    metadata:
+      labels:
+        app: taskboard-frontend
+        app.kubernetes.io/name: taskboard
+        app.kubernetes.io/component: frontend
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: frontend
+          image: taskboard-frontend:1.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: BACKEND_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: taskboard-config
+                  key: BACKEND_URL
+          startupProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 2
+            failureThreshold: 15
+          livenessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 10
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 5
+          # Wait 5 s before the container gets SIGTERM. In this time, ingress-nginx and kube-proxy
+          # remove the Pod from their endpoint lists, so no request goes to a Pod that stops (no 502).
+          lifecycle:
+            preStop:
+              sleep:
+                seconds: 5
+          resources:
+            requests: {cpu: 20m, memory: 32Mi}
+            limits: {cpu: 200m, memory: 128Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          # Nginx writes the config file (from the template), the PID file and temp files. These paths are emptyDir volumes.
+          volumeMounts:
+            - {name: tmp, mountPath: /tmp}
+            - {name: nginx-conf, mountPath: /etc/nginx/conf.d}
+            - {name: nginx-cache, mountPath: /var/cache/nginx}
+      volumes:
+        - {name: tmp, emptyDir: {}}
+        - {name: nginx-conf, emptyDir: {}}
+        - {name: nginx-cache, emptyDir: {}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskboard-frontend
+  namespace: s21-troubleshoot
+  labels:
+    app: taskboard-frontend
+    app.kubernetes.io/name: taskboard
+    app.kubernetes.io/component: frontend
+spec:
+  type: ClusterIP
+  selector:
+    app: taskboard-frontend
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

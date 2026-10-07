@@ -1,0 +1,7 @@
+# Namespace for the plain-manifest deployment of TaskBoard.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: s21-taskboard
+  labels:
+    app.kubernetes.io/part-of: taskboard

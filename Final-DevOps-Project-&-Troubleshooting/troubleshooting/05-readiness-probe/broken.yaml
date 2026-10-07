@@ -1,0 +1,104 @@
+# SCENARIO 5 (BROKEN): backend readiness probe with a wrong path.
+# BUG: readinessProbe path "/readyz". The API has "/ready" (FastAPI returns 404 for /readyz).
+# RESULT: the new Pod is Running but never Ready (0/1). It gets no traffic and the rollout never completes.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskboard-backend
+  namespace: s21-troubleshoot
+  labels:
+    app: taskboard-backend
+    app.kubernetes.io/name: taskboard
+    app.kubernetes.io/component: backend
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: {maxSurge: 1, maxUnavailable: 0}
+  selector:
+    matchLabels:
+      app: taskboard-backend
+  template:
+    metadata:
+      labels:
+        app: taskboard-backend
+        app.kubernetes.io/name: taskboard
+        app.kubernetes.io/component: backend
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      # Wait until PostgreSQL accepts connections. Without this, the migrations fail at first start
+      # and the container restarts. "-U" is necessary because UID 10001 has no user name.
+      initContainers:
+        - name: wait-for-db
+          image: postgres:16-alpine
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-c", "until pg_isready -h \"$DB_HOST\" -p \"$DB_PORT\" -U healthcheck; do echo waiting for database; sleep 2; done"]
+          envFrom:
+            - configMapRef:
+                name: taskboard-config
+          resources:
+            requests: {cpu: 10m, memory: 16Mi}
+            limits: {cpu: 100m, memory: 64Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+      containers:
+        - name: backend
+          image: taskboard-backend:1.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: taskboard-config
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: taskboard-db
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: taskboard-db
+                  key: DB_PASSWORD
+          # startupProbe: gives the container up to 60 s for migrations and start.
+          # The liveness and readiness probes start only after it succeeds.
+          startupProbe:
+            httpGet: {path: /health, port: http}
+            periodSeconds: 2
+            failureThreshold: 30
+          # livenessProbe: restart the container if the process hangs.
+          livenessProbe:
+            httpGet: {path: /health, port: http}
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          # readinessProbe: send traffic only when the database answers.
+          readinessProbe:
+            httpGet: {path: /readyz, port: http}
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+          # Wait 5 s before the container gets SIGTERM. In this time, ingress-nginx and kube-proxy
+          # remove the Pod from their endpoint lists, so no request goes to a Pod that stops (no 502).
+          lifecycle:
+            preStop:
+              sleep:
+                seconds: 5
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: 500m, memory: 256Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]

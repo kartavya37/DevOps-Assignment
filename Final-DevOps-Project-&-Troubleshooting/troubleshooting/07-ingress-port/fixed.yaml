@@ -1,0 +1,28 @@
+# SCENARIO 7 (FIXED): use the Service port name "http" (port 8000). A port name does not break if the number changes.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: taskboard
+  namespace: s21-troubleshoot
+  labels:
+    app.kubernetes.io/name: taskboard
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: taskboard-debug.s21.local
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: taskboard-backend
+                port:
+                  name: http
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: taskboard-frontend
+                port:
+                  name: http

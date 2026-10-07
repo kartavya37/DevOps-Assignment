@@ -1,0 +1,523 @@
+# Session 21: Final DevOps project (TaskBoard) - CI/CD + DevSecOps pipeline
+#
+# Flow:
+#   1. Build & Test --+--> 2. SAST (Bandit) ----------------------+
+#                     +--> 3. SCA (pip-audit, npm audit, Trivy fs) |
+#                     +--> 4. IaC Scan (Trivy config) -------------+--> 8. Security Gate --> 9. Push Images (GHCR)
+#                     +--> 5. Secret Scan (Gitleaks) --------------+                              |
+#                     +--> 6. Docker Build --> 7. Image Scan ------+                              v
+#                                                                               10. Deploy to Kubernetes (kind + Helm)
+#
+# Each scan job writes a JSON report and uploads it as an artifact. The scan jobs do not fail.
+# The Security Gate job reads all reports and stops the pipeline on HIGH/CRITICAL findings.
+# The same image tar files go from "Docker Build" to the scan, the push and the deploy.
+#
+# GitHub runs only the copy of this file in .github/workflows/ at the repository root.
+# The copy in "Final-DevOps-Project-&-Troubleshooting/.github/workflows/" is identical and is part of the deliverable.
+# Steps with "if: ${{ !env.ACT }}" do not run under nektos/act (local test): GHCR login/push and kind.
+# The artifact actions stay on v4 because the act artifact server supports only the v4 protocol.
+
+name: "S21 Final Project Pipeline"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Final-DevOps-Project-&-Troubleshooting/**"
+      - ".github/workflows/s21-final.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "Final-DevOps-Project-&-Troubleshooting/**"
+      - ".github/workflows/s21-final.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: s21-final-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  APP_DIR: "Final-DevOps-Project-&-Troubleshooting"
+  BACKEND_IMAGE: ghcr.io/kartavya37/taskboard-backend
+  FRONTEND_IMAGE: ghcr.io/kartavya37/taskboard-frontend
+  APP_VERSION: "1.1.0"
+  PYTHON_VERSION: "3.13"
+  NODE_VERSION: "22"
+  TRIVY_VERSION: "v0.75.0"
+  GITLEAKS_VERSION: "8.30.1"
+
+defaults:
+  run:
+    shell: bash
+    working-directory: "Final-DevOps-Project-&-Troubleshooting"
+
+jobs:
+  # 1 ------------------------------------------------------------------
+  build-test:
+    name: "1. Build & Test"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install backend dependencies
+        working-directory: "${{ env.APP_DIR }}/application/backend"
+        run: pip install -r requirements-dev.txt
+
+      - name: Run backend tests (coverage must be 80% or more)
+        working-directory: "${{ env.APP_DIR }}/application/backend"
+        run: |
+          mkdir -p ../../reports
+          python -m pytest -v --junitxml=../../reports/junit.xml \
+            --cov=app --cov-report=term-missing --cov-report=xml:../../reports/coverage.xml \
+            --cov-fail-under=80
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Build the frontend
+        working-directory: "${{ env.APP_DIR }}/application/frontend"
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+          ls -l dist dist/assets
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: "Final-DevOps-Project-&-Troubleshooting/reports/"
+
+  # 2 ------------------------------------------------------------------
+  sast:
+    name: "2. SAST (Bandit)"
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Scan the backend source code
+        run: |
+          pip install bandit==1.9.4
+          mkdir -p reports
+          bandit -c security/bandit.yaml -r application/backend/app -f json -o reports/bandit.json --exit-zero
+          bandit -c security/bandit.yaml -r application/backend/app -f screen --exit-zero
+
+      - name: Upload SAST report
+        uses: actions/upload-artifact@v4
+        with:
+          name: sast-report
+          path: "Final-DevOps-Project-&-Troubleshooting/reports/bandit.json"
+
+  # 3 ------------------------------------------------------------------
+  sca:
+    name: "3. SCA (pip-audit, npm audit, Trivy fs)"
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Audit the Python dependencies (pip-audit)
+        run: |
+          pip install pip-audit==2.10.1
+          mkdir -p reports
+          pip-audit -r application/backend/requirements.txt --format json --output reports/pip-audit.json \
+            || echo "pip-audit found vulnerabilities. The security gate decides."
+          pip-audit -r application/backend/requirements.txt --format columns || true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Audit the frontend dependencies (npm audit)
+        working-directory: "${{ env.APP_DIR }}/application/frontend"
+        run: |
+          npm audit --json > ../../reports/npm-audit.json || true
+          npm audit || true
+
+      - name: Scan the dependency files (Trivy fs)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          version: ${{ env.TRIVY_VERSION }}
+          scan-type: fs
+          scan-ref: "${{ env.APP_DIR }}/application"
+          scanners: vuln
+          format: json
+          output: "${{ env.APP_DIR }}/reports/trivy-fs.json"
+          trivyignores: "${{ env.APP_DIR }}/security/.trivyignore"
+          exit-code: "0"
+          hide-progress: true
+
+      - name: Show the Trivy fs result
+        run: trivy convert --format table --scanners vuln reports/trivy-fs.json
+
+      - name: Upload SCA reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: sca-report
+          path: |
+            Final-DevOps-Project-&-Troubleshooting/reports/pip-audit.json
+            Final-DevOps-Project-&-Troubleshooting/reports/npm-audit.json
+            Final-DevOps-Project-&-Troubleshooting/reports/trivy-fs.json
+
+  # 4 ------------------------------------------------------------------
+  iac-scan:
+    name: "4. IaC Scan (Trivy config)"
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Create the reports folder
+        run: mkdir -p reports
+
+      # The first scan also installs Trivy. The next scans use the same binary.
+      - name: Scan the Kubernetes manifests (Trivy config)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          version: ${{ env.TRIVY_VERSION }}
+          scan-type: config
+          scan-ref: "${{ env.APP_DIR }}/kubernetes"
+          format: json
+          output: "${{ env.APP_DIR }}/reports/config-kubernetes.json"
+          trivyignores: "${{ env.APP_DIR }}/security/.trivyignore"
+          exit-code: "0"
+          hide-progress: true
+
+      # The "troubleshooting/" folder has broken manifests on purpose. The scan does not include it.
+      - name: Scan the Helm chart, the Dockerfiles and Terraform, then merge the reports
+        run: |
+          for dir in helm docker terraform; do
+            trivy config --quiet --ignorefile security/.trivyignore --format json --output "reports/config-$dir.json" "$dir"
+          done
+          for dir in kubernetes helm docker terraform; do
+            echo "== $dir (HIGH and CRITICAL)"
+            trivy convert --format table --scanners misconfig --severity HIGH,CRITICAL "reports/config-$dir.json"
+          done
+          python3 -c "import glob, json; json.dump({'Results': [r for f in sorted(glob.glob('reports/config-*.json')) for r in (json.load(open(f)).get('Results') or [])]}, open('reports/trivy-config.json', 'w'))"
+
+      - name: Upload IaC report
+        uses: actions/upload-artifact@v4
+        with:
+          name: iac-report
+          path: "Final-DevOps-Project-&-Troubleshooting/reports/trivy-config.json"
+
+  # 5 ------------------------------------------------------------------
+  secret-scan:
+    name: "5. Secret Scan (Gitleaks)"
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Install Gitleaks (checksum verified)
+        working-directory: ${{ runner.temp }}
+        run: |
+          case "${{ runner.arch }}" in ARM64) arch=arm64 ;; *) arch=x64 ;; esac
+          base="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}"
+          file="gitleaks_${GITLEAKS_VERSION}_linux_${arch}.tar.gz"
+          curl -fsSLO "$base/$file"
+          curl -fsSLO "$base/gitleaks_${GITLEAKS_VERSION}_checksums.txt"
+          grep " $file\$" "gitleaks_${GITLEAKS_VERSION}_checksums.txt" | sha256sum -c -
+          tar -xzf "$file" gitleaks
+          sudo install gitleaks /usr/local/bin/gitleaks
+          gitleaks version
+
+      - name: Scan this folder for secrets
+        # Only this project folder: demo Secret YAML in other assignment folders must not fail this build.
+        run: |
+          mkdir -p reports
+          gitleaks dir . --config security/.gitleaks.toml --redact --no-banner \
+            --report-format json --report-path reports/gitleaks.json --exit-code 0 --verbose
+
+      - name: Upload secret scan report
+        uses: actions/upload-artifact@v4
+        with:
+          name: secret-scan-report
+          path: "Final-DevOps-Project-&-Troubleshooting/reports/gitleaks.json"
+
+  # 6 ------------------------------------------------------------------
+  docker-build:
+    name: "6. Docker Build"
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+        with:
+          # Under act, use the local Docker engine (it has the base images) to avoid Docker Hub pull limits.
+          driver: ${{ env.ACT && 'docker' || 'docker-container' }}
+
+      - name: Build the backend image (tag = Git commit SHA)
+        uses: docker/build-push-action@v7
+        env:
+          DOCKER_BUILD_RECORD_UPLOAD: ${{ env.ACT && 'false' || 'true' }}
+        with:
+          context: "${{ env.APP_DIR }}/application/backend"
+          file: "${{ env.APP_DIR }}/docker/backend.Dockerfile"
+          build-args: |
+            APP_VERSION=${{ env.APP_VERSION }}
+            GIT_SHA=${{ github.sha }}
+          tags: |
+            ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
+            ${{ env.BACKEND_IMAGE }}:latest
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          outputs: type=docker,dest=${{ runner.temp }}/backend.tar
+
+      - name: Build the frontend image (tag = Git commit SHA)
+        uses: docker/build-push-action@v7
+        env:
+          DOCKER_BUILD_RECORD_UPLOAD: ${{ env.ACT && 'false' || 'true' }}
+        with:
+          context: "${{ env.APP_DIR }}/application/frontend"
+          file: "${{ env.APP_DIR }}/docker/frontend.Dockerfile"
+          build-args: |
+            APP_VERSION=${{ env.APP_VERSION }}
+            GIT_SHA=${{ github.sha }}
+          tags: |
+            ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
+            ${{ env.FRONTEND_IMAGE }}:latest
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          outputs: type=docker,dest=${{ runner.temp }}/frontend.tar
+
+      - name: Upload the image tar files (the same images go to scan, push and deploy)
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-images
+          path: |
+            ${{ runner.temp }}/backend.tar
+            ${{ runner.temp }}/frontend.tar
+          retention-days: 1
+
+  # 7 ------------------------------------------------------------------
+  image-scan:
+    name: "7. Image Scan (Trivy)"
+    needs: docker-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Download the image tar files
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-images
+          path: ${{ runner.temp }}/images
+
+      - name: Create the reports folder
+        run: mkdir -p reports
+
+      - name: Scan the backend image (Trivy)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          version: ${{ env.TRIVY_VERSION }}
+          scan-type: image
+          input: ${{ runner.temp }}/images/backend.tar
+          scanners: vuln,secret
+          ignore-unfixed: true
+          format: json
+          output: "${{ env.APP_DIR }}/reports/trivy-image-backend.json"
+          trivyignores: "${{ env.APP_DIR }}/security/.trivyignore"
+          exit-code: "0"
+          hide-progress: true
+
+      - name: Scan the frontend image (Trivy)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          version: ${{ env.TRIVY_VERSION }}
+          scan-type: image
+          input: ${{ runner.temp }}/images/frontend.tar
+          scanners: vuln,secret
+          ignore-unfixed: true
+          format: json
+          output: "${{ env.APP_DIR }}/reports/trivy-image-frontend.json"
+          trivyignores: "${{ env.APP_DIR }}/security/.trivyignore"
+          exit-code: "0"
+          hide-progress: true
+          skip-setup-trivy: true
+
+      - name: Show the scan results (counts and HIGH/CRITICAL tables)
+        run: |
+          for image in backend frontend; do
+            echo "== $image"
+            python3 -c "import collections, json, sys; d = json.load(open(sys.argv[1])); c = collections.Counter(v['Severity'] for r in d.get('Results') or [] for v in r.get('Vulnerabilities') or []); print(d.get('ArtifactName'), '| fixed vulnerabilities by severity:', dict(c) or 'none')" "reports/trivy-image-$image.json"
+            trivy convert --format table --scanners vuln,secret --table-mode detailed --severity HIGH,CRITICAL "reports/trivy-image-$image.json"
+          done
+
+      - name: Upload image scan reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: image-scan-report
+          path: |
+            Final-DevOps-Project-&-Troubleshooting/reports/trivy-image-backend.json
+            Final-DevOps-Project-&-Troubleshooting/reports/trivy-image-frontend.json
+
+  # 8 ------------------------------------------------------------------
+  security-gate:
+    name: "8. Security Gate"
+    needs: [sast, sca, iac-scan, secret-scan, image-scan]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Download all scan reports
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-report"
+          path: "${{ env.APP_DIR }}/reports"
+          merge-multiple: true
+
+      - name: Apply the security policy (block on HIGH/CRITICAL)
+        run: |
+          ls -l reports
+          python3 security/security_gate.py reports
+
+  # 9 ------------------------------------------------------------------
+  push-images:
+    name: "9. Push Images (GHCR)"
+    needs: security-gate
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Download the scanned image tar files
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-images
+          path: ${{ runner.temp }}/images
+
+      - name: Load the images
+        working-directory: ${{ runner.temp }}/images
+        run: |
+          docker load --input backend.tar
+          docker load --input frontend.tar
+          docker image ls --filter "reference=ghcr.io/kartavya37/*"
+
+      - name: Log in to GitHub Container Registry
+        if: ${{ !env.ACT }}
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push the images (commit SHA tag and latest)
+        if: ${{ !env.ACT }}
+        working-directory: ${{ runner.temp }}
+        run: |
+          for image in "$BACKEND_IMAGE" "$FRONTEND_IMAGE"; do
+            docker push "$image:${{ github.sha }}"
+            docker push "$image:latest"
+            echo "Pushed \`$image:${{ github.sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+          done
+
+  # 10 -----------------------------------------------------------------
+  deploy:
+    name: "10. Deploy to Kubernetes (kind + Helm)"
+    needs: push-images
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Download the scanned image tar files
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-images
+          path: ${{ runner.temp }}/images
+
+      - name: Install Helm
+        uses: azure/setup-helm@v5
+        with:
+          version: v4.3.0
+
+      - name: Lint and render the Helm chart
+        run: |
+          helm lint helm/taskboard -f helm/taskboard/values-dev.yaml
+          helm lint helm/taskboard -f helm/taskboard/values-prod.yaml
+          helm template taskboard helm/taskboard -f helm/taskboard/values-prod.yaml \
+            --set backend.image.tag=${{ github.sha }} --set frontend.image.tag=${{ github.sha }} \
+            | grep -E "^kind:|image:" | sort | uniq -c
+
+      # GitHub runners cannot reach a private cluster, so the job creates a temporary kind cluster.
+      - name: Create a temporary kind cluster
+        if: ${{ !env.ACT }}
+        uses: helm/kind-action@v1.15.1
+        with:
+          cluster_name: s21-final
+
+      - name: Load the images into kind
+        if: ${{ !env.ACT }}
+        run: |
+          kind load image-archive "${{ runner.temp }}/images/backend.tar" --name s21-final
+          kind load image-archive "${{ runner.temp }}/images/frontend.tar" --name s21-final
+
+      - name: Deploy with Helm and wait for the rollout
+        if: ${{ !env.ACT }}
+        run: |
+          helm upgrade --install taskboard helm/taskboard -n taskboard --create-namespace \
+            -f helm/taskboard/values-dev.yaml \
+            --set backend.image.repository="$BACKEND_IMAGE" --set backend.image.tag=${{ github.sha }} \
+            --set frontend.image.repository="$FRONTEND_IMAGE" --set frontend.image.tag=${{ github.sha }} \
+            --set postgres.storage.storageClassName=standard \
+            --set ingress.enabled=false --wait --timeout 5m
+          helm list -n taskboard
+          kubectl get deploy,sts,pods,svc,pvc -n taskboard -o wide
+
+      - name: Smoke test (helm test + API calls)
+        if: ${{ !env.ACT }}
+        run: |
+          helm test taskboard -n taskboard
+          kubectl -n taskboard port-forward svc/taskboard-backend 8000:8000 > /tmp/pf-backend.log 2>&1 &
+          kubectl -n taskboard port-forward svc/taskboard-frontend 8080:80 > /tmp/pf-frontend.log 2>&1 &
+          sleep 5
+          curl -fsS http://localhost:8000/health; echo
+          curl -fsS http://localhost:8000/ready; echo
+          curl -fsS -X POST http://localhost:8000/api/tasks -H 'Content-Type: application/json' \
+            -d '{"title":"Deployed by GitHub Actions","priority":"HIGH"}'; echo
+          curl -fsS http://localhost:8000/api/tasks/stats; echo
+          curl -fsS http://localhost:8080/api/info; echo
+          curl -fsS -o /dev/null -w "frontend: HTTP %{http_code}\n" http://localhost:8080/
+          echo "Deployed \`${{ github.sha }}\` to kind with Helm. Smoke test passed." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Show debug information on failure
+        if: ${{ failure() && !env.ACT }}
+        run: |
+          kubectl -n taskboard get events --sort-by=.lastTimestamp | tail -30 || true
+          kubectl -n taskboard describe pods || true
+          kubectl -n taskboard logs -l app.kubernetes.io/component=backend --all-containers --tail=50 || true

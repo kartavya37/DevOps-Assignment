@@ -1,0 +1,16 @@
+# SCENARIO 4 (BROKEN): the database password in the Secret was changed (rotated), but PostgreSQL still uses the old one.
+# BUG: POSTGRES_PASSWORD is used only when the data directory is empty (first start).
+# A new value in the Secret does not change the password of an existing database user.
+# RESULT: backend Pods that start after the change get "password authentication failed" -> CrashLoopBackOff.
+# DEMO VALUES ONLY.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: taskboard-db
+  namespace: s21-troubleshoot
+  labels:
+    app.kubernetes.io/part-of: taskboard
+type: Opaque
+stringData:
+  DB_USER: "taskboard"
+  DB_PASSWORD: "rotated-password-456"

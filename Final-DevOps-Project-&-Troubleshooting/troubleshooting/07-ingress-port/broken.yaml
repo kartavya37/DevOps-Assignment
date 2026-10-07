@@ -1,0 +1,30 @@
+# SCENARIO 7 (BROKEN): Ingress sends /api to a Service port that does not exist.
+# BUG: backend service port number 8080. The Service taskboard-backend has only port 8000 (name "http").
+# RESULT: ingress-nginx has no upstream for /api and returns 503.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: taskboard
+  namespace: s21-troubleshoot
+  labels:
+    app.kubernetes.io/name: taskboard
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: taskboard-debug.s21.local
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: taskboard-backend
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: taskboard-frontend
+                port:
+                  name: http

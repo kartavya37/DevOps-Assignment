@@ -1,0 +1,85 @@
+{{- $sel := dict "ctx" . "component" "frontend" }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "taskboard.fullname" . }}-frontend
+  labels:
+    {{- include "taskboard.labels" $sel | nindent 4 }}
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      {{- include "taskboard.selectorLabels" $sel | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "taskboard.selectorLabels" $sel | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: frontend
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.frontend.port }}
+          env:
+            - name: BACKEND_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "taskboard.fullname" . }}-config
+                  key: BACKEND_URL
+          startupProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 2
+            failureThreshold: 15
+          livenessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 10
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 5
+          # Wait 5 s before the container gets SIGTERM. In this time, ingress-nginx and kube-proxy
+          # remove the Pod from their endpoint lists, so no request goes to a Pod that stops (no 502).
+          lifecycle:
+            preStop:
+              sleep:
+                seconds: 5
+          resources:
+            {{- toYaml .Values.frontend.resources | nindent 12 }}
+          securityContext:
+            {{- include "taskboard.containerSecurityContext" . | nindent 12 }}
+          volumeMounts:
+            - {name: tmp, mountPath: /tmp}
+            - {name: nginx-conf, mountPath: /etc/nginx/conf.d}
+            - {name: nginx-cache, mountPath: /var/cache/nginx}
+      volumes:
+        - {name: tmp, emptyDir: {}}
+        - {name: nginx-conf, emptyDir: {}}
+        - {name: nginx-cache, emptyDir: {}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "taskboard.fullname" . }}-frontend
+  labels:
+    {{- include "taskboard.labels" $sel | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    {{- include "taskboard.selectorLabels" $sel | nindent 4 }}
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

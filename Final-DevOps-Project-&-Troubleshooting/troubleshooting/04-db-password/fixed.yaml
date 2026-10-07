@@ -1,0 +1,61 @@
+# SCENARIO 4 (FIXED): keep the new password and change it inside PostgreSQL too.
+# The Secret keeps the previous password for the rotation. A Job connects with the previous
+# password and runs ALTER USER to set the new password. Then restart the backend:
+#   kubectl apply -f troubleshooting/04-db-password/fixed.yaml
+#   kubectl wait --for=condition=complete job/taskboard-db-password-rotate -n s21-troubleshoot
+#   kubectl rollout restart deploy/taskboard-backend -n s21-troubleshoot
+# DEMO VALUES ONLY. In production, a secret manager does the rotation.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: taskboard-db
+  namespace: s21-troubleshoot
+  labels:
+    app.kubernetes.io/part-of: taskboard
+type: Opaque
+stringData:
+  DB_USER: "taskboard"
+  DB_PASSWORD: "rotated-password-456"
+  DB_PASSWORD_PREVIOUS: "demo-password-123"
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: taskboard-db-password-rotate
+  namespace: s21-troubleshoot
+spec:
+  backoffLimit: 2
+  ttlSecondsAfterFinished: 600
+  template:
+    spec:
+      restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 70
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: rotate
+          image: postgres:16-alpine
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-c"]
+          args:
+            - >-
+              echo "ALTER USER CURRENT_USER WITH PASSWORD :'newpw';" |
+              PGPASSWORD="$OLD_PASSWORD" psql -h "$DB_HOST" -U "$DB_USER" -d "$DB_NAME" -v ON_ERROR_STOP=1 -v newpw="$NEW_PASSWORD" &&
+              PGPASSWORD="$NEW_PASSWORD" psql -h "$DB_HOST" -U "$DB_USER" -d "$DB_NAME" -c "SELECT 'new password works' AS check;"
+          envFrom:
+            - configMapRef: {name: taskboard-config}
+          env:
+            - name: DB_USER
+              valueFrom: {secretKeyRef: {name: taskboard-db, key: DB_USER}}
+            - name: OLD_PASSWORD
+              valueFrom: {secretKeyRef: {name: taskboard-db, key: DB_PASSWORD_PREVIOUS}}
+            - name: NEW_PASSWORD
+              valueFrom: {secretKeyRef: {name: taskboard-db, key: DB_PASSWORD}}
+          resources:
+            requests: {cpu: 10m, memory: 16Mi}
+            limits: {cpu: 100m, memory: 64Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]

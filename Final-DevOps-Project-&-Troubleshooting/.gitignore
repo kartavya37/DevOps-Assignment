@@ -1,0 +1,21 @@
+# Build and test output
+node_modules/
+dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+coverage.xml
+.venv/
+venv/
+*.db
+reports/
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+terraform.tfvars
+# Local secrets
+.env

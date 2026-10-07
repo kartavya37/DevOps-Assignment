@@ -1,0 +1,20 @@
+# SCENARIO 6 (BROKEN): backend Service selector does not match the Pod labels.
+# BUG: selector app=taskboard-api. The backend Pods have the label app=taskboard-backend.
+# RESULT: the Service has no endpoints. The Ingress returns 503 for /api; the frontend shows "Backend unavailable".
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskboard-backend
+  namespace: s21-troubleshoot
+  labels:
+    app: taskboard-backend
+    app.kubernetes.io/name: taskboard
+    app.kubernetes.io/component: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: taskboard-api
+  ports:
+    - name: http          # the ServiceMonitor uses this port name
+      port: 8000
+      targetPort: http

@@ -1,0 +1,54 @@
+# Local run of the full TaskBoard stack: PostgreSQL + API + frontend.
+#   cd docker && docker compose up --build -d
+#   Frontend: http://localhost:18780   API: http://localhost:18781/docs
+# The credentials are demo values for a local laptop only.
+name: s21-taskboard
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: taskboard
+      POSTGRES_USER: taskboard
+      POSTGRES_PASSWORD: demo-password-123
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskboard -d taskboard"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build:
+      context: ../application/backend
+      dockerfile: ../../docker/backend.Dockerfile
+      args:
+        APP_VERSION: "1.1.0"
+    image: taskboard-backend:compose
+    environment:
+      DATABASE_URL: postgresql+psycopg://taskboard:demo-password-123@postgres:5432/taskboard
+      APP_ENV: compose
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "18781:8000"
+
+  frontend:
+    build:
+      context: ../application/frontend
+      dockerfile: ../../docker/frontend.Dockerfile
+      args:
+        APP_VERSION: "1.1.0"
+    image: taskboard-frontend:compose
+    environment:
+      BACKEND_URL: http://backend:8000
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "18780:8080"
+
+volumes:
+  postgres-data:
