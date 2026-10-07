@@ -1,0 +1,20 @@
+# BROKEN: ingressClassName "nginx-public" does not exist in this cluster.
+# No Ingress controller watches this class, so nothing serves the rules.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: catalog-ingress
+  namespace: s12-trouble
+spec:
+  ingressClassName: nginx-public
+  rules:
+    - host: catalog.s12.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shop
+                port:
+                  number: 80

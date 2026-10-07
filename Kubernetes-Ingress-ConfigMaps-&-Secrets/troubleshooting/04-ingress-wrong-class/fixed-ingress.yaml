@@ -1,0 +1,19 @@
+# FIXED: ingressClassName "nginx" matches the IngressClass of ingress-nginx.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: catalog-ingress
+  namespace: s12-trouble
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: catalog.s12.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shop
+                port:
+                  number: 80

@@ -1,0 +1,38 @@
+# A small client that acts like a database login.
+# The "database" expects the password demo-password-123 (dummy demo value).
+# The Pod reads the password from the Secret and logs AUTH OK or AUTH FAILED.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: login-client
+  namespace: s12-trouble
+spec:
+  restartPolicy: Never
+  containers:
+    - name: client
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          EXPECTED="demo-password-123"
+          echo "password length from Secret: ${#DB_PASSWORD} bytes (expected ${#EXPECTED})"
+          if [ "$DB_PASSWORD" = "$EXPECTED" ]; then
+            echo "AUTH OK: connected to the database"
+          else
+            echo "FATAL: password authentication failed for user admin"
+            exit 1
+          fi
+      env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-login
+              key: DB_PASSWORD
+      resources:
+        requests:
+          cpu: "5m"
+          memory: "8Mi"
+        limits:
+          cpu: "50m"
+          memory: "32Mi"

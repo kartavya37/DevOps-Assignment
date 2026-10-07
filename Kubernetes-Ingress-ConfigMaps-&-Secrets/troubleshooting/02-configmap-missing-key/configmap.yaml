@@ -1,0 +1,9 @@
+# The ConfigMap has the key LOGLEVEL (no underscore).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: worker-config
+  namespace: s12-trouble
+data:
+  LOGLEVEL: "info"
+  QUEUE_NAME: "bookings"

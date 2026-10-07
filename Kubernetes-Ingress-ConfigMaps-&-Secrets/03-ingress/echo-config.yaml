@@ -1,0 +1,33 @@
+# nginx configuration for the three demo backends (frontend, api, admin).
+# Each backend answers every path with its name, the Pod name, the Host header and the path.
+# Each Deployment mounts only its own key as /etc/nginx/conf.d/default.conf.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: echo-nginx-conf
+  namespace: s12-ingress
+data:
+  frontend.conf: |
+    server {
+      listen 80;
+      location / {
+        default_type text/plain;
+        return 200 "backend=frontend pod=$hostname host=$host path=$request_uri\n";
+      }
+    }
+  api.conf: |
+    server {
+      listen 80;
+      location / {
+        default_type text/plain;
+        return 200 "backend=api pod=$hostname host=$host path=$request_uri\n";
+      }
+    }
+  admin.conf: |
+    server {
+      listen 80;
+      location / {
+        default_type text/plain;
+        return 200 "backend=admin pod=$hostname host=$host path=$request_uri\n";
+      }
+    }

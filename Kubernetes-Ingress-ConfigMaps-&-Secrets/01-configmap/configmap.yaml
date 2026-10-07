@@ -1,0 +1,20 @@
+# ConfigMap with plain (not sensitive) configuration.
+# The first keys are simple values. The Pod reads them as environment variables.
+# The last key is a full file. The Pod reads it from a mounted volume.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: s12-config
+  labels:
+    app: config-demo
+data:
+  APP_ENV: "staging"
+  LOG_LEVEL: "debug"
+  APP_PORT: "8080"
+  FEATURE_NEW_UI: "true"
+  app.properties: |
+    app.name=yatri-booking
+    app.currency=INR
+    app.max-booking-days=30
+    app.support-url=https://example.com/support

@@ -1,0 +1,15 @@
+# Namespaces for the Session 12 demos.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: s12-config
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: s12-ingress
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: s12-trouble

@@ -1,0 +1,39 @@
+# FIXED: the container asks for the key LOGLEVEL, which exists in the ConfigMap.
+# The variable name in the container stays LOG_LEVEL.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: s12-trouble
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+        - name: worker
+          image: busybox:1.36
+          command: ["sh", "-c", "echo \"worker reads queue $QUEUE_NAME with log level $LOG_LEVEL\"; sleep 36000"]
+          env:
+            - name: LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: LOGLEVEL
+            - name: QUEUE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: QUEUE_NAME
+          resources:
+            requests:
+              cpu: "5m"
+              memory: "8Mi"
+            limits:
+              cpu: "50m"
+              memory: "32Mi"

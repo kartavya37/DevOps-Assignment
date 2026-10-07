@@ -1,0 +1,20 @@
+# BROKEN: the backend Service name is "shop-service". The real Service name is "shop".
+# ingress-nginx has no endpoints for this backend and returns HTTP 503.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shop-ingress
+  namespace: s12-trouble
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: shop.s12.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shop-service
+                port:
+                  number: 80

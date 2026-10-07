@@ -1,0 +1,40 @@
+# Ingress with host-based and path-based routing.
+#   app.s12.local/      -> Service frontend
+#   app.s12.local/api   -> Service api
+#   admin.s12.local/    -> Service admin
+# ingressClassName nginx selects the ingress-nginx controller.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-ingress
+  namespace: s12-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: app.s12.local
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: api
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+    - host: admin.s12.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: admin
+                port:
+                  number: 80
