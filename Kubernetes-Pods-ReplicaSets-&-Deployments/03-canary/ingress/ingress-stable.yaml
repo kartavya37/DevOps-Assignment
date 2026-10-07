@@ -1,0 +1,20 @@
+# Method 2: ingress-nginx canary annotations.
+# This is the main Ingress. It sends traffic for canary.s10.local to the stable Service.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-stable
+  namespace: s10-canary
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: canary.s10.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myapp-stable
+                port:
+                  number: 80

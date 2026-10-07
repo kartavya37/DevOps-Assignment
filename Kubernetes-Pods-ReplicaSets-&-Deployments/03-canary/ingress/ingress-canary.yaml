@@ -1,0 +1,26 @@
+# This Ingress has the same host and path as ingress-stable.yaml.
+# The canary annotations tell ingress-nginx to send only part of the traffic to the canary Service.
+# canary-weight: "10"         -> about 10% of requests go to the canary.
+# canary-by-header: X-Canary  -> a request with "X-Canary: always" always goes to the canary.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-canary
+  namespace: s10-canary
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "10"
+    nginx.ingress.kubernetes.io/canary-by-header: "X-Canary"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: canary.s10.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myapp-canary
+                port:
+                  number: 80

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-recreate
+  namespace: s10-recreate
+  labels:
+    app: app-recreate
+spec:
+  replicas: 3
+  # Recreate: Kubernetes stops ALL old Pods before it creates any new Pod.
+  # Two versions never run at the same time, but the application is down for a short time.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: app-recreate
+  template:
+    metadata:
+      labels:
+        app: app-recreate
+        version: v1
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.24-alpine
+          ports:
+            - containerPort: 80
+          # The postStart hook writes the version and the Pod name into the web page.
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - |
+                    echo "Recreate Demo | VERSION: v1 | Pod: $(hostname)" > /usr/share/nginx/html/index.html
+          resources:
+            requests:
+              cpu: "30m"
+              memory: "32Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"

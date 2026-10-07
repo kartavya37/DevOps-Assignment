@@ -1,0 +1,14 @@
+# Pending: the Pod requests 9Gi of memory. No node has this much free memory, so the scheduler cannot place the Pod.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-pending
+  namespace: s10-lifecycle
+spec:
+  containers:
+    - name: impossible-resource
+      image: nginx:1.27
+      resources:
+        requests:
+          cpu: "1"
+          memory: "9Gi"

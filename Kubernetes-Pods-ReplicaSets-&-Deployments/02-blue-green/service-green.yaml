@@ -1,0 +1,18 @@
+# The Service "myapp-service" sends all traffic to the green environment.
+# To switch traffic, apply the other service file. Only the "slot" value changes.
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+  namespace: s10-bluegreen
+  labels:
+    app: myapp
+spec:
+  type: ClusterIP
+  selector:
+    app: myapp
+    slot: green   # <-- the switch
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80

@@ -1,0 +1,19 @@
+# Method 1: replica ratio.
+# This Service selects only the common label app=myapp-canary.
+# It sends traffic to all 10 Pods (9 stable + 1 canary).
+# kube-proxy picks a Pod at random, so the traffic split follows the Pod count: about 90% / 10%.
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-canary-service
+  namespace: s10-canary
+  labels:
+    app: myapp-canary
+spec:
+  type: ClusterIP
+  selector:
+    app: myapp-canary
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80

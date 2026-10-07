@@ -1,0 +1,17 @@
+# The Service selects all Pods with app=app-rolling, old and new.
+# During the update, the Service sends traffic only to Pods that are Ready.
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-rolling-service
+  namespace: s10-rolling
+  labels:
+    app: app-rolling
+spec:
+  type: ClusterIP
+  selector:
+    app: app-rolling
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80

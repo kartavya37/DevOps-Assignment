@@ -1,0 +1,12 @@
+# Failed: the container exits with code 1. restartPolicy: Never stops a restart, so the Pod phase becomes Failed.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-failed
+  namespace: s10-lifecycle
+spec:
+  restartPolicy: Never
+  containers:
+    - name: task
+      image: busybox:1.36
+      command: ["sh", "-c", "echo 'Task started'; sleep 5; echo 'Task failed'; exit 1"]

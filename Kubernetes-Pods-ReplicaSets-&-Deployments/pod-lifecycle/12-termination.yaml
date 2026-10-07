@@ -1,0 +1,18 @@
+# Graceful termination: the app catches SIGTERM, does 10 seconds of cleanup, and exits before the 20-second grace period ends.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-termination
+  namespace: s10-lifecycle
+spec:
+  terminationGracePeriodSeconds: 20
+  containers:
+    - name: graceful-app
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - |
+          trap 'echo "SIGTERM received; cleaning up..."; sleep 10; echo "Cleanup complete"; exit 0' TERM
+          echo "Application running"
+          while true; do sleep 2; done

@@ -1,0 +1,50 @@
+# 9 stable Pods. With 1 canary Pod, the stable track gets about 9 of 10 requests (90%).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-stable
+  namespace: s10-canary
+  labels:
+    app: myapp-canary
+    track: stable
+    version: v1
+spec:
+  replicas: 9
+  selector:
+    matchLabels:
+      app: myapp-canary
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: myapp-canary
+        track: stable
+        version: v1
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.24-alpine
+          ports:
+            - containerPort: 80
+          # The postStart hook writes the track, the version and the Pod name into the web page.
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - |
+                    echo "Canary Demo | TRACK: stable | VERSION: v1 | Pod: $(hostname)" > /usr/share/nginx/html/index.html
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "32Mi"
+            limits:
+              cpu: "80m"
+              memory: "64Mi"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 5

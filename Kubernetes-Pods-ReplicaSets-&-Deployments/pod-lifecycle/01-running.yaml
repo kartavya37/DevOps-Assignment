@@ -1,0 +1,12 @@
+# Running: a normal nginx Pod. The container starts and stays in the Running state.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-running
+  namespace: s10-lifecycle
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.27
+      ports:
+        - containerPort: 80

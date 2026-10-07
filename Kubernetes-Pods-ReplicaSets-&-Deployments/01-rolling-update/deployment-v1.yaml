@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-rolling
+  namespace: s10-rolling
+  labels:
+    app: app-rolling
+  annotations:
+    # The text in this annotation shows in "kubectl rollout history".
+    kubernetes.io/change-cause: "Initial release v1 (nginx:1.24-alpine)"
+spec:
+  replicas: 4
+  # A new Pod must stay Ready for 5 seconds before Kubernetes counts it as available.
+  # This makes each step of the rollout easy to see.
+  minReadySeconds: 5
+  # RollingUpdate replaces old Pods a small number at a time.
+  # maxSurge: 1       -> Kubernetes can create 1 Pod more than "replicas" during the update.
+  # maxUnavailable: 0 -> The number of available Pods never decreases below "replicas".
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: app-rolling
+  template:
+    metadata:
+      labels:
+        app: app-rolling
+        version: v1
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.24-alpine
+          ports:
+            - containerPort: 80
+          # The postStart hook writes the version and the Pod name into the web page.
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - sh
+                  - -c
+                  - |
+                    echo "Rolling Update Demo | VERSION: v1 | Pod: $(hostname)" > /usr/share/nginx/html/index.html
+          resources:
+            requests:
+              cpu: "30m"
+              memory: "32Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 5

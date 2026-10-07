@@ -1,0 +1,10 @@
+# ImagePullBackOff: the image name and tag do not exist. The kubelet cannot pull the image.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-image-error
+  namespace: s10-lifecycle
+spec:
+  containers:
+    - name: broken-image
+      image: jakwehrgkaejw:kahsdfgkhj
