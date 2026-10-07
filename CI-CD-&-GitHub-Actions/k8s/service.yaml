@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: calculator
+  namespace: s16-cicd
+spec:
+  type: ClusterIP
+  selector:
+    app: calculator
+  ports:
+    - port: 80
+      targetPort: 5000

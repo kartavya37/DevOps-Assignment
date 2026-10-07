@@ -1,0 +1,307 @@
+# Session 16: CI/CD with GitHub Actions
+#
+# WORKFLOW = this file. It contains JOBS. Each job runs on a RUNNER and has STEPS.
+#
+#   CI (every push and pull request)            CD (push to main or manual run only)
+#   lint -> test (matrix) -> build ----------\
+#                         -> docker-image ----+-> deploy (kind cluster) -> smoke test
+#   secrets-demo (runs in parallel) ---------/
+#
+# GitHub runs only the copy of this file in .github/workflows/ at the repository root.
+# The copy in "CI-CD-&-GitHub-Actions/.github/workflows/" is identical and is part of the deliverable.
+# Steps with "if: ${{ !env.ACT }}" do not run under nektos/act (local test). They need GitHub or kind.
+# The artifact actions stay on v4 because the act artifact server supports only the v4 protocol.
+
+name: "S16 CI/CD Pipeline"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "CI-CD-&-GitHub-Actions/**"
+      - ".github/workflows/s16-cicd.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "CI-CD-&-GitHub-Actions/**"
+      - ".github/workflows/s16-cicd.yml"
+  workflow_dispatch:
+
+# Least privilege for the GITHUB_TOKEN. The docker-image job adds "packages: write".
+permissions:
+  contents: read
+
+concurrency:
+  group: s16-cicd-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  IMAGE_NAME: ghcr.io/kartavya37/s16-cicd-calculator
+  PYTHON_VERSION: "3.13"
+
+defaults:
+  run:
+    shell: bash
+    working-directory: "CI-CD-&-GitHub-Actions"
+
+jobs:
+  # ---------------------------------------------------------------- CI
+  lint:
+    name: "CI 1 - Lint (flake8)"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install lint tool
+        run: pip install flake8==7.4.1
+
+      - name: Run flake8
+        run: flake8 app tests
+
+  test:
+    name: "CI 2 - Test (Python ${{ matrix.python-version }})"
+    needs: lint
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Show runner information
+        run: |
+          echo "Runner name : ${{ runner.name }}"
+          echo "Runner OS   : ${{ runner.os }} / ${{ runner.arch }}"
+          echo "Python      : $(python --version)"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Run unit tests with coverage
+        run: |
+          mkdir -p reports
+          python -m pytest -v \
+            --junitxml=reports/junit.xml \
+            --cov=app \
+            --cov-report=term-missing \
+            --cov-report=xml:reports/coverage.xml
+
+      - name: Upload test report and coverage (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report-py${{ matrix.python-version }}
+          path: "CI-CD-&-GitHub-Actions/reports/"
+          retention-days: 7
+
+  build:
+    name: "CI 3 - Build application package"
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Run build script
+        run: ./build.sh
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: calculator-build
+          path: "CI-CD-&-GitHub-Actions/build/"
+          retention-days: 7
+
+      - name: Download test reports from the test job (artifact)
+        uses: actions/download-artifact@v4
+        with:
+          pattern: test-report-*
+          path: downloaded-reports
+
+      - name: Summarize test reports
+        working-directory: downloaded-reports
+        run: |
+          echo "Downloaded artifacts:"
+          find . -type f | sort
+          echo ""
+          for f in */coverage.xml; do
+            rate=$(grep -o 'line-rate="[0-9.]*"' "$f" | head -1 | cut -d'"' -f2)
+            tests=$(grep -o 'tests="[0-9]*"' "$(dirname "$f")/junit.xml" | head -1 | cut -d'"' -f2)
+            echo "$(dirname "$f"): tests=$tests line-coverage=$(python3 -c "print(round($rate*100,1))")%"
+          done | tee summary.txt
+          {
+            echo "### Test reports"
+            echo '```'
+            cat summary.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  docker-image:
+    name: "CI 4 - Docker build (push to GHCR on main)"
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+        with:
+          # Under act, use the local Docker engine (it has the base image) to avoid Docker Hub pull limits.
+          driver: ${{ env.ACT && 'docker' || 'docker-container' }}
+
+      - name: Build image and export it as a tar file
+        uses: docker/build-push-action@v7
+        env:
+          # The build record upload needs the GitHub artifact service. It is off under act.
+          DOCKER_BUILD_RECORD_UPLOAD: ${{ env.ACT && 'false' || 'true' }}
+        with:
+          context: "CI-CD-&-GitHub-Actions"
+          build-args: |
+            APP_VERSION=1.0.${{ github.run_number }}
+            GIT_SHA=${{ github.sha }}
+          tags: |
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.IMAGE_NAME }}:latest
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          outputs: type=docker,dest=${{ runner.temp }}/image.tar
+
+      - name: Load the image and run a container smoke test
+        run: |
+          docker load --input "${{ runner.temp }}/image.tar"
+          docker image ls "${IMAGE_NAME}"
+          docker run -d --name s16-smoke "${IMAGE_NAME}:${{ github.sha }}"
+          # Call the API from inside the container (the runner has no port mapping for it).
+          get() { docker exec s16-smoke python -c "import urllib.request,sys; print(urllib.request.urlopen(sys.argv[1]).read().decode())" "$1"; }
+          for _ in $(seq 1 20); do get http://127.0.0.1:5000/health 2>/dev/null && break; sleep 1; done
+          get "http://127.0.0.1:5000/api/calc?op=multiply&a=6&b=7"
+          docker rm -f s16-smoke
+
+      - name: Upload image tar (artifact for the CD job)
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: ${{ runner.temp }}/image.tar
+          retention-days: 1
+
+      - name: Log in to GitHub Container Registry
+        if: ${{ !env.ACT && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push image to GHCR
+        if: ${{ !env.ACT && github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+        run: |
+          docker push "${IMAGE_NAME}:${{ github.sha }}"
+          docker push "${IMAGE_NAME}:latest"
+          echo "Pushed ${IMAGE_NAME}:${{ github.sha }}" >> "$GITHUB_STEP_SUMMARY"
+
+  secrets-demo:
+    name: "CI - Secrets demo"
+    runs-on: ubuntu-latest
+    env:
+      # Reference secrets through env variables. Never echo the value.
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DEMO_API_KEY: ${{ secrets.DEMO_API_KEY }}
+    steps:
+      - name: Check secrets without printing them
+        working-directory: .
+        run: |
+          if [ -n "$GH_TOKEN" ]; then
+            echo "GITHUB_TOKEN: available (GitHub creates it for each run)."
+            repo=$(curl -fsS -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/repos/${{ github.repository }}" | jq -r .full_name)
+            echo "Authenticated GitHub API call returned repository: $repo"
+          else
+            echo "GITHUB_TOKEN: not available (local run)."
+          fi
+          if [ -n "$DEMO_API_KEY" ]; then
+            echo "DEMO_API_KEY: set (${#DEMO_API_KEY} characters). The value stays hidden."
+          else
+            echo "DEMO_API_KEY: not set. Add it in Settings > Secrets and variables > Actions."
+          fi
+
+  # ---------------------------------------------------------------- CD
+  deploy:
+    name: "CD - Deploy to Kubernetes (kind)"
+    needs: [build, docker-image, secrets-demo]
+    # Continuous Deployment runs only for main. Pull requests stop after CI.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Download image tar (artifact from CI)
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: ${{ runner.temp }}
+
+      - name: Render manifests with the new image tag
+        run: |
+          mkdir -p rendered
+          cp k8s/*.yaml rendered/
+          sed -i "s|${IMAGE_NAME}:latest|${IMAGE_NAME}:${{ github.sha }}|" rendered/deployment.yaml
+          grep -n "image:" rendered/deployment.yaml
+          ls -l "${{ runner.temp }}/image.tar"
+
+      - name: Create a temporary kind cluster
+        if: ${{ !env.ACT }}
+        uses: helm/kind-action@v1.15.1
+        with:
+          cluster_name: s16-cicd
+
+      - name: Load the image into kind
+        if: ${{ !env.ACT }}
+        run: kind load image-archive "${{ runner.temp }}/image.tar" --name s16-cicd
+
+      - name: Apply the manifests and wait for the rollout
+        if: ${{ !env.ACT }}
+        run: |
+          kubectl apply -f rendered/namespace.yaml
+          kubectl apply -f rendered/deployment.yaml -f rendered/service.yaml
+          kubectl -n s16-cicd rollout status deployment/calculator --timeout=120s
+          kubectl -n s16-cicd get deploy,rs,pods,svc -o wide
+
+      - name: Smoke test the deployed application
+        if: ${{ !env.ACT }}
+        run: |
+          kubectl -n s16-cicd port-forward svc/calculator 8080:80 > /tmp/pf.log 2>&1 &
+          sleep 5
+          curl -fsS http://localhost:8080/health
+          echo ""
+          curl -fsS "http://localhost:8080/api/calc?op=add&a=10&b=5"
+          echo ""
+          curl -fsS http://localhost:8080/api/version
+          echo ""
+
+      - name: Show debug information on failure
+        if: ${{ failure() && !env.ACT }}
+        run: |
+          kubectl -n s16-cicd describe pods || true
+          kubectl -n s16-cicd logs -l app=calculator --tail=50 || true

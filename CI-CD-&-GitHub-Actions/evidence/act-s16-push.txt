@@ -1,0 +1,1385 @@
+# Local pipeline run with act (nektos/act 0.2.89), 2026-10-07. ANSI colour codes removed.
+# Directory: repository root
+# Command:   act push -W .github/workflows/s16-cicd.yml --secret DEMO_API_KEY=demo-value-123 -P ubuntu-latest=catthehacker/ubuntu:act-latest --container-architecture linux/arm64 --artifact-server-addr 0.0.0.0 --cache-server-addr 0.0.0.0 --cache-server-port 34568 --pull=false --action-offline-mode --artifact-server-path <temporary folder>
+#
+time="2026-10-07T17:52:15+05:30" level=info msg="Using docker host 'unix:///var/run/docker.sock', and daemon socket 'unix:///var/run/docker.sock'"
+time="2026-10-07T17:52:15+05:30" level=info msg="Start server on http://0.0.0.0:34567"
+[S16 CI/CD Pipeline/CI - Secrets demo   ] ⭐ Run Set up job
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)] ⭐ Run Set up job
+[S16 CI/CD Pipeline/CI - Secrets demo   ] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S16 CI/CD Pipeline/CI - Secrets demo   ]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S16 CI/CD Pipeline/CI - Secrets demo   ]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI - Secrets demo   ]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI - Secrets demo   ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ✅  Success - Set up job
+[S16 CI/CD Pipeline/CI - Secrets demo   ]   ✅  Success - Set up job
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v7
+[S16 CI/CD Pipeline/CI - Secrets demo   ] ⭐ Run Main Check secrets without printing them
+[S16 CI/CD Pipeline/CI - Secrets demo   ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/0.sh] user= workdir=.
+[S16 CI/CD Pipeline/CI - Secrets demo   ]   | GITHUB_TOKEN: available (GitHub creates it for each run).
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)] ⭐ Run Main Checkout source code
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S16 CI/CD Pipeline/CI - Secrets demo   ]   | Authenticated GitHub API call returned repository: kartavya37/DevOps-Assignment
+[S16 CI/CD Pipeline/CI - Secrets demo   ]   | DEMO_API_KEY: set (14 characters). The value stays hidden.
+[S16 CI/CD Pipeline/CI - Secrets demo   ]   ✅  Success - Main Check secrets without printing them [739.744375ms]
+[S16 CI/CD Pipeline/CI - Secrets demo   ] ⭐ Run Complete job
+[S16 CI/CD Pipeline/CI - Secrets demo   ] Cleaning up container for job CI - Secrets demo
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ✅  Success - Main Checkout source code [824.5635ms]
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)] ⭐ Run Main Set up Python
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   🐳  docker cp src=/Users/kp/.cache/act/actions-setup-python@v7/ dst=/var/run/act/actions/actions-setup-python@v7/
+[S16 CI/CD Pipeline/CI - Secrets demo   ]   ✅  Success - Complete job
+[S16 CI/CD Pipeline/CI - Secrets demo   ] 🏁  Job succeeded
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/setup/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ❓  ::group::Installed versions
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   | Successfully set up CPython (3.13.16)
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ❓ add-matcher /run/act/actions/actions-setup-python@v7/.github/python.json
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ✅  Success - Main Set up Python [1.1016965s]
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.13.16/arm64/lib
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.13.16/arm64/lib/pkgconfig
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ⚙  ::set-output:: python-version=3.13.16
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.13.16/arm64/bin/python
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/arm64
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/arm64/bin
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)] ⭐ Run Main Install lint tool
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   | Requirement already satisfied: flake8==7.4.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (7.4.1)
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   | Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from flake8==7.4.1) (0.7.0)
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   | Requirement already satisfied: pycodestyle<2.16.0,>=2.15.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from flake8==7.4.1) (2.15.0)
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   | Requirement already satisfied: pyflakes<4.1.0,>=4.0.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from flake8==7.4.1) (4.0.2)
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ✅  Success - Main Install lint tool [712.615458ms]
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)] ⭐ Run Main Run flake8
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ✅  Success - Main Run flake8 [164.735042ms]
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)] ⭐ Run Post Set up Python
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/cache-save/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ✅  Success - Post Set up Python [132.436583ms]
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)] ⭐ Run Complete job
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)] Cleaning up container for job CI 1 - Lint (flake8)
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)]   ✅  Success - Complete job
+[S16 CI/CD Pipeline/CI 1 - Lint (flake8)] 🏁  Job succeeded
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] ⭐ Run Set up job
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] ⭐ Run Set up job
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] ⭐ Run Set up job
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ✅  Success - Set up job
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ✅  Success - Set up job
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v7
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v7
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ✅  Success - Set up job
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v7
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] 🧪  Matrix: map[os:ubuntu-latest python-version:3.12]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] ⭐ Run Main Checkout source code
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] 🧪  Matrix: map[os:ubuntu-latest python-version:3.13]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] ⭐ Run Main Checkout source code
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] 🧪  Matrix: map[os:ubuntu-latest python-version:3.11]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] ⭐ Run Main Checkout source code
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ✅  Success - Main Checkout source code [915.388041ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] ⭐ Run Main Set up Python 3.12
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ✅  Success - Main Checkout source code [916.68225ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker cp src=/Users/kp/.cache/act/actions-setup-python@v7/ dst=/var/run/act/actions/actions-setup-python@v7/
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] ⭐ Run Main Set up Python 3.13
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ✅  Success - Main Checkout source code [865.710125ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker cp src=/Users/kp/.cache/act/actions-setup-python@v7/ dst=/var/run/act/actions/actions-setup-python@v7/
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] ⭐ Run Main Set up Python 3.11
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker cp src=/Users/kp/.cache/act/actions-setup-python@v7/ dst=/var/run/act/actions/actions-setup-python@v7/
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/setup/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/setup/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ❓  ::group::Installed versions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Successfully set up CPython (3.12.15)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ❓ add-matcher /run/act/actions/actions-setup-python@v7/.github/python.json
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ✅  Success - Main Set up Python 3.12 [1.421069083s]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/setup/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.12.15/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.12.15/arm64/lib/pkgconfig
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.12.15/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.12.15/arm64/lib
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::set-output:: python-version=3.12.15
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.12.15/arm64/bin/python
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.12.15/arm64/bin
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] ⭐ Run Main Show runner information
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ❓  ::group::Installed versions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Successfully set up CPython (3.13.16)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ❓ add-matcher /run/act/actions/actions-setup-python@v7/.github/python.json
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ✅  Success - Main Set up Python 3.13 [1.424857333s]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.13.16/arm64/lib
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.13.16/arm64/lib/pkgconfig
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::set-output:: python-version=3.13.16
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.13.16/arm64/bin/python
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/arm64/bin
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ❓  ::group::Installed versions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Successfully set up CPython (3.11.17)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ❓ add-matcher /run/act/actions/actions-setup-python@v7/.github/python.json
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] ⭐ Run Main Show runner information
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ✅  Success - Main Set up Python 3.11 [1.421456834s]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.11.17/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.11.17/arm64/lib/pkgconfig
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.11.17/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.11.17/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.11.17/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.11.17/arm64/lib
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Runner name : 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Runner OS   : Linux / ARM64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Python      : Python 3.12.15
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ✅  Success - Main Show runner information [90.489292ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::set-output:: python-version=3.11.17
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.11.17/arm64/bin/python
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.11.17/arm64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.11.17/arm64/bin
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] ⭐ Run Main Show runner information
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] ⭐ Run Main Install dependencies
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Runner name : 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Runner OS   : Linux / ARM64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Python      : Python 3.13.16
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ✅  Success - Main Show runner information [105.51475ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Runner name : 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Runner OS   : Linux / ARM64
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Python      : Python 3.11.17
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ✅  Success - Main Show runner information [87.496792ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] ⭐ Run Main Install dependencies
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] ⭐ Run Main Install dependencies
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (26.2.1)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (26.2.1)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (26.2.1)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: Flask==3.1.3 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from -r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (3.1.3)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: gunicorn==26.2.0 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from -r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 2)) (26.2.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 2)) (9.1.1)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 3)) (7.1.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: flake8==7.4.1 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from -r requirements-dev.txt (line 4)) (7.4.1)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (1.9.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (8.5.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (2.2.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (3.1.6)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (3.0.4)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: werkzeug>=3.1.0 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (3.1.9)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: iniconfig>=1.0.1 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.3.1)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: packaging>=22 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (26.3)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: pluggy<2,>=1.5 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (1.6.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: pygments>=2.7.2 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.21.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: coverage>=7.10.6 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r requirements-dev.txt (line 3)) (7.16.2)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (0.7.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: pycodestyle<2.16.0,>=2.15.0 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (2.15.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Requirement already satisfied: pyflakes<4.1.0,>=4.0.0 in /opt/hostedtoolcache/Python/3.12.15/arm64/lib/python3.12/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (4.0.2)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: Flask==3.1.3 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from -r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (3.1.3)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: gunicorn==26.2.0 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from -r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 2)) (26.2.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from -r requirements-dev.txt (line 2)) (9.1.1)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from -r requirements-dev.txt (line 3)) (7.1.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: flake8==7.4.1 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from -r requirements-dev.txt (line 4)) (7.4.1)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (1.9.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (8.5.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (2.2.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (3.1.6)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (3.0.4)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: werkzeug>=3.1.0 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (3.1.9)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: iniconfig>=1.0.1 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.3.1)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: packaging>=22 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (26.3)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: pluggy<2,>=1.5 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (1.6.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: pygments>=2.7.2 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.21.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: coverage>=7.10.6 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r requirements-dev.txt (line 3)) (7.16.2)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (0.7.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: pycodestyle<2.16.0,>=2.15.0 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (2.15.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Requirement already satisfied: pyflakes<4.1.0,>=4.0.0 in /opt/hostedtoolcache/Python/3.11.17/arm64/lib/python3.11/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (4.0.2)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ✅  Success - Main Install dependencies [1.03588275s]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ✅  Success - Main Install dependencies [923.147833ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] ⭐ Run Main Run unit tests with coverage
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] ⭐ Run Main Run unit tests with coverage
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/4.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/4.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Collecting Flask==3.1.3 (from -r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1))
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | ============================= test session starts ==============================
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.12.15/arm64/bin/python
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | cachedir: .pytest_cache
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | rootdir: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | configfile: pytest.ini
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | testpaths: tests
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | plugins: cov-7.1.0
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | ============================= test session starts ==============================
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | platform linux -- Python 3.11.17, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.17/arm64/bin/python
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | cachedir: .pytest_cache
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | rootdir: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | configfile: pytest.ini
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | testpaths: tests
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | plugins: cov-7.1.0
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | collecting ... collected 13 items
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_api.py::test_home_page PASSED                                 [  7%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_api.py::test_health PASSED                                    [ 15%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_api.py::test_calc_add PASSED                                  [ 23%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_api.py::test_calc_divide_by_zero PASSED                       [ 30%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_api.py::test_calc_bad_number PASSED                           [ 38%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_api.py::test_version PASSED                                   [ 46%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_calculator.py::test_add PASSED                                [ 53%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_calculator.py::test_subtract PASSED                           [ 61%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_calculator.py::test_multiply PASSED                           [ 69%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_calculator.py::test_divide PASSED                             [ 76%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_calculator.py::test_divide_by_zero PASSED                     [ 84%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_calculator.py::test_calculate_by_name PASSED                  [ 92%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | collecting ... collected 13 items
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | tests/test_calculator.py::test_calculate_unknown_operation PASSED        [100%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | - generated xml file: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/reports/junit.xml -
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | ================================ tests coverage ================================
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | _______________ coverage: platform linux, python 3.11.17-final-0 _______________
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Name                Stmts   Miss  Cover   Missing
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | -------------------------------------------------
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | app/__init__.py         0      0   100%
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | app/calculator.py      35     17    51%   40-55, 59
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | app/main.py            29      1    97%   75
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | -------------------------------------------------
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | TOTAL                  64     18    72%
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Coverage XML written to file reports/coverage.xml
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | ============================== 13 passed in 0.14s ==============================
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_api.py::test_home_page PASSED                                 [  7%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_api.py::test_health PASSED                                    [ 15%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Collecting gunicorn==26.2.0 (from -r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 2))
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_api.py::test_calc_add PASSED                                  [ 23%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_api.py::test_calc_divide_by_zero PASSED                       [ 30%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_api.py::test_calc_bad_number PASSED                           [ 38%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_api.py::test_version PASSED                                   [ 46%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_calculator.py::test_add PASSED                                [ 53%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_calculator.py::test_subtract PASSED                           [ 61%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_calculator.py::test_multiply PASSED                           [ 69%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_calculator.py::test_divide PASSED                             [ 76%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_calculator.py::test_divide_by_zero PASSED                     [ 84%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_calculator.py::test_calculate_by_name PASSED                  [ 92%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ✅  Success - Main Run unit tests with coverage [400.417791ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |   Downloading gunicorn-26.2.0-py3-none-any.whl.metadata (5.5 kB)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 2)) (9.1.1)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 3)) (7.1.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: flake8==7.4.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 4)) (7.4.1)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (1.9.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (8.5.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (2.2.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (3.1.6)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1)) (3.0.4)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | tests/test_calculator.py::test_calculate_unknown_operation PASSED        [100%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | - generated xml file: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/reports/junit.xml -
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | ================================ tests coverage ================================
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | _______________ coverage: platform linux, python 3.12.15-final-0 _______________
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Name                Stmts   Miss  Cover   Missing
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | -------------------------------------------------
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | app/__init__.py         0      0   100%
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | app/calculator.py      35     17    51%   40-55, 59
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | app/main.py            29      1    97%   75
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | -------------------------------------------------
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | TOTAL                  64     18    72%
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Coverage XML written to file reports/coverage.xml
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | ============================== 13 passed in 0.23s ==============================
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] ⭐ Run Main Upload test report and coverage (artifact)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker cp src=/Users/kp/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Collecting werkzeug>=3.1.0 (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/requirements.txt (line 1))
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ✅  Success - Main Run unit tests with coverage [528.970334ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: iniconfig>=1.0.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.3.1)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: packaging>=22 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (26.3)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: pluggy<2,>=1.5 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (1.6.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: pygments>=2.7.2 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.21.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: coverage>=7.10.6 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r requirements-dev.txt (line 3)) (7.16.2)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (0.7.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: pycodestyle<2.16.0,>=2.15.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (2.15.0)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Requirement already satisfied: pyflakes<4.1.0,>=4.0.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from flake8==7.4.1->-r requirements-dev.txt (line 4)) (4.0.2)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] ⭐ Run Main Upload test report and coverage (artifact)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker cp src=/Users/kp/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Downloading gunicorn-26.2.0-py3-none-any.whl (228 kB)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Installing collected packages: werkzeug, gunicorn, Flask
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |   Attempting uninstall: werkzeug
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |     Found existing installation: Werkzeug 2.2.2
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |     Uninstalling Werkzeug-2.2.2:
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |       Successfully uninstalled Werkzeug-2.2.2
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |   Attempting uninstall: gunicorn
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |     Found existing installation: gunicorn 21.2.0
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |     Uninstalling gunicorn-21.2.0:
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |       Successfully uninstalled gunicorn-21.2.0
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |   Attempting uninstall: Flask
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |     Found existing installation: Flask 2.2.4
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |     Uninstalling Flask-2.2.4:
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   |       Successfully uninstalled Flask-2.2.4
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Successfully installed Flask-3.1.3 gunicorn-26.2.0 werkzeug-3.1.9
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ✅  Success - Main Install dependencies [2.254915875s]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] ⭐ Run Main Run unit tests with coverage
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/4.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | (node:100) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | With the provided path, there will be 2 files uploaded
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Artifact name is valid!
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Root directory input is valid!
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Beginning upload of artifact content to blob storage
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | (node:100) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | With the provided path, there will be 2 files uploaded
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Artifact name is valid!
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Root directory input is valid!
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | (node:100) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Uploaded bytes 1237
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Finished uploading artifact content to blob storage!
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | SHA256 digest of uploaded artifact zip is afca7b7bc198ba4c23a17876a28f93377268b75b7eead71c2b46ad2dfcfb7dbd
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Finalizing artifact upload
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Beginning upload of artifact content to blob storage
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Artifact test-report-py3.12.zip successfully finalized. Artifact ID 3323523448
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Artifact test-report-py3.12 has been successfully uploaded! Final size is 1237 bytes. Artifact ID is 3323523448
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   | Artifact download URL: https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3323523448
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ✅  Success - Main Upload test report and coverage (artifact) [925.281708ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | (node:100) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Uploaded bytes 1227
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Finished uploading artifact content to blob storage!
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | SHA256 digest of uploaded artifact zip is f9ce38fee0af0df826a8ae93f0edb276a7067e17225a3d336d7a95b5f21b3328
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Finalizing artifact upload
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Artifact test-report-py3.11.zip successfully finalized. Artifact ID 3373856305
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Artifact test-report-py3.11 has been successfully uploaded! Final size is 1227 bytes. Artifact ID is 3373856305
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   | Artifact download URL: https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3373856305
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::set-output:: artifact-id=3323523448
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::set-output:: artifact-digest=afca7b7bc198ba4c23a17876a28f93377268b75b7eead71c2b46ad2dfcfb7dbd
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ⚙  ::set-output:: artifact-url=https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3323523448
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ✅  Success - Main Upload test report and coverage (artifact) [1.039090459s]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::set-output:: artifact-id=3373856305
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::set-output:: artifact-digest=f9ce38fee0af0df826a8ae93f0edb276a7067e17225a3d336d7a95b5f21b3328
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ⚙  ::set-output:: artifact-url=https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3373856305
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] ⭐ Run Post Set up Python 3.12
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] ⭐ Run Post Set up Python 3.11
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/cache-save/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | ============================= test session starts ==============================
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | platform linux -- Python 3.13.16, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.13.16/arm64/bin/python
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | cachedir: .pytest_cache
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | rootdir: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | configfile: pytest.ini
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | testpaths: tests
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | plugins: platformdirs-4.12.3, cov-7.1.0
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/cache-save/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ✅  Success - Post Set up Python 3.12 [127.754791ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | collecting ... collected 13 items
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] ⭐ Run Complete job
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] Cleaning up container for job CI 2 - Test (Python 3.12)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_api.py::test_home_page PASSED                                 [  7%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_api.py::test_health PASSED                                    [ 15%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_api.py::test_calc_add PASSED                                  [ 23%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_api.py::test_calc_divide_by_zero PASSED                       [ 30%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_api.py::test_calc_bad_number PASSED                           [ 38%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_api.py::test_version PASSED                                   [ 46%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_calculator.py::test_add PASSED                                [ 53%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_calculator.py::test_subtract PASSED                           [ 61%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_calculator.py::test_multiply PASSED                           [ 69%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_calculator.py::test_divide PASSED                             [ 76%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_calculator.py::test_divide_by_zero PASSED                     [ 84%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_calculator.py::test_calculate_by_name PASSED                  [ 92%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ✅  Success - Post Set up Python 3.11 [156.103583ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] ⭐ Run Complete job
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] Cleaning up container for job CI 2 - Test (Python 3.11)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | tests/test_calculator.py::test_calculate_unknown_operation PASSED        [100%]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | - generated xml file: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/CI-CD-&-GitHub-Actions/reports/junit.xml -
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | ================================ tests coverage ================================
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | _______________ coverage: platform linux, python 3.13.16-final-0 _______________
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | 
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Name                Stmts   Miss  Cover   Missing
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | -------------------------------------------------
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | app/__init__.py         0      0   100%
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | app/calculator.py      35     17    51%   40-55, 59
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | app/main.py            29      1    97%   75
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | -------------------------------------------------
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | TOTAL                  64     18    72%
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Coverage XML written to file reports/coverage.xml
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | ============================== 13 passed in 0.17s ==============================
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ✅  Success - Main Run unit tests with coverage [516.8815ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] ⭐ Run Main Upload test report and coverage (artifact)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker cp src=/Users/kp/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2]   ✅  Success - Complete job
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.12)-2] 🏁  Job succeeded
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | (node:98) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | With the provided path, there will be 2 files uploaded
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Artifact name is valid!
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Root directory input is valid!
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Beginning upload of artifact content to blob storage
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1]   ✅  Success - Complete job
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.11)-1] 🏁  Job succeeded
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | (node:98) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Uploaded bytes 1228
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Finished uploading artifact content to blob storage!
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | SHA256 digest of uploaded artifact zip is 0d840c94d1acfa1a719c63a8699ecbabd574efedd8eaddd1dc98a71d6317fb33
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Finalizing artifact upload
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Artifact test-report-py3.13.zip successfully finalized. Artifact ID 3340301067
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Artifact test-report-py3.13 has been successfully uploaded! Final size is 1228 bytes. Artifact ID is 3340301067
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   | Artifact download URL: https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3340301067
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ✅  Success - Main Upload test report and coverage (artifact) [1.114359459s]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::set-output:: artifact-digest=0d840c94d1acfa1a719c63a8699ecbabd574efedd8eaddd1dc98a71d6317fb33
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::set-output:: artifact-url=https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3340301067
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ⚙  ::set-output:: artifact-id=3340301067
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] ⭐ Run Post Set up Python 3.13
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/cache-save/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ✅  Success - Post Set up Python 3.13 [147.722083ms]
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] ⭐ Run Complete job
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] Cleaning up container for job CI 2 - Test (Python 3.13)
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3]   ✅  Success - Complete job
+[S16 CI/CD Pipeline/CI 2 - Test (Python 3.13)-3] 🏁  Job succeeded
+[S16 CI/CD Pipeline/CI 3 - Build application package          ] ⭐ Run Set up job
+[S16 CI/CD Pipeline/CI 3 - Build application package          ] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)] ⭐ Run Set up job
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ✅  Success - Set up job
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ✅  Success - Set up job
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ☁  git clone 'https://github.com/docker/setup-buildx-action' # ref=v4
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ☁  git clone 'https://github.com/docker/build-push-action' # ref=v7
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[S16 CI/CD Pipeline/CI 3 - Build application package          ] ⭐ Run Main Checkout source code
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ☁  git clone 'https://github.com/docker/login-action' # ref=v4
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)] ⭐ Run Main Checkout source code
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ✅  Success - Main Checkout source code [727.297917ms]
+[S16 CI/CD Pipeline/CI 3 - Build application package          ] ⭐ Run Main Run build script
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/1.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | =================================
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Starting Application Build
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | =================================
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | 
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Build files:
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | build/app/__init__.py
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | build/app/calculator.py
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | build/app/main.py
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | build/build-info.txt
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | build/calculator-app.tar.gz
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | build/requirements.txt
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | 
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Application: Session 16 Calculator
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Build Status: SUCCESS
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Commit: 3ba758e0669b9efc0a1ecd4b57040d1310aa1eef
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Run number: 1
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Runner: Linux / ARM64
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Build Date: 2026-10-07T12:22:29Z
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | 
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Build completed successfully.
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ✅  Success - Main Run build script [78.967292ms]
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ✅  Success - Main Checkout source code [767.505958ms]
+[S16 CI/CD Pipeline/CI 3 - Build application package          ] ⭐ Run Main Upload build artifact
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   🐳  docker cp src=/Users/kp/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)] ⭐ Run Main Set up Docker Buildx
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker cp src=/Users/kp/.cache/act/docker-setup-buildx-action@v4/ dst=/var/run/act/actions/docker-setup-buildx-action@v4/
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | (node:49) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | With the provided path, there will be 6 files uploaded
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Artifact name is valid!
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Root directory input is valid!
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Beginning upload of artifact content to blob storage
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | (node:49) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Uploaded bytes 4478
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Finished uploading artifact content to blob storage!
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | SHA256 digest of uploaded artifact zip is 0a42a0672e22951ca768f2356127a90cdec45968710253778a17727dcb5d706d
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Finalizing artifact upload
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Artifact calculator-build.zip successfully finalized. Artifact ID 1242866976
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Artifact calculator-build has been successfully uploaded! Final size is 4478 bytes. Artifact ID is 1242866976
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Artifact download URL: https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/1242866976
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ✅  Success - Main Upload build artifact [1.029690875s]
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ⚙  ::set-output:: artifact-id=1242866976
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ⚙  ::set-output:: artifact-digest=0a42a0672e22951ca768f2356127a90cdec45968710253778a17727dcb5d706d
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ⚙  ::set-output:: artifact-url=https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/1242866976
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/docker-setup-buildx-action@v4/dist/index.cjs] user= workdir=
+[S16 CI/CD Pipeline/CI 3 - Build application package          ] ⭐ Run Main Download test reports from the test job (artifact)
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   🐳  docker cp src=/Users/kp/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Docker info
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | [command]/usr/bin/docker version
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Client:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Version:           29.7.2-1
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  API version:       1.55
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Go version:        go1.26.5
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Git commit:        a7dcaa6fdb6ed04aacbfdc76357fdae01605609e
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Built:             Fri Aug  7 10:40:54 2026
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  OS/Arch:           linux/arm64
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Context:           default
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Server: Docker Desktop 4.87.0 (236836)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Engine:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Version:          29.7.2
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   API version:      1.55 (minimum version 1.40)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Go version:       go1.26.5
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Git commit:       6a43e3d
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Built:            Wed Aug  5 18:28:35 2026
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   OS/Arch:          linux/arm64
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Experimental:     false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  containerd:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Version:          v2.2.5
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   GitCommit:        e53c7c1516c3b2bff98eb76f1f4117477e6f4e66
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  runc:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Version:          1.3.6
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   GitCommit:        v1.3.6-0-g491b69ba
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  docker-init:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Version:          0.19.0
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   GitCommit:        de40ad0
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | [command]/usr/bin/docker info
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Client:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Version:    29.7.2-1
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Context:    default
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Debug Mode: false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Plugins:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   buildx: Docker Buildx (Docker Inc.)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     Version:  0.36.1-1
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   compose: Docker Compose (Docker Inc.)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     Version:  5.4.0-2
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     Path:     /usr/libexec/docker/cli-plugins/docker-compose
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Server:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Containers: 25
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Running: 6
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Paused: 0
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Stopped: 19
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Images: 94
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Server Version: 29.7.2
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Storage Driver: overlayfs
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   driver-type: io.containerd.snapshotter.v1
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Logging Driver: json-file
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Cgroup Driver: cgroupfs
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Cgroup Version: 2
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Plugins:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Volume: local
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Network: bridge host ipvlan macvlan null overlay
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  CDI spec directories:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   /etc/cdi
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   /var/run/cdi
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Discovered Devices:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   cdi: docker.com/gpu=webgpu
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Swarm: inactive
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Runtimes: io.containerd.runc.v2 runc
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Default Runtime: runc
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Init Binary: docker-init
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  containerd version: e53c7c1516c3b2bff98eb76f1f4117477e6f4e66
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  runc version: v1.3.6-0-g491b69ba
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  init version: de40ad0
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Security Options:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   seccomp
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |    Profile: builtin
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   cgroupns
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Kernel Version: 7.0.12-linuxkit
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Operating System: Docker Desktop
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  OSType: linux
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Architecture: aarch64
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  CPUs: 15
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Total Memory: 11.67GiB
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Name: docker-desktop
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  ID: 9bd91c35-f158-4f23-93a7-e74dad678dac
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Docker Root Dir: /var/lib/docker
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Debug Mode: false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  HTTP Proxy: http.docker.internal:3128
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  HTTPS Proxy: http.docker.internal:3128
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  No Proxy: hubproxy.docker.internal
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Labels:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   com.docker.desktop.address=unix:///Users/kp/Library/Containers/com.docker.docker/Data/docker-cli.sock
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Experimental: false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Insecure Registries:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   hubproxy.docker.internal:5555
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   ::1/128
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   127.0.0.0/8
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Live Restore Enabled: false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Firewall Backend: iptables
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Buildx version
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | [command]/usr/bin/docker buildx version
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | github.com/docker/buildx 0.36.1-1 1d8dde89b8aba914e05e45366770736fea1fd690
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Booting builder
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | [command]/usr/bin/docker buildx inspect --bootstrap --builder default
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | (node:66) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Name:   default
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Driver: docker
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Nodes:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Name:             default
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Endpoint:         default
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Status:           running
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | BuildKit version: v0.32.2
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Platforms:        linux/arm64, linux/amd64, linux/amd64/v2, linux/riscv64, linux/ppc64le, linux/s390x, linux/386
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Labels:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  org.mobyproject.buildkit.worker.containerd.namespace: moby
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  org.mobyproject.buildkit.worker.containerd.uuid:      901af005-849e-49c0-8694-c6cf43e5380c
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  org.mobyproject.buildkit.worker.executor:             containerd
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  org.mobyproject.buildkit.worker.hostname:             docker-desktop
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  org.mobyproject.buildkit.worker.moby.host-gateway-ip: 192.168.65.254
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  org.mobyproject.buildkit.worker.network:              host
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  org.mobyproject.buildkit.worker.selinux.enabled:      false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  org.mobyproject.buildkit.worker.snapshotter:          overlayfs
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Devices:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Name:                  docker.com/gpu=webgpu
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Automatically allowed: false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | GC Policy rule#0:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  All:            false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Filters:        type==source.local type==exec.cachemount type==source.git.checkout
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Keep Duration:  48h0m0s
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Max Used Space: 2.764GiB
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | GC Policy rule#1:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  All:            false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Keep Duration:  1440h0m0s
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Reserved Space: 20GiB
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | GC Policy rule#2:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  All:            false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Reserved Space: 20GiB
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | GC Policy rule#3:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  All:            true
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Reserved Space: 20GiB
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Found 4 artifact(s)
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Filtering artifacts by pattern 'test-report-*'
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Preparing to download the following artifacts:
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | - test-report-py3.11 (ID: 3373856305, Size: 96, Expected Digest: undefined)
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | - test-report-py3.13 (ID: 3340301067, Size: 96, Expected Digest: undefined)
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | - test-report-py3.12 (ID: 3323523448, Size: 96, Expected Digest: undefined)
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Redirecting to blob download url: http://0.0.0.0:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Starting download of artifact to: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/downloaded-reports/test-report-py3.11
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Redirecting to blob download url: http://0.0.0.0:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Starting download of artifact to: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/downloaded-reports/test-report-py3.13
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | (node:66) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Redirecting to blob download url: http://0.0.0.0:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Starting download of artifact to: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/downloaded-reports/test-report-py3.12
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | SHA256 digest of downloaded artifact is f9ce38fee0af0df826a8ae93f0edb276a7067e17225a3d336d7a95b5f21b3328
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Artifact download completed successfully.
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | SHA256 digest of downloaded artifact is 0d840c94d1acfa1a719c63a8699ecbabd574efedd8eaddd1dc98a71d6317fb33
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Artifact download completed successfully.
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | SHA256 digest of downloaded artifact is afca7b7bc198ba4c23a17876a28f93377268b75b7eead71c2b46ad2dfcfb7dbd
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Artifact download completed successfully.
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Total of 3 artifact(s) downloaded
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Download artifact has finished successfully
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ✅  Success - Main Download test reports from the test job (artifact) [655.520333ms]
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ⚙  ::set-output:: download-path=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/downloaded-reports
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Inspect builder
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   "nodes": [
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "name": "default",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "endpoint": "default",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "status": "running",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "buildkit": "v0.32.2",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "platforms": "linux/arm64,linux/amd64,linux/amd64/v2,linux/riscv64,linux/ppc64le,linux/s390x,linux/386",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "features": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "Automatically load images to the Docker Engine image store": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "Cache export": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "Direct push": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "Docker exporter": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "Multi-platform build": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "OCI exporter": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "Prefer image digest": true
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "labels": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.containerd.namespace": "moby",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.containerd.uuid": "901af005-849e-49c0-8694-c6cf43e5380c",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.executor": "containerd",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.hostname": "docker-desktop",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.moby.host-gateway-ip": "192.168.65.254",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.network": "host",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.selinux.enabled": "false",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.snapshotter": "overlayfs"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "devices": [
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "name": "docker.com/gpu=webgpu",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "autoAllow": false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       ],
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "gcPolicy": [
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "all": false,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "filter": [
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |             "type==source.local type==exec.cachemount type==source.git.checkout"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           ],
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "keepDuration": "48h0m0s",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "maxUsedSpace": "2.764GiB"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "all": false,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "keepDuration": "1440h0m0s",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "reservedSpace": "20GiB"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "all": false,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "reservedSpace": "20GiB"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "all": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "reservedSpace": "20GiB"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       ]
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   ],
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   "name": "default",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   "driver": "docker"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 3 - Build application package          ] ⭐ Run Main Summarize test reports
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ✅  Success - Main Set up Docker Buildx [1.772730041s]
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  ::set-output:: name=default
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  ::set-output:: driver=docker
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  ::set-output:: platforms=linux/arm64,linux/amd64,linux/amd64/v2,linux/riscv64,linux/ppc64le,linux/s390x,linux/386
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  ::set-output:: nodes=[
+  {
+    "name": "default",
+    "endpoint": "default",
+    "status": "running",
+    "buildkit": "v0.32.2",
+    "platforms": "linux/arm64,linux/amd64,linux/amd64/v2,linux/riscv64,linux/ppc64le,linux/s390x,linux/386",
+    "features": {
+      "Automatically load images to the Docker Engine image store": true,
+      "Cache export": true,
+      "Direct push": true,
+      "Docker exporter": true,
+      "Multi-platform build": true,
+      "OCI exporter": true,
+      "Prefer image digest": true
+    },
+    "labels": {
+      "org.mobyproject.buildkit.worker.containerd.namespace": "moby",
+      "org.mobyproject.buildkit.worker.containerd.uuid": "901af005-849e-49c0-8694-c6cf43e5380c",
+      "org.mobyproject.buildkit.worker.executor": "containerd",
+      "org.mobyproject.buildkit.worker.hostname": "docker-desktop",
+      "org.mobyproject.buildkit.worker.moby.host-gateway-ip": "192.168.65.254",
+      "org.mobyproject.buildkit.worker.network": "host",
+      "org.mobyproject.buildkit.worker.selinux.enabled": "false",
+      "org.mobyproject.buildkit.worker.snapshotter": "overlayfs"
+    },
+    "devices": [
+      {
+        "name": "docker.com/gpu=webgpu",
+        "autoAllow": false
+      }
+    ],
+    "gcPolicy": [
+      {
+        "all": false,
+        "filter": [
+          "type==source.local type==exec.cachemount type==source.git.checkout"
+        ],
+        "keepDuration": "48h0m0s",
+        "maxUsedSpace": "2.764GiB"
+      },
+      {
+        "all": false,
+        "keepDuration": "1440h0m0s",
+        "reservedSpace": "20GiB"
+      },
+      {
+        "all": false,
+        "reservedSpace": "20GiB"
+      },
+      {
+        "all": true,
+        "reservedSpace": "20GiB"
+      }
+    ]
+  }
+]
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/4.sh] user= workdir=downloaded-reports
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)] ⭐ Run Main Build image and export it as a tar file
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | Downloaded artifacts:
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | ./test-report-py3.11/coverage.xml
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | ./test-report-py3.11/junit.xml
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | ./test-report-py3.12/coverage.xml
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | ./test-report-py3.12/junit.xml
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | ./test-report-py3.13/coverage.xml
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | ./test-report-py3.13/junit.xml
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker cp src=/Users/kp/.cache/act/docker-build-push-action@v7/ dst=/var/run/act/actions/docker-build-push-action@v7/
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | test-report-py3.11: tests=13 line-coverage=71.9%
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | test-report-py3.12: tests=13 line-coverage=71.9%
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   | test-report-py3.13: tests=13 line-coverage=71.9%
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ✅  Success - Main Summarize test reports [154.108167ms]
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ⚙  Summary - ### Test reports
+```
+test-report-py3.11: tests=13 line-coverage=71.9%
+test-report-py3.12: tests=13 line-coverage=71.9%
+test-report-py3.13: tests=13 line-coverage=71.9%
+```
+[S16 CI/CD Pipeline/CI 3 - Build application package          ] ⭐ Run Complete job
+[S16 CI/CD Pipeline/CI 3 - Build application package          ] Cleaning up container for job CI 3 - Build application package
+[S16 CI/CD Pipeline/CI 3 - Build application package          ]   ✅  Success - Complete job
+[S16 CI/CD Pipeline/CI 3 - Build application package          ] 🏁  Job succeeded
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/docker-build-push-action@v7/dist/index.cjs] user= workdir=
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::GitHub Actions runtime token ACs
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | : write
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Docker info
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | [command]/usr/bin/docker version
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Client:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Version:           29.7.2-1
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  API version:       1.55
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Go version:        go1.26.5
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Git commit:        a7dcaa6fdb6ed04aacbfdc76357fdae01605609e
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Built:             Fri Aug  7 10:40:54 2026
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  OS/Arch:           linux/arm64
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Context:           default
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Server: Docker Desktop 4.87.0 (236836)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Engine:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Version:          29.7.2
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   API version:      1.55 (minimum version 1.40)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Go version:       go1.26.5
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Git commit:       6a43e3d
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Built:            Wed Aug  5 18:28:35 2026
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   OS/Arch:          linux/arm64
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Experimental:     false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  containerd:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Version:          v2.2.5
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   GitCommit:        e53c7c1516c3b2bff98eb76f1f4117477e6f4e66
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  runc:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Version:          1.3.6
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   GitCommit:        v1.3.6-0-g491b69ba
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  docker-init:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Version:          0.19.0
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   GitCommit:        de40ad0
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | [command]/usr/bin/docker info
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Client:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Version:    29.7.2-1
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Context:    default
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Debug Mode: false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Plugins:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   buildx: Docker Buildx (Docker Inc.)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     Version:  0.36.1-1
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   compose: Docker Compose (Docker Inc.)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     Version:  5.4.0-2
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     Path:     /usr/libexec/docker/cli-plugins/docker-compose
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Server:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Containers: 24
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Running: 5
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Paused: 0
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Stopped: 19
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Images: 94
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Server Version: 29.7.2
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Storage Driver: overlayfs
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   driver-type: io.containerd.snapshotter.v1
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Logging Driver: json-file
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Cgroup Driver: cgroupfs
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Cgroup Version: 2
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Plugins:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Volume: local
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Network: bridge host ipvlan macvlan null overlay
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  CDI spec directories:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   /etc/cdi
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   /var/run/cdi
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Discovered Devices:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   cdi: docker.com/gpu=webgpu
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Swarm: inactive
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Runtimes: io.containerd.runc.v2 runc
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Default Runtime: runc
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Init Binary: docker-init
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  containerd version: e53c7c1516c3b2bff98eb76f1f4117477e6f4e66
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  runc version: v1.3.6-0-g491b69ba
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  init version: de40ad0
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Security Options:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   seccomp
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |    Profile: builtin
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   cgroupns
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Kernel Version: 7.0.12-linuxkit
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Operating System: Docker Desktop
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  OSType: linux
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Architecture: aarch64
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  CPUs: 15
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Total Memory: 11.67GiB
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Name: docker-desktop
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  ID: 9bd91c35-f158-4f23-93a7-e74dad678dac
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Docker Root Dir: /var/lib/docker
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Debug Mode: false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  HTTP Proxy: http.docker.internal:3128
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  HTTPS Proxy: http.docker.internal:3128
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  No Proxy: hubproxy.docker.internal
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Labels:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   com.docker.desktop.address=unix:///Users/kp/Library/Containers/com.docker.docker/Data/docker-cli.sock
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Experimental: false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Insecure Registries:
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   hubproxy.docker.internal:5555
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   ::1/128
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   127.0.0.0/8
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Live Restore Enabled: false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |  Firewall Backend: iptables
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Proxy configuration
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | No proxy configuration found
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Buildx version
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | [command]/usr/bin/docker buildx version
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | github.com/docker/buildx 0.36.1-1 1d8dde89b8aba914e05e45366770736fea1fd690
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Builder info
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   "nodes": [
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "name": "default",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "endpoint": "default",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "status": "running",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "buildkit": "v0.32.2",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "platforms": "linux/arm64,linux/amd64,linux/amd64/v2,linux/riscv64,linux/ppc64le,linux/s390x,linux/386",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "features": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "Automatically load images to the Docker Engine image store": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "Cache export": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "Direct push": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "Docker exporter": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "Multi-platform build": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "OCI exporter": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "Prefer image digest": true
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "labels": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.containerd.namespace": "moby",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.containerd.uuid": "901af005-849e-49c0-8694-c6cf43e5380c",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.executor": "containerd",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.hostname": "docker-desktop",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.moby.host-gateway-ip": "192.168.65.254",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.network": "host",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.selinux.enabled": "false",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "org.mobyproject.buildkit.worker.snapshotter": "overlayfs"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "devices": [
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "name": "docker.com/gpu=webgpu",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "autoAllow": false
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       ],
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "gcPolicy": [
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "all": false,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "filter": [
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |             "type==source.local type==exec.cachemount type==source.git.checkout"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           ],
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "keepDuration": "48h0m0s",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "maxUsedSpace": "2.764GiB"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "all": false,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "keepDuration": "1440h0m0s",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "reservedSpace": "20GiB"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "all": false,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "reservedSpace": "20GiB"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "all": true,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "reservedSpace": "20GiB"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       ]
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   ],
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   "name": "default",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   "driver": "docker"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | [command]/usr/bin/docker buildx build --build-arg APP_VERSION=1.0.1 --build-arg GIT_SHA=3ba758e0669b9efc0a1ecd4b57040d1310aa1eef --iidfile /tmp/docker-actions-toolkit-zD5u1u/build-iidfile-547b0748e0.txt --label org.opencontainers.image.source=https://github.com/kartavya37/DevOps-Assignment --label org.opencontainers.image.revision=3ba758e0669b9efc0a1ecd4b57040d1310aa1eef --output type=docker,dest=/tmp/image.tar --tag ghcr.io/kartavya37/s16-cicd-calculator:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef --tag ghcr.io/kartavya37/s16-cicd-calculator:latest --metadata-file /tmp/docker-actions-toolkit-zD5u1u/build-metadata-5dcba39d03.json CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #0 building with "default" instance using docker driver
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #1 [internal] load build definition from Dockerfile
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #1 transferring dockerfile: 692B done
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #1 DONE 0.0s
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #2 [internal] load metadata for docker.io/library/python:3.13-slim
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #2 DONE 0.0s
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #3 [internal] load .dockerignore
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #3 transferring context: 147B done
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #3 DONE 0.0s
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #4 [internal] load build context
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #4 DONE 0.0s
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #5 [1/6] FROM docker.io/library/python:3.13-slim@sha256:bf44cdfcb76cd3b41e879bc058fc37ec5872002ccfde7fcb765e218cde0cd79c
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #5 resolve docker.io/library/python:3.13-slim@sha256:bf44cdfcb76cd3b41e879bc058fc37ec5872002ccfde7fcb765e218cde0cd79c done
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #5 DONE 0.0s
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #4 [internal] load build context
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #4 transferring context: 3.74kB done
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #4 DONE 0.0s
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #6 [2/6] WORKDIR /app
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #6 CACHED
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #7 [3/6] COPY requirements.txt .
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #7 CACHED
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #8 [4/6] RUN pip install --no-cache-dir -r requirements.txt
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #8 CACHED
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #9 [5/6] COPY app ./app
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #9 CACHED
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #10 [6/6] RUN useradd --uid 10001 --no-create-home appuser
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #10 CACHED
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #11 exporting to docker image format
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #11 exporting layers done
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #11 exporting manifest sha256:6335962296747ac2879acf2ef3da804777720de3d0742ff06f2ba63717ad9161 done
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #11 exporting config sha256:beb160af1b46fe1cb3f543263d453e017620e593b01a1f345bd01c1af3c87627 done
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #11 sending tarball
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #11 sending tarball 0.6s done
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #11 DONE 0.6s
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #12 resolving provenance for metadata file
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | #12 DONE 0.0s
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::ImageID
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | sha256:beb160af1b46fe1cb3f543263d453e017620e593b01a1f345bd01c1af3c87627
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Digest
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | sha256:6335962296747ac2879acf2ef3da804777720de3d0742ff06f2ba63717ad9161
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Metadata
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  ::stop-commands::8dbd21fc-ad37-4942-9cd5-8373fbb676df
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   "buildx.build.provenance": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     "builder": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "id": ""
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     "buildType": "https://mobyproject.org/buildkit@v1",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     "materials": [
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "uri": "pkg:docker/python@3.13-slim?platform=linux%2Farm64",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "digest": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "sha256": "bf44cdfcb76cd3b41e879bc058fc37ec5872002ccfde7fcb765e218cde0cd79c"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     ],
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     "invocation": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "configSource": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "entryPoint": "Dockerfile"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "parameters": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "frontend": "dockerfile.v0",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "args": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "build-arg:APP_VERSION": "1.0.1",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "build-arg:GIT_SHA": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "label:org.opencontainers.image.revision": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "label:org.opencontainers.image.source": "https://github.com/kartavya37/DevOps-Assignment"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "locals": [
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |             "name": "context"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |             "name": "dockerfile"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         ],
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "root": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "configSource": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |             "path": "Dockerfile"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           "request": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |             "args": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |               "build-arg:APP_VERSION": "1.0.1",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |               "build-arg:GIT_SHA": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |               "label:org.opencontainers.image.revision": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |               "label:org.opencontainers.image.source": "https://github.com/kartavya37/DevOps-Assignment",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |               "vcs:localdir:context": "CI-CD-&-GitHub-Actions",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |               "vcs:localdir:dockerfile": "CI-CD-&-GitHub-Actions",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |               "vcs:revision": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |               "vcs:source": "https://github.com/kartavya37/DevOps-Assignment.git"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |             }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |           }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "compatibilityVersion": 30
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "environment": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "dockerfileVersion": "1.26.0",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |         "platform": "linux/arm64"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   "buildx.build.ref": "default/default/qy7u8owf1hr7fp8o9bss1xf7e",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   "containerimage.config.digest": "sha256:beb160af1b46fe1cb3f543263d453e017620e593b01a1f345bd01c1af3c87627",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   "containerimage.descriptor": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     "mediaType": "application/vnd.oci.image.manifest.v1+json",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     "digest": "sha256:6335962296747ac2879acf2ef3da804777720de3d0742ff06f2ba63717ad9161",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     "size": 2000,
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     "annotations": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "org.opencontainers.image.created": "2026-10-07T12:22:33Z"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     "platform": {
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "architecture": "arm64",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |       "os": "linux"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |     }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   },
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   "containerimage.digest": "sha256:6335962296747ac2879acf2ef3da804777720de3d0742ff06f2ba63717ad9161",
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   |   "image.name": "ghcr.io/kartavya37/s16-cicd-calculator:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef,ghcr.io/kartavya37/s16-cicd-calculator:latest"
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | }
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  ::8dbd21fc-ad37-4942-9cd5-8373fbb676df::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Reference
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | default/default/qy7u8owf1hr7fp8o9bss1xf7e
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Check build summary support
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Build summary supported!
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ✅  Success - Main Build image and export it as a tar file [3.165031625s]
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  ::set-output:: imageid=sha256:beb160af1b46fe1cb3f543263d453e017620e593b01a1f345bd01c1af3c87627
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  ::set-output:: digest=sha256:6335962296747ac2879acf2ef3da804777720de3d0742ff06f2ba63717ad9161
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  ::set-output:: metadata={
+  "buildx.build.provenance": {
+    "builder": {
+      "id": ""
+    },
+    "buildType": "https://mobyproject.org/buildkit@v1",
+    "materials": [
+      {
+        "uri": "pkg:docker/python@3.13-slim?platform=linux%2Farm64",
+        "digest": {
+          "sha256": "bf44cdfcb76cd3b41e879bc058fc37ec5872002ccfde7fcb765e218cde0cd79c"
+        }
+      }
+    ],
+    "invocation": {
+      "configSource": {
+        "entryPoint": "Dockerfile"
+      },
+      "parameters": {
+        "frontend": "dockerfile.v0",
+        "args": {
+          "build-arg:APP_VERSION": "1.0.1",
+          "build-arg:GIT_SHA": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+          "label:org.opencontainers.image.revision": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+          "label:org.opencontainers.image.source": "https://github.com/kartavya37/DevOps-Assignment"
+        },
+        "locals": [
+          {
+            "name": "context"
+          },
+          {
+            "name": "dockerfile"
+          }
+        ],
+        "root": {
+          "configSource": {
+            "path": "Dockerfile"
+          },
+          "request": {
+            "args": {
+              "build-arg:APP_VERSION": "1.0.1",
+              "build-arg:GIT_SHA": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+              "label:org.opencontainers.image.revision": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+              "label:org.opencontainers.image.source": "https://github.com/kartavya37/DevOps-Assignment",
+              "vcs:localdir:context": "CI-CD-&-GitHub-Actions",
+              "vcs:localdir:dockerfile": "CI-CD-&-GitHub-Actions",
+              "vcs:revision": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+              "vcs:source": "https://github.com/kartavya37/DevOps-Assignment.git"
+            }
+          }
+        },
+        "compatibilityVersion": 30
+      },
+      "environment": {
+        "dockerfileVersion": "1.26.0",
+        "platform": "linux/arm64"
+      }
+    }
+  },
+  "buildx.build.ref": "default/default/qy7u8owf1hr7fp8o9bss1xf7e",
+  "containerimage.config.digest": "sha256:beb160af1b46fe1cb3f543263d453e017620e593b01a1f345bd01c1af3c87627",
+  "containerimage.descriptor": {
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "digest": "sha256:6335962296747ac2879acf2ef3da804777720de3d0742ff06f2ba63717ad9161",
+    "size": 2000,
+    "annotations": {
+      "org.opencontainers.image.created": "2026-10-07T12:22:33Z"
+    },
+    "platform": {
+      "architecture": "arm64",
+      "os": "linux"
+    }
+  },
+  "containerimage.digest": "sha256:6335962296747ac2879acf2ef3da804777720de3d0742ff06f2ba63717ad9161",
+  "image.name": "ghcr.io/kartavya37/s16-cicd-calculator:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef,ghcr.io/kartavya37/s16-cicd-calculator:latest"
+}
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)] ⭐ Run Main Load the image and run a container smoke test
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Loaded image: ghcr.io/kartavya37/s16-cicd-calculator:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Loaded image: ghcr.io/kartavya37/s16-cicd-calculator:latest
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | IMAGE                                                                             ID             DISK USAGE   CONTENT SIZE   EXTRA
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | ghcr.io/kartavya37/s16-cicd-calculator:1.0.0                                      2385aaf35bff        212MB         45.6MB        
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | ghcr.io/kartavya37/s16-cicd-calculator:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef   633596229674        212MB         45.6MB        
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | ghcr.io/kartavya37/s16-cicd-calculator:latest                                     633596229674        212MB         45.6MB        
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | b1a7649a247a0b81731d22a95f12551ceb057ffa0723bcd5f14bfcfd95f4f563
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | {"status":"healthy"}
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | {"a":6.0,"b":7.0,"operation":"multiply","result":42.0}
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | 
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | s16-smoke
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ✅  Success - Main Load the image and run a container smoke test [2.749683125s]
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)] ⭐ Run Main Upload image tar (artifact for the CD job)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker cp src=/Users/kp/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | (node:614) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | With the provided path, there will be 1 file uploaded
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Artifact name is valid!
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Root directory input is valid!
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Beginning upload of artifact content to blob storage
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | (node:614) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Uploaded bytes 8388608
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Uploaded bytes 16777216
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Uploaded bytes 25165824
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Uploaded bytes 33554432
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Uploaded bytes 41943040
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Uploaded bytes 45147672
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Finished uploading artifact content to blob storage!
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | SHA256 digest of uploaded artifact zip is f193cc65f5d5acdef221a520878c1a6a106b235909b2b96533b210f128503187
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Finalizing artifact upload
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Artifact docker-image.zip successfully finalized. Artifact ID 3572604477
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Artifact docker-image has been successfully uploaded! Final size is 45147672 bytes. Artifact ID is 3572604477
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Artifact download URL: https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3572604477
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ✅  Success - Main Upload image tar (artifact for the CD job) [1.562810333s]
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  ::set-output:: artifact-id=3572604477
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  ::set-output:: artifact-digest=f193cc65f5d5acdef221a520878c1a6a106b235909b2b96533b210f128503187
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  ::set-output:: artifact-url=https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3572604477
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)] ⭐ Run Post Build image and export it as a tar file
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/docker-build-push-action@v7/dist/index.cjs] user= workdir=
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Generating build summary
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | exporting build record to /tmp/docker-actions-toolkit-RlrJMi/export
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | [command]/usr/bin/docker buildx history export --builder default --output /tmp/docker-actions-toolkit-RlrJMi/export/kartavya37~DevOps-Assignment~QY7U8O.dockerbuild qy7u8owf1hr7fp8o9bss1xf7e --finalize
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Build record written to /tmp/docker-actions-toolkit-RlrJMi/export/kartavya37~DevOps-Assignment~QY7U8O.dockerbuild (13.92 KB)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | Writing summary
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Removing temp folder /tmp/docker-actions-toolkit-zD5u1u
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Post cache
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | State not set
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ✅  Success - Post Build image and export it as a tar file [437.198291ms]
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ⚙  Summary - <h2>Docker Build summary</h2>
+<p>The following table provides a brief summary of your build.<br>
+For a detailed look at the build, including timing, dependencies, results, logs, traces, and other information, consider enabling the export of the build record so you can import it into Docker Desktop's Builds view. <a href="https://www.docker.com/blog/new-beta-feature-deep-dive-into-github-actions-docker-builds-with-docker-desktop/?utm_source=github&utm_medium=actions">Learn more</a></p><p>Find this useful? <a href="https://docs.docker.com/feedback/gha-build-summary">Let us know</a></p><p><table><tr><th>ID</th><th>Name</th><th>Status</th><th>Cached</th><th>Duration</th></tr><tr><td><code>QY7U8O</code></td><td><strong>&#x43;&#x49;&#x2d;&#x43;&#x44;&#x2d;&#x26;&#x2d;&#x47;&#x69;&#x74;&#x48;&#x75;&#x62;&#x2d;&#x41;&#x63;&#x74;&#x69;&#x6f;&#x6e;&#x73;</strong></td><td>:white_check_mark: completed</td><td>45%</td><td>0s</td></tr></table>
+</p><details><summary><strong>Build inputs</strong></summary><pre lang="yaml"><code>build-args:
+  - APP_VERSION=1.0.1
+  - GIT_SHA=3ba758e0669b9efc0a1ecd4b57040d1310aa1eef
+context: CI-CD-&-GitHub-Actions
+labels:
+  - org.opencontainers.image.source=https://github.com/kartavya37/DevOps-Assignment
+  - org.opencontainers.image.revision=3ba758e0669b9efc0a1ecd4b57040d1310aa1eef
+outputs:
+  - type=docker,dest=/tmp/image.tar
+tags:
+  - ghcr.io/kartavya37/s16-cicd-calculator:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef
+  - ghcr.io/kartavya37/s16-cicd-calculator:latest
+</code></pre>
+</details><hr>
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)] ⭐ Run Post Set up Docker Buildx
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/docker-setup-buildx-action@v4/dist/index.cjs] user= workdir=
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Cleaning up certificates
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::group::Post cache
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   | State not set
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ❓  ::endgroup::
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ✅  Success - Post Set up Docker Buildx [141.237333ms]
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)] ⭐ Run Complete job
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)] Cleaning up container for job CI 4 - Docker build (push to GHCR on main)
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)]   ✅  Success - Complete job
+[S16 CI/CD Pipeline/CI 4 - Docker build (push to GHCR on main)] 🏁  Job succeeded
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ] ⭐ Run Set up job
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   ✅  Success - Set up job
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   ☁  git clone 'https://github.com/helm/kind-action' # ref=v1.15.1
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ] ⭐ Run Main Checkout source code
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   ✅  Success - Main Checkout source code [725.606416ms]
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ] ⭐ Run Main Download image tar (artifact from CI)
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   🐳  docker cp src=/Users/kp/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | Downloading single artifact
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | (node:32) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | Preparing to download the following artifacts:
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | - docker-image (ID: 3572604477, Size: 96, Expected Digest: undefined)
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | Redirecting to blob download url: http://0.0.0.0:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | Starting download of artifact to: /tmp
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | (node:32) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | SHA256 digest of downloaded artifact is f193cc65f5d5acdef221a520878c1a6a106b235909b2b96533b210f128503187
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | Artifact download completed successfully.
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | Total of 1 artifact(s) downloaded
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | Download artifact has finished successfully
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   ✅  Success - Main Download image tar (artifact from CI) [942.122209ms]
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   ⚙  ::set-output:: download-path=/tmp
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ] ⭐ Run Main Render manifests with the new image tag
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=CI-CD-&-GitHub-Actions
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | 21:          image: ghcr.io/kartavya37/s16-cicd-calculator:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   | -rw-r--r-- 1 root root 45566976 Oct  7 12:22 /tmp/image.tar
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   ✅  Success - Main Render manifests with the new image tag [67.468542ms]
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ] ⭐ Run Complete job
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ] Cleaning up container for job CD - Deploy to Kubernetes (kind)
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ]   ✅  Success - Complete job
+[S16 CI/CD Pipeline/CD - Deploy to Kubernetes (kind)          ] 🏁  Job succeeded
