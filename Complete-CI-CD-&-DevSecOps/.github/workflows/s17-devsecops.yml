@@ -1,0 +1,403 @@
+# Session 17: Complete CI/CD + DevSecOps pipeline
+#
+# Flow (one job per stage, each job "needs" the previous one):
+#   Build -> Unit Test -> SAST -> SCA -> Secret Scan -> Docker Build
+#         -> Container Image Scan -> Security Gate -> Push Image -> Deploy to Kubernetes
+#
+# The scan jobs always write a JSON report and upload it as an artifact.
+# The Security Gate job reads all reports and stops the pipeline on HIGH/CRITICAL findings.
+#
+# GitHub runs only the copy of this file in .github/workflows/ at the repository root.
+# The copy in "Complete-CI-CD-&-DevSecOps/.github/workflows/" is identical and is part of the deliverable.
+# Steps with "if: ${{ !env.ACT }}" do not run under nektos/act (local test): GHCR push and kind.
+# The artifact actions stay on v4 because the act artifact server supports only the v4 protocol.
+
+name: "S17 DevSecOps Pipeline"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Complete-CI-CD-&-DevSecOps/**"
+      - ".github/workflows/s17-devsecops.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "Complete-CI-CD-&-DevSecOps/**"
+      - ".github/workflows/s17-devsecops.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: s17-devsecops-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  APP_DIR: "Complete-CI-CD-&-DevSecOps"
+  IMAGE_NAME: ghcr.io/kartavya37/s17-devsecops-app
+  PYTHON_VERSION: "3.13"
+  GITLEAKS_VERSION: "8.30.1"
+
+defaults:
+  run:
+    shell: bash
+    working-directory: "Complete-CI-CD-&-DevSecOps"
+
+jobs:
+  # 1 ------------------------------------------------------------------
+  build:
+    name: "1. Build"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install runtime dependencies
+        run: pip install -r requirements.txt
+
+      - name: Compile the application and import it
+        run: |
+          python -m compileall -q app
+          python -c "from app.app import app; print('Routes:', sorted(r.rule for r in app.url_map.iter_rules()))"
+
+  # 2 ------------------------------------------------------------------
+  unit-test:
+    name: "2. Unit Test"
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run unit tests (coverage must be 80% or more)
+        run: |
+          mkdir -p reports
+          python -m pytest -v --junitxml=reports/junit.xml \
+            --cov=app --cov-report=term-missing --cov-report=xml:reports/coverage.xml \
+            --cov-fail-under=80
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-report
+          path: "Complete-CI-CD-&-DevSecOps/reports/"
+
+  # 3 ------------------------------------------------------------------
+  sast:
+    name: "3. SAST (Bandit)"
+    needs: unit-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install Bandit
+        run: pip install bandit==1.9.4
+
+      - name: Scan the source code
+        run: |
+          mkdir -p reports
+          bandit -c security/bandit.yaml -r app -f json -o reports/bandit.json --exit-zero
+          bandit -c security/bandit.yaml -r app -f screen --exit-zero
+
+      - name: Upload SAST report
+        uses: actions/upload-artifact@v4
+        with:
+          name: sast-report
+          path: "Complete-CI-CD-&-DevSecOps/reports/bandit.json"
+
+  # 4 ------------------------------------------------------------------
+  sca:
+    name: "4. SCA (pip-audit + Trivy fs)"
+    needs: sast
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Audit the Python dependencies (pip-audit)
+        run: |
+          pip install pip-audit==2.10.1
+          mkdir -p reports
+          pip-audit -r requirements.txt --format json --output reports/pip-audit.json \
+            || echo "pip-audit found vulnerabilities. The security gate decides."
+          pip-audit -r requirements.txt --format columns || true
+
+      - name: Scan the dependency files (Trivy fs)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          version: v0.75.0
+          scan-type: fs
+          scan-ref: "${{ env.APP_DIR }}/requirements.txt"
+          scanners: vuln
+          format: json
+          output: "${{ env.APP_DIR }}/reports/trivy-fs.json"
+          trivyignores: "${{ env.APP_DIR }}/security/.trivyignore"
+          exit-code: "0"
+          hide-progress: true
+
+      - name: Show the Trivy fs result
+        run: python3 -c "import json; r=json.load(open('reports/trivy-fs.json')).get('Results') or []; print('Trivy fs vulnerabilities:', sum(len(x.get('Vulnerabilities') or []) for x in r))"
+
+      - name: Upload SCA reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: sca-report
+          path: |
+            Complete-CI-CD-&-DevSecOps/reports/pip-audit.json
+            Complete-CI-CD-&-DevSecOps/reports/trivy-fs.json
+
+  # 5 ------------------------------------------------------------------
+  secret-scan:
+    name: "5. Secret Scan (Gitleaks)"
+    needs: sca
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Install Gitleaks (checksum verified)
+        working-directory: ${{ runner.temp }}
+        run: |
+          case "${{ runner.arch }}" in ARM64) arch=arm64 ;; *) arch=x64 ;; esac
+          base="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}"
+          file="gitleaks_${GITLEAKS_VERSION}_linux_${arch}.tar.gz"
+          curl -fsSLO "$base/$file"
+          curl -fsSLO "$base/gitleaks_${GITLEAKS_VERSION}_checksums.txt"
+          grep " $file\$" "gitleaks_${GITLEAKS_VERSION}_checksums.txt" | sha256sum -c -
+          tar -xzf "$file" gitleaks
+          sudo install gitleaks /usr/local/bin/gitleaks
+          gitleaks version
+
+      - name: Scan this folder for secrets
+        # Only this assignment folder: demo Secret YAML in other folders must not fail this build.
+        run: |
+          mkdir -p reports
+          gitleaks dir . --config security/.gitleaks.toml --redact --no-banner \
+            --report-format json --report-path reports/gitleaks.json --exit-code 0 --verbose
+
+      - name: Upload secret scan report
+        uses: actions/upload-artifact@v4
+        with:
+          name: secret-scan-report
+          path: "Complete-CI-CD-&-DevSecOps/reports/gitleaks.json"
+
+  # 6 ------------------------------------------------------------------
+  docker-build:
+    name: "6. Docker Build"
+    needs: secret-scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+        with:
+          # Under act, use the local Docker engine (it has the base image) to avoid Docker Hub pull limits.
+          driver: ${{ env.ACT && 'docker' || 'docker-container' }}
+
+      - name: Build the image and export it as a tar file
+        uses: docker/build-push-action@v7
+        env:
+          DOCKER_BUILD_RECORD_UPLOAD: ${{ env.ACT && 'false' || 'true' }}
+        with:
+          context: "${{ env.APP_DIR }}"
+          build-args: |
+            APP_VERSION=2.0.${{ github.run_number }}
+            GIT_SHA=${{ github.sha }}
+          tags: |
+            ${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.IMAGE_NAME }}:latest
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          outputs: type=docker,dest=${{ runner.temp }}/image.tar
+
+      - name: Upload the image tar (the same image goes to scan, push and deploy)
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: ${{ runner.temp }}/image.tar
+          retention-days: 1
+
+  # 7 ------------------------------------------------------------------
+  image-scan:
+    name: "7. Container Image Scan (Trivy)"
+    needs: docker-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Download the image tar
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: ${{ runner.temp }}
+
+      - name: Create the reports folder
+        run: mkdir -p reports
+
+      - name: Scan the image (Trivy)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          version: v0.75.0
+          scan-type: image
+          input: ${{ runner.temp }}/image.tar
+          scanners: vuln,secret
+          ignore-unfixed: true
+          format: json
+          output: "${{ env.APP_DIR }}/reports/trivy-image.json"
+          trivyignores: "${{ env.APP_DIR }}/security/.trivyignore"
+          exit-code: "0"
+          hide-progress: true
+
+      - name: Show the scan result as a table
+        run: trivy convert --format table reports/trivy-image.json
+
+      - name: Upload image scan report
+        uses: actions/upload-artifact@v4
+        with:
+          name: image-scan-report
+          path: "Complete-CI-CD-&-DevSecOps/reports/trivy-image.json"
+
+  # 8 ------------------------------------------------------------------
+  security-gate:
+    name: "8. Security Gate"
+    needs: image-scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Download all scan reports
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-report"
+          path: "${{ env.APP_DIR }}/reports"
+          merge-multiple: true
+
+      - name: Apply the security policy
+        run: python3 security/security_gate.py reports
+
+  # 9 ------------------------------------------------------------------
+  push-image:
+    name: "9. Push Image (GHCR)"
+    needs: security-gate
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Download the scanned image tar
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: ${{ runner.temp }}
+
+      - name: Load the image
+        working-directory: ${{ runner.temp }}
+        run: |
+          docker load --input image.tar
+          docker image ls "${IMAGE_NAME}"
+
+      - name: Log in to GitHub Container Registry
+        if: ${{ !env.ACT }}
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push the image
+        if: ${{ !env.ACT }}
+        working-directory: ${{ runner.temp }}
+        run: |
+          docker push "${IMAGE_NAME}:${{ github.sha }}"
+          docker push "${IMAGE_NAME}:latest"
+          echo "Pushed \`${IMAGE_NAME}:${{ github.sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+
+  # 10 -----------------------------------------------------------------
+  deploy:
+    name: "10. Deploy to Kubernetes (kind)"
+    needs: push-image
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7
+
+      - name: Download the scanned image tar
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: ${{ runner.temp }}
+
+      - name: Show the manifests and the image to deploy
+        run: |
+          grep -n "image:" k8s/deployment.yaml
+          echo "Deploy image: ${IMAGE_NAME}:${{ github.sha }}"
+          ls -l "${{ runner.temp }}/image.tar"
+
+      # GitHub runners cannot reach a private cluster, so the job creates a temporary kind cluster.
+      - name: Create a temporary kind cluster
+        if: ${{ !env.ACT }}
+        uses: helm/kind-action@v1.15.1
+        with:
+          cluster_name: s17-devsecops
+
+      - name: Load the image into kind
+        if: ${{ !env.ACT }}
+        run: kind load image-archive "${{ runner.temp }}/image.tar" --name s17-devsecops
+
+      - name: Deploy and wait for the rollout
+        if: ${{ !env.ACT }}
+        run: |
+          kubectl apply -f k8s/namespace.yaml
+          kubectl apply -f k8s/deployment.yaml -f k8s/service.yaml
+          kubectl -n s17-devsecops set image deployment/devsecops-app app="${IMAGE_NAME}:${{ github.sha }}"
+          kubectl -n s17-devsecops rollout status deployment/devsecops-app --timeout=120s
+          kubectl -n s17-devsecops get deploy,rs,pods,svc -o wide
+
+      - name: Smoke test the deployment
+        if: ${{ !env.ACT }}
+        run: |
+          kubectl -n s17-devsecops port-forward svc/devsecops-app 8080:80 > /tmp/pf.log 2>&1 &
+          sleep 5
+          curl -fsS http://localhost:8080/health; echo
+          curl -fsS http://localhost:8080/api/status; echo
+          curl -fsSI http://localhost:8080/ | grep -iE "^(HTTP|x-content-type-options|x-frame-options)"
+
+      - name: Show debug information on failure
+        if: ${{ failure() && !env.ACT }}
+        run: |
+          kubectl -n s17-devsecops describe pods || true
+          kubectl -n s17-devsecops logs -l app=devsecops-app --tail=50 || true

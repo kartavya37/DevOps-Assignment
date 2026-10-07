@@ -1,0 +1,17 @@
+# Gitleaks (secret scan) configuration.
+# Run: gitleaks dir . --config security/.gitleaks.toml --redact
+# The pipeline scans only this assignment folder, so demo Secret YAML files in other folders do not fail the build.
+
+title = "Session 17 DevSecOps secret scan"
+
+# Use all default gitleaks rules (cloud keys, tokens, private keys, passwords in URLs, ...).
+[extend]
+useDefault = true
+
+# Paths that cannot hold a real secret. Keep this list short. Every entry is a risk.
+[[allowlists]]
+description = "Binary screenshots and the scan reports that the pipeline writes"
+paths = [
+  '''(^|/)screenshots/.*\.png$''',
+  '''(^|/)reports/''',
+]

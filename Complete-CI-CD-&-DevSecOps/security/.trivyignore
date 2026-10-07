@@ -1,0 +1,6 @@
+# Trivy ignore file (used by the SCA "trivy fs" scan and the container image scan).
+#
+# Add one vulnerability ID per line ONLY when the risk is accepted, with a reason and an expiry date:
+#   CVE-2099-12345  exp:2026-12-31   # reason: code path not reachable, fix not released yet
+#
+# This file is empty on purpose: the current image has no HIGH or CRITICAL finding to accept.

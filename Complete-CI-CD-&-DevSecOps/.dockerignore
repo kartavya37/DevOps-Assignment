@@ -1,0 +1,13 @@
+.git
+.github
+__pycache__/
+.pytest_cache/
+reports/
+build/
+screenshots/
+evidence/
+security/
+k8s/
+tests/
+*.md
+image.tar

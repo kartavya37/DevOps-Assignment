@@ -1,0 +1,1764 @@
+# Local pipeline run with act (nektos/act 0.2.89), 2026-10-07. ANSI colour codes removed.
+# Directory: repository root
+# Command:   act push -W .github/workflows/s17-devsecops.yml -P ubuntu-latest=catthehacker/ubuntu:act-latest --container-architecture linux/arm64 --artifact-server-addr 0.0.0.0 --cache-server-addr 0.0.0.0 --cache-server-port 34568 --pull=false --action-offline-mode --artifact-server-path <temporary folder>
+#
+time="2026-10-07T17:48:15+05:30" level=info msg="Using docker host 'unix:///var/run/docker.sock', and daemon socket 'unix:///var/run/docker.sock'"
+time="2026-10-07T17:48:15+05:30" level=info msg="Start server on http://0.0.0.0:34567"
+[S17 DevSecOps Pipeline/1. Build] ⭐ Run Set up job
+[S17 DevSecOps Pipeline/1. Build] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S17 DevSecOps Pipeline/1. Build]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S17 DevSecOps Pipeline/1. Build]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/1. Build]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/1. Build]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S17 DevSecOps Pipeline/1. Build]   ✅  Success - Set up job
+[S17 DevSecOps Pipeline/1. Build]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v7
+[S17 DevSecOps Pipeline/1. Build] ⭐ Run Main Checkout source code
+[S17 DevSecOps Pipeline/1. Build]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S17 DevSecOps Pipeline/1. Build]   ✅  Success - Main Checkout source code [1.854826292s]
+[S17 DevSecOps Pipeline/1. Build] ⭐ Run Main Set up Python
+[S17 DevSecOps Pipeline/1. Build]   🐳  docker cp src=/Users/kp/.cache/act/actions-setup-python@v7/ dst=/var/run/act/actions/actions-setup-python@v7/
+[S17 DevSecOps Pipeline/1. Build]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/setup/index.js] user= workdir=
+[S17 DevSecOps Pipeline/1. Build]   ❓  ::group::Installed versions
+[S17 DevSecOps Pipeline/1. Build]   | Successfully set up CPython (3.13.16)
+[S17 DevSecOps Pipeline/1. Build]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/1. Build]   ❓ add-matcher /run/act/actions/actions-setup-python@v7/.github/python.json
+[S17 DevSecOps Pipeline/1. Build]   ✅  Success - Main Set up Python [961.911792ms]
+[S17 DevSecOps Pipeline/1. Build]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/1. Build]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.13.16/arm64/lib/pkgconfig
+[S17 DevSecOps Pipeline/1. Build]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/1. Build]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/1. Build]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/1. Build]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.13.16/arm64/lib
+[S17 DevSecOps Pipeline/1. Build]   ⚙  ::set-output:: python-version=3.13.16
+[S17 DevSecOps Pipeline/1. Build]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.13.16/arm64/bin/python
+[S17 DevSecOps Pipeline/1. Build]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/1. Build]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/arm64/bin
+[S17 DevSecOps Pipeline/1. Build] ⭐ Run Main Install runtime dependencies
+[S17 DevSecOps Pipeline/1. Build]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/1. Build]   | Requirement already satisfied: Flask==3.1.3 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from -r requirements.txt (line 1)) (3.1.3)
+[S17 DevSecOps Pipeline/1. Build]   | Requirement already satisfied: gunicorn==26.2.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from -r requirements.txt (line 2)) (26.2.0)
+[S17 DevSecOps Pipeline/1. Build]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r requirements.txt (line 1)) (1.9.0)
+[S17 DevSecOps Pipeline/1. Build]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r requirements.txt (line 1)) (8.5.0)
+[S17 DevSecOps Pipeline/1. Build]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r requirements.txt (line 1)) (2.2.0)
+[S17 DevSecOps Pipeline/1. Build]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r requirements.txt (line 1)) (3.1.6)
+[S17 DevSecOps Pipeline/1. Build]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r requirements.txt (line 1)) (3.0.4)
+[S17 DevSecOps Pipeline/1. Build]   | Requirement already satisfied: werkzeug>=3.1.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r requirements.txt (line 1)) (3.1.9)
+[S17 DevSecOps Pipeline/1. Build]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[S17 DevSecOps Pipeline/1. Build]   ✅  Success - Main Install runtime dependencies [487.340834ms]
+[S17 DevSecOps Pipeline/1. Build] ⭐ Run Main Compile the application and import it
+[S17 DevSecOps Pipeline/1. Build]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/1. Build]   | Routes: ['/', '/api/add', '/api/calculate', '/api/greet/<name>', '/api/pipeline/run', '/api/status', '/health', '/static/<path:filename>']
+[S17 DevSecOps Pipeline/1. Build]   ✅  Success - Main Compile the application and import it [220.139125ms]
+[S17 DevSecOps Pipeline/1. Build] ⭐ Run Post Set up Python
+[S17 DevSecOps Pipeline/1. Build]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/cache-save/index.js] user= workdir=
+[S17 DevSecOps Pipeline/1. Build]   ✅  Success - Post Set up Python [156.9905ms]
+[S17 DevSecOps Pipeline/1. Build] ⭐ Run Complete job
+[S17 DevSecOps Pipeline/1. Build] Cleaning up container for job 1. Build
+[S17 DevSecOps Pipeline/1. Build]   ✅  Success - Complete job
+[S17 DevSecOps Pipeline/1. Build] 🏁  Job succeeded
+[S17 DevSecOps Pipeline/2. Unit Test] ⭐ Run Set up job
+[S17 DevSecOps Pipeline/2. Unit Test] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S17 DevSecOps Pipeline/2. Unit Test]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S17 DevSecOps Pipeline/2. Unit Test]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/2. Unit Test]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/2. Unit Test]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S17 DevSecOps Pipeline/2. Unit Test]   ✅  Success - Set up job
+[S17 DevSecOps Pipeline/2. Unit Test]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v7
+[S17 DevSecOps Pipeline/2. Unit Test]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[S17 DevSecOps Pipeline/2. Unit Test] ⭐ Run Main Checkout source code
+[S17 DevSecOps Pipeline/2. Unit Test]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S17 DevSecOps Pipeline/2. Unit Test]   ✅  Success - Main Checkout source code [2.095282875s]
+[S17 DevSecOps Pipeline/2. Unit Test] ⭐ Run Main Set up Python
+[S17 DevSecOps Pipeline/2. Unit Test]   🐳  docker cp src=/Users/kp/.cache/act/actions-setup-python@v7/ dst=/var/run/act/actions/actions-setup-python@v7/
+[S17 DevSecOps Pipeline/2. Unit Test]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/setup/index.js] user= workdir=
+[S17 DevSecOps Pipeline/2. Unit Test]   ❓  ::group::Installed versions
+[S17 DevSecOps Pipeline/2. Unit Test]   | Successfully set up CPython (3.13.16)
+[S17 DevSecOps Pipeline/2. Unit Test]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/2. Unit Test]   ❓ add-matcher /run/act/actions/actions-setup-python@v7/.github/python.json
+[S17 DevSecOps Pipeline/2. Unit Test]   ✅  Success - Main Set up Python [961.682084ms]
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.13.16/arm64/lib
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.13.16/arm64/lib/pkgconfig
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::set-output:: python-version=3.13.16
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.13.16/arm64/bin/python
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/arm64/bin
+[S17 DevSecOps Pipeline/2. Unit Test] ⭐ Run Main Install dependencies
+[S17 DevSecOps Pipeline/2. Unit Test]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: Flask==3.1.3 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from -r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/requirements.txt (line 1)) (3.1.3)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: gunicorn==26.2.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from -r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/requirements.txt (line 2)) (26.2.0)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: pytest==9.1.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 2)) (9.1.1)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: pytest-cov==7.1.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from -r requirements-dev.txt (line 3)) (7.1.0)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: blinker>=1.9.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/requirements.txt (line 1)) (1.9.0)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: click>=8.1.3 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/requirements.txt (line 1)) (8.5.0)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: itsdangerous>=2.2.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/requirements.txt (line 1)) (2.2.0)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: jinja2>=3.1.2 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/requirements.txt (line 1)) (3.1.6)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/requirements.txt (line 1)) (3.0.4)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: werkzeug>=3.1.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from Flask==3.1.3->-r /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/requirements.txt (line 1)) (3.1.9)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: iniconfig>=1.0.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.3.1)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: packaging>=22 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (26.3)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: pluggy<2,>=1.5 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (1.6.0)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: pygments>=2.7.2 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pytest==9.1.1->-r requirements-dev.txt (line 2)) (2.21.0)
+[S17 DevSecOps Pipeline/2. Unit Test]   | Requirement already satisfied: coverage>=7.10.6 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r requirements-dev.txt (line 3)) (7.16.2)
+[S17 DevSecOps Pipeline/2. Unit Test]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[S17 DevSecOps Pipeline/2. Unit Test]   ✅  Success - Main Install dependencies [548.241209ms]
+[S17 DevSecOps Pipeline/2. Unit Test] ⭐ Run Main Run unit tests (coverage must be 80% or more)
+[S17 DevSecOps Pipeline/2. Unit Test]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/2. Unit Test]   | ============================= test session starts ==============================
+[S17 DevSecOps Pipeline/2. Unit Test]   | platform linux -- Python 3.13.16, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.13.16/arm64/bin/python
+[S17 DevSecOps Pipeline/2. Unit Test]   | cachedir: .pytest_cache
+[S17 DevSecOps Pipeline/2. Unit Test]   | rootdir: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/2. Unit Test]   | configfile: pytest.ini
+[S17 DevSecOps Pipeline/2. Unit Test]   | testpaths: tests
+[S17 DevSecOps Pipeline/2. Unit Test]   | plugins: platformdirs-4.12.3, cov-7.1.0
+[S17 DevSecOps Pipeline/2. Unit Test]   | collecting ... collected 15 items
+[S17 DevSecOps Pipeline/2. Unit Test]   | 
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_home PASSED                                      [  6%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_health PASSED                                    [ 13%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_security_headers PASSED                          [ 20%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_greet PASSED                                     [ 26%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_add_numbers PASSED                               [ 33%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_add_numbers_missing_fields PASSED                [ 40%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_add_numbers_no_body PASSED                       [ 46%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_calculator_multiply PASSED                       [ 53%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_calculator_divide_by_zero PASSED                 [ 60%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_calculator_unknown_operation PASSED              [ 66%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_calculator_power_limit PASSED                    [ 73%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_status PASSED                                    [ 80%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_pipeline_run_all_pass PASSED                     [ 86%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_pipeline_run_all_fail PASSED                     [ 93%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | tests/test_app.py::test_not_found PASSED                                 [100%]
+[S17 DevSecOps Pipeline/2. Unit Test]   | 
+[S17 DevSecOps Pipeline/2. Unit Test]   | - generated xml file: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/reports/junit.xml -
+[S17 DevSecOps Pipeline/2. Unit Test]   | ================================ tests coverage ================================
+[S17 DevSecOps Pipeline/2. Unit Test]   | _______________ coverage: platform linux, python 3.13.16-final-0 _______________
+[S17 DevSecOps Pipeline/2. Unit Test]   | 
+[S17 DevSecOps Pipeline/2. Unit Test]   | Name              Stmts   Miss  Cover   Missing
+[S17 DevSecOps Pipeline/2. Unit Test]   | -----------------------------------------------
+[S17 DevSecOps Pipeline/2. Unit Test]   | app/__init__.py       0      0   100%
+[S17 DevSecOps Pipeline/2. Unit Test]   | app/app.py          101      7    93%   115-116, 132, 176-177, 208, 213
+[S17 DevSecOps Pipeline/2. Unit Test]   | -----------------------------------------------
+[S17 DevSecOps Pipeline/2. Unit Test]   | TOTAL               101      7    93%
+[S17 DevSecOps Pipeline/2. Unit Test]   | Coverage XML written to file reports/coverage.xml
+[S17 DevSecOps Pipeline/2. Unit Test]   | Required test coverage of 80% reached. Total coverage: 93.07%
+[S17 DevSecOps Pipeline/2. Unit Test]   | ============================== 15 passed in 0.14s ==============================
+[S17 DevSecOps Pipeline/2. Unit Test]   ✅  Success - Main Run unit tests (coverage must be 80% or more) [459.259958ms]
+[S17 DevSecOps Pipeline/2. Unit Test] ⭐ Run Main Upload test report
+[S17 DevSecOps Pipeline/2. Unit Test]   🐳  docker cp src=/Users/kp/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[S17 DevSecOps Pipeline/2. Unit Test]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[S17 DevSecOps Pipeline/2. Unit Test]   | (node:75) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S17 DevSecOps Pipeline/2. Unit Test]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S17 DevSecOps Pipeline/2. Unit Test]   | With the provided path, there will be 2 files uploaded
+[S17 DevSecOps Pipeline/2. Unit Test]   | Artifact name is valid!
+[S17 DevSecOps Pipeline/2. Unit Test]   | Root directory input is valid!
+[S17 DevSecOps Pipeline/2. Unit Test]   | Beginning upload of artifact content to blob storage
+[S17 DevSecOps Pipeline/2. Unit Test]   | (node:75) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[S17 DevSecOps Pipeline/2. Unit Test]   | Uploaded bytes 1368
+[S17 DevSecOps Pipeline/2. Unit Test]   | Finished uploading artifact content to blob storage!
+[S17 DevSecOps Pipeline/2. Unit Test]   | SHA256 digest of uploaded artifact zip is ad6e0011f910daff888948d4018a718158d5cdf2391731adfdf2bdd31cd8ce9f
+[S17 DevSecOps Pipeline/2. Unit Test]   | Finalizing artifact upload
+[S17 DevSecOps Pipeline/2. Unit Test]   | Artifact unit-test-report.zip successfully finalized. Artifact ID 3167768447
+[S17 DevSecOps Pipeline/2. Unit Test]   | Artifact unit-test-report has been successfully uploaded! Final size is 1368 bytes. Artifact ID is 3167768447
+[S17 DevSecOps Pipeline/2. Unit Test]   | Artifact download URL: https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3167768447
+[S17 DevSecOps Pipeline/2. Unit Test]   ✅  Success - Main Upload test report [714.364542ms]
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::set-output:: artifact-id=3167768447
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::set-output:: artifact-digest=ad6e0011f910daff888948d4018a718158d5cdf2391731adfdf2bdd31cd8ce9f
+[S17 DevSecOps Pipeline/2. Unit Test]   ⚙  ::set-output:: artifact-url=https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3167768447
+[S17 DevSecOps Pipeline/2. Unit Test] ⭐ Run Post Set up Python
+[S17 DevSecOps Pipeline/2. Unit Test]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/cache-save/index.js] user= workdir=
+[S17 DevSecOps Pipeline/2. Unit Test]   ✅  Success - Post Set up Python [172.2425ms]
+[S17 DevSecOps Pipeline/2. Unit Test] ⭐ Run Complete job
+[S17 DevSecOps Pipeline/2. Unit Test] Cleaning up container for job 2. Unit Test
+[S17 DevSecOps Pipeline/2. Unit Test]   ✅  Success - Complete job
+[S17 DevSecOps Pipeline/2. Unit Test] 🏁  Job succeeded
+[S17 DevSecOps Pipeline/3. SAST (Bandit)] ⭐ Run Set up job
+[S17 DevSecOps Pipeline/3. SAST (Bandit)] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ✅  Success - Set up job
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v7
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[S17 DevSecOps Pipeline/3. SAST (Bandit)] ⭐ Run Main Checkout source code
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ✅  Success - Main Checkout source code [1.700359208s]
+[S17 DevSecOps Pipeline/3. SAST (Bandit)] ⭐ Run Main Set up Python
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   🐳  docker cp src=/Users/kp/.cache/act/actions-setup-python@v7/ dst=/var/run/act/actions/actions-setup-python@v7/
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/setup/index.js] user= workdir=
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ❓  ::group::Installed versions
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Successfully set up CPython (3.13.16)
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ❓ add-matcher /run/act/actions/actions-setup-python@v7/.github/python.json
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ✅  Success - Main Set up Python [907.108542ms]
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.13.16/arm64/lib/pkgconfig
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.13.16/arm64/lib
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::set-output:: python-version=3.13.16
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.13.16/arm64/bin/python
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/arm64/bin
+[S17 DevSecOps Pipeline/3. SAST (Bandit)] ⭐ Run Main Install Bandit
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Requirement already satisfied: bandit==1.9.4 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (1.9.4)
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Requirement already satisfied: PyYAML>=5.3.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from bandit==1.9.4) (6.0.3)
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Requirement already satisfied: stevedore>=1.20.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from bandit==1.9.4) (5.9.1)
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Requirement already satisfied: rich in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from bandit==1.9.4) (15.0.0)
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Requirement already satisfied: markdown-it-py>=2.2.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from rich->bandit==1.9.4) (4.2.0)
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from rich->bandit==1.9.4) (2.21.0)
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Requirement already satisfied: mdurl~=0.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from markdown-it-py>=2.2.0->rich->bandit==1.9.4) (0.1.2)
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ✅  Success - Main Install Bandit [548.333667ms]
+[S17 DevSecOps Pipeline/3. SAST (Bandit)] ⭐ Run Main Scan the source code
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | [main]	INFO	profile include tests: None
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | [main]	INFO	profile exclude tests: None
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | [main]	INFO	cli include tests: None
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | [main]	INFO	cli exclude tests: None
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | [json]	INFO	JSON output written to file: reports/bandit.json
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | [main]	INFO	profile include tests: None
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | [main]	INFO	profile exclude tests: None
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | [main]	INFO	cli include tests: None
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | [main]	INFO	cli exclude tests: None
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | [main]	INFO	using config: security/bandit.yaml
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | [main]	INFO	running on Python 3.13.16
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Run started:2026-10-07 12:18:36.023747+00:00
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Test results:
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 	No issues identified.
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Code scanned:
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 	Total lines of code: 158
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 	Total lines skipped (#nosec): 0
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Run metrics:
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 	Total issues (by severity):
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 		Undefined: 0
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 		Low: 0
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 		Medium: 0
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 		High: 0
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 	Total issues (by confidence):
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 		Undefined: 0
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 		Low: 0
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 		Medium: 0
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | 		High: 0
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Files skipped (0):
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ✅  Success - Main Scan the source code [490.329875ms]
+[S17 DevSecOps Pipeline/3. SAST (Bandit)] ⭐ Run Main Upload SAST report
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   🐳  docker cp src=/Users/kp/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | (node:74) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | With the provided path, there will be 1 file uploaded
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Artifact name is valid!
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Root directory input is valid!
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Beginning upload of artifact content to blob storage
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | (node:74) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Uploaded bytes 369
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Finished uploading artifact content to blob storage!
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | SHA256 digest of uploaded artifact zip is 090fe8c02ec1f3b905bbffe18b2e77c43ab4bca0400ea3f6aeed99d4a1bd8930
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Finalizing artifact upload
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Artifact sast-report.zip successfully finalized. Artifact ID 574075399
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Artifact sast-report has been successfully uploaded! Final size is 369 bytes. Artifact ID is 574075399
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   | Artifact download URL: https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/574075399
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ✅  Success - Main Upload SAST report [812.616ms]
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::set-output:: artifact-digest=090fe8c02ec1f3b905bbffe18b2e77c43ab4bca0400ea3f6aeed99d4a1bd8930
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::set-output:: artifact-url=https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/574075399
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ⚙  ::set-output:: artifact-id=574075399
+[S17 DevSecOps Pipeline/3. SAST (Bandit)] ⭐ Run Post Set up Python
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/cache-save/index.js] user= workdir=
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ✅  Success - Post Set up Python [141.636583ms]
+[S17 DevSecOps Pipeline/3. SAST (Bandit)] ⭐ Run Complete job
+[S17 DevSecOps Pipeline/3. SAST (Bandit)] Cleaning up container for job 3. SAST (Bandit)
+[S17 DevSecOps Pipeline/3. SAST (Bandit)]   ✅  Success - Complete job
+[S17 DevSecOps Pipeline/3. SAST (Bandit)] 🏁  Job succeeded
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Set up job
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Set up job
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ☁  git clone 'https://github.com/actions/setup-python' # ref=v7
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ☁  git clone 'https://github.com/aquasecurity/trivy-action' # ref=ed142fd0673e97e23eac54620cfb913e5ce36c25
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Pre Scan the dependency files (Trivy fs)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ☁  git clone 'https://github.com/aquasecurity/setup-trivy' # ref=3fb12ec12f41e471780db15c232d5dd185dcb514
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Pre Install Trivy
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ☁  git clone 'https://github.com/actions/cache' # ref=9255dc7a253b0ccc959486e2bca901246202afeb
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ☁  git clone 'https://github.com/actions/checkout' # ref=8e8c483db84b4bee98b60c0593521ed34d9990e8
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ☁  git clone 'https://github.com/actions/cache' # ref=9255dc7a253b0ccc959486e2bca901246202afeb
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Pre Install Trivy [4.082831208s]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ☁  git clone 'https://github.com/actions/cache' # ref=27d5ce7f107fe9357f9df03efb73ab90386fccae
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Pre Scan the dependency files (Trivy fs) [6.314098625s]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Checkout source code
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Checkout source code [1.79206675s]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Set up Python
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/Users/kp/.cache/act/actions-setup-python@v7/ dst=/var/run/act/actions/actions-setup-python@v7/
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/setup/index.js] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::group::Installed versions
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Successfully set up CPython (3.13.16)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓ add-matcher /run/act/actions/actions-setup-python@v7/.github/python.json
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Set up Python [977.643875ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-env:: PKG_CONFIG_PATH=/opt/hostedtoolcache/Python/3.13.16/arm64/lib/pkgconfig
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-env:: Python_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-env:: Python2_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-env:: Python3_ROOT_DIR=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-env:: LD_LIBRARY_PATH=/opt/hostedtoolcache/Python/3.13.16/arm64/lib
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-env:: pythonLocation=/opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: python-version=3.13.16
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: python-path=/opt/hostedtoolcache/Python/3.13.16/arm64/bin/python
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/arm64
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::add-path:: /opt/hostedtoolcache/Python/3.13.16/arm64/bin
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Audit the Python dependencies (pip-audit)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: pip-audit==2.10.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (2.10.1)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: CacheControl>=0.13.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from CacheControl[filecache]>=0.13.0->pip-audit==2.10.1) (0.14.4)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: cyclonedx-python-lib<12,>=5 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pip-audit==2.10.1) (11.12.0)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: packaging>=23.0.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pip-audit==2.10.1) (26.3)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: pip-api>=0.0.28 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pip-audit==2.10.1) (0.0.35)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: pip-requirements-parser>=32.0.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pip-audit==2.10.1) (32.0.1)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: requests>=2.31.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pip-audit==2.10.1) (2.34.2)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: rich>=12.4 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pip-audit==2.10.1) (15.0.0)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: tomli>=2.2.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pip-audit==2.10.1) (2.4.1)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: tomli-w>=1.2.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pip-audit==2.10.1) (1.2.0)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: platformdirs>=4.2.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pip-audit==2.10.1) (4.12.3)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: license-expression<31,>=30 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (30.4.4)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: packageurl-python<2,>=0.11 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (0.17.6)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: py-serializable<3.0.0,>=2.1.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (2.1.0)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: sortedcontainers<3.0.0,>=2.4.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (2.4.0)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: boolean.py>=4.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from license-expression<31,>=30->cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (5.0)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: defusedxml<0.8.0,>=0.7.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from py-serializable<3.0.0,>=2.1.0->cyclonedx-python-lib<12,>=5->pip-audit==2.10.1) (0.7.1)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: msgpack<2.0.0,>=0.5.2 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from CacheControl>=0.13.0->CacheControl[filecache]>=0.13.0->pip-audit==2.10.1) (1.2.3)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: filelock>=3.8.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from CacheControl[filecache]>=0.13.0->pip-audit==2.10.1) (4.0.12)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pip-api>=0.0.28->pip-audit==2.10.1) (26.2.1)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: pyparsing in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from pip-requirements-parser>=32.0.0->pip-audit==2.10.1) (3.3.3)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: charset_normalizer<4,>=2 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from requests>=2.31.0->pip-audit==2.10.1) (3.5.2)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: idna<4,>=2.5 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from requests>=2.31.0->pip-audit==2.10.1) (3.20)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: urllib3<3,>=1.26 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from requests>=2.31.0->pip-audit==2.10.1) (2.8.0)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: certifi>=2023.5.7 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from requests>=2.31.0->pip-audit==2.10.1) (2026.7.22)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: markdown-it-py>=2.2.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from rich>=12.4->pip-audit==2.10.1) (4.2.0)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from rich>=12.4->pip-audit==2.10.1) (2.21.0)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Requirement already satisfied: mdurl~=0.1 in /opt/hostedtoolcache/Python/3.13.16/arm64/lib/python3.13/site-packages (from markdown-it-py>=2.2.0->rich>=12.4->pip-audit==2.10.1) (0.1.2)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | No known vulnerabilities found
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | No known vulnerabilities found
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Audit the Python dependencies (pip-audit) [7.373045709s]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Scan the dependency files (Trivy fs)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/Users/kp/.cache/act/aquasecurity-trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25/ dst=/var/run/act/actions/aquasecurity-trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25/
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Install Trivy
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/Users/kp/.cache/act/aquasecurity-setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514/ dst=/var/run/act/actions/aquasecurity-setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514/
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Binary dir
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-0-composite-binary-dir.sh] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Binary dir [66.168125ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: dir=/root/.local/bin/trivy-bin
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Restore Trivy binary from cache
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/Users/kp/.cache/act/actions-cache-restore@9255dc7a253b0ccc959486e2bca901246202afeb/ dst=/var/run/act/actions/actions-cache-restore@9255dc7a253b0ccc959486e2bca901246202afeb/
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-cache-restore@9255dc7a253b0ccc959486e2bca901246202afeb/dist/restore-only/index.js] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ***
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Cache Size: ~41 MB (42628276 B)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/tar -xf /tmp/45cc9c13-1571-40c2-9f56-af6c8bb6fe1b/cache.tzst -P -C /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment --use-compress-program unzstd
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | /usr/bin/tar: Year/Devops/SST-Assignments/DevOps-Assignment: Not found in archive
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | /usr/bin/tar: Exiting with failure status due to previous errors
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🚧  ::warning::Failed to restore: "/usr/bin/tar" failed with error: The process '/usr/bin/tar' failed with exit code 2
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Cache not found for input keys: trivy-binary-v0.75.0-Linux-ARM64
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Restore Trivy binary from cache [1.619127833s]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: cache-primary-key=trivy-binary-v0.75.0-Linux-ARM64
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Checkout install script
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/Users/kp/.cache/act/actions-checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8/ dst=/var/run/act/actions/actions-checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8/
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8/dist/index.js] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓ add-matcher /run/act/actions/actions-checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8/dist/problem-matcher.json
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Syncing repository: aquasecurity/trivy
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::group::Getting Git version info
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Working directory is '/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/trivy'
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git version
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | git version 2.55.0
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ***
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Temporarily overriding HOME='/tmp/fb797131-8b29-4b4c-9af3-a629a7fde9ae' before making global git config changes
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Adding repository directory to the temporary git global config as a safe directory
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git config --global --add safe.directory /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/trivy
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::group::Initializing the repository
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git init /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/trivy
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint: Using 'master' as the name for the initial branch. This default branch name
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint: will change to "main" in Git 3.0. To configure the initial branch name
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint: to use in all of your new repositories, which will suppress this warning,
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint: call:
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint:
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint: 	git config --global init.defaultBranch <name>
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint:
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint: 'development'. The just-created branch can be renamed via this command:
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint:
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint: 	git branch -m <name>
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint:
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | hint: Disable this message with "git config set advice.defaultBranchName false"
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Initialized empty Git repository in /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/trivy/.git/
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git remote add origin https://github.com/aquasecurity/trivy
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::group::Disabling automatic garbage collection
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git config --local gc.auto 0
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::group::Setting up auth
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Removing SSH command configuration
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Removing HTTP extra header
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Removing includeIf entries pointing to credentials config files
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git config --file /tmp/git-credentials-3ebbefd1-e8d3-47bb-b3b0-6345dc8977b0.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git config --local includeIf.gitdir:/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/trivy/.git.path /tmp/git-credentials-3ebbefd1-e8d3-47bb-b3b0-6345dc8977b0.config
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git config --local includeIf.gitdir:/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/trivy/.git/worktrees/*.path /tmp/git-credentials-3ebbefd1-e8d3-47bb-b3b0-6345dc8977b0.config
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/trivy/.git.path /github/runner_temp/git-credentials-3ebbefd1-e8d3-47bb-b3b0-6345dc8977b0.config
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/trivy/.git/worktrees/*.path /github/runner_temp/git-credentials-3ebbefd1-e8d3-47bb-b3b0-6345dc8977b0.config
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::group::Fetching the repository
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --filter=blob:none --depth=1 origin 75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | From https://github.com/aquasecurity/trivy
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   |  * branch            75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a -> FETCH_HEAD
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::group::Determining the checkout info
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::group::Setting up sparse checkout
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git sparse-checkout set contrib
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::group::Checking out the ref
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git checkout --progress --force 75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Updating files:   3% (1/28)Updating files:   7% (2/28)Updating files:  10% (3/28)Updating files:  14% (4/28)Updating files:  17% (5/28)Updating files:  21% (6/28)Updating files:  25% (7/28)Updating files:  28% (8/28)Updating files:  32% (9/28)Updating files:  35% (10/28)Updating files:  39% (11/28)Updating files:  42% (12/28)Updating files:  46% (13/28)Updating files:  50% (14/28)Updating files:  53% (15/28)Updating files:  57% (16/28)Updating files:  60% (17/28)Updating files:  64% (18/28)Updating files:  67% (19/28)Updating files:  71% (20/28)Updating files:  75% (21/28)Updating files:  78% (22/28)Updating files:  82% (23/28)Updating files:  85% (24/28)Updating files:  89% (25/28)Updating files:  92% (26/28)Updating files:  96% (27/28)Updating files: 100% (28/28)Updating files: 100% (28/28), done.
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Note: switching to '75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a'.
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | 
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | You are in 'detached HEAD' state. You can look around, make experimental
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | changes and commit them, and you can discard any commits you make in this
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | state without impacting any branches by switching back to a branch.
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | 
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | If you want to create a new branch to retain commits you create, you may
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | do so (now or later) by using -c with the switch command. Example:
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | 
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   |   git switch -c <new-branch-name>
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | 
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Or undo this operation with:
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | 
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   |   git switch -
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | 
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Turn off this advice by setting config variable advice.detachedHead to false
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | 
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | HEAD is now at 75c4dc0 chore: add client option to install script (#9962)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/git log -1 --format=%H
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | 75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ❓  ::remove-matcher owner=checkout-git::
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Checkout install script [3.012717916s]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: commit=75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: ref=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Install Trivy
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-0-composite-4.sh] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | installing Trivy binary
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | aquasecurity/trivy info checking GitHub for tag 'v0.75.0'
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | aquasecurity/trivy info found version: 0.75.0 for v0.75.0/Linux/ARM64
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | aquasecurity/trivy info installed /root/.local/bin/trivy-bin/trivy
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Install Trivy [3.706720291s]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Add Trivy binary to $GITHUB_PATH
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-0-composite-5.sh] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Add Trivy binary to $GITHUB_PATH [93.223041ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::add-path:: /root/.local/bin/trivy-bin
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Save Trivy binary to cache
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/Users/kp/.cache/act/actions-cache-save@9255dc7a253b0ccc959486e2bca901246202afeb/ dst=/var/run/act/actions/actions-cache-save@9255dc7a253b0ccc959486e2bca901246202afeb/
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-cache-save@9255dc7a253b0ccc959486e2bca901246202afeb/dist/save-only/index.js] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment --files-from manifest.txt --use-compress-program zstdmt
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | /usr/bin/tar: /Users/kp/SST/3rd: Cannot open: No such file or directory
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | /usr/bin/tar: Error is not recoverable: exiting now
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🚧  ::warning::Failed to save: "/usr/bin/tar" failed with error: The process '/usr/bin/tar' failed with exit code 2
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🚧  ::warning::Cache save failed.
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Save Trivy binary to cache [1.55321225s]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Install Trivy [10.49721125s]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Get current date
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-date.sh] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Get current date [57.868292ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: date=2026-10-07
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Restore DB from cache
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/Users/kp/.cache/act/actions-cache@27d5ce7f107fe9357f9df03efb73ab90386fccae/ dst=/var/run/act/actions/actions-cache@27d5ce7f107fe9357f9df03efb73ab90386fccae/
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-cache@27d5ce7f107fe9357f9df03efb73ab90386fccae/dist/restore/index.js] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Cache not found for input keys: cache-trivy-2026-10-07, cache-trivy-
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Restore DB from cache [1.579778s]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Set GitHub Path
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-3.sh] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Set GitHub Path [68.359417ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::add-path:: /var/run/act/actions/aquasecurity-trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Clear Trivy Envs file
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-4.sh] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Clear Trivy Envs file [69.530375ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Set Trivy environment variables
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-5.sh] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Set Trivy environment variables [70.196834ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Run Trivy
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-6.sh] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Found ignorefile 'Complete-CI-CD-&-DevSecOps/security/.trivyignore':
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | # Trivy ignore file (used by the SCA "trivy fs" scan and the container image scan).
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | #
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | # Add one vulnerability ID per line ONLY when the risk is accepted, with a reason and an expiry date:
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | #   CVE-2099-12345  exp:2026-12-31   # reason: code path not reachable, fix not released yet
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | #
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | # This file is empty on purpose: the current image has no HIGH or CRITICAL finding to accept.
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Running Trivy with options: trivy fs Complete-CI-CD-&-DevSecOps/requirements.txt
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Run Trivy [8.637906333s]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Remove Trivy Envs file
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-7.sh] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Remove Trivy Envs file [111.751916ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Scan the dependency files (Trivy fs) [22.044392125s]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Show the Trivy fs result
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/4.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Trivy fs vulnerabilities: 0
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Show the Trivy fs result [157.668334ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Main Upload SCA reports
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/Users/kp/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | (node:530) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Multiple search paths detected. Calculating the least common ancestor of all paths
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | The least common ancestor is /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/reports. This will be the root directory of the artifact
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | With the provided path, there will be 2 files uploaded
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Artifact name is valid!
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Root directory input is valid!
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Beginning upload of artifact content to blob storage
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | (node:530) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Uploaded bytes 894
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Finished uploading artifact content to blob storage!
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | SHA256 digest of uploaded artifact zip is 1aa41dc4f52ef454bc0c1e1cf86654c1bf2fa418cee423b30a6dbb10c60f247a
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Finalizing artifact upload
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Artifact sca-report.zip successfully finalized. Artifact ID 3243087279
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Artifact sca-report has been successfully uploaded! Final size is 894 bytes. Artifact ID is 3243087279
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | Artifact download URL: https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3243087279
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Main Upload SCA reports [950.489875ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: artifact-id=3243087279
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: artifact-digest=1aa41dc4f52ef454bc0c1e1cf86654c1bf2fa418cee423b30a6dbb10c60f247a
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ⚙  ::set-output:: artifact-url=https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3243087279
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Post Scan the dependency files (Trivy fs)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/Users/kp/.cache/act/aquasecurity-trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25/ dst=/var/run/act/actions/aquasecurity-trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25/
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Post Restore DB from cache
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-cache@27d5ce7f107fe9357f9df03efb73ab90386fccae/dist/save/index.js] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment --files-from manifest.txt --use-compress-program zstdmt
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | /usr/bin/tar: /Users/kp/SST/3rd: Cannot open: No such file or directory
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   | /usr/bin/tar: Error is not recoverable: exiting now
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🚧  ::warning::Failed to save: "/usr/bin/tar" failed with error: The process '/usr/bin/tar' failed with exit code 2
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Post Restore DB from cache [139.110292ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Post Install Trivy
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker cp src=/Users/kp/.cache/act/aquasecurity-setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514/ dst=/var/run/act/actions/aquasecurity-setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514/
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Post Checkout install script
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8/dist/index.js] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Post Checkout install script [78.65025ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Post Install Trivy [149.203833ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Post Scan the dependency files (Trivy fs) [563.72ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Post Set up Python
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-setup-python@v7/dist/cache-save/index.js] user= workdir=
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Post Set up Python [139.84475ms]
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] ⭐ Run Complete job
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] Cleaning up container for job 4. SCA (pip-audit + Trivy fs)
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)]   ✅  Success - Complete job
+[S17 DevSecOps Pipeline/4. SCA (pip-audit + Trivy fs)] 🏁  Job succeeded
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ] ⭐ Run Set up job
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   ✅  Success - Set up job
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ] ⭐ Run Main Checkout source code
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   ✅  Success - Main Checkout source code [1.800193833s]
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ] ⭐ Run Main Install Gitleaks (checksum verified)
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/1.sh] user= workdir=/tmp
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | gitleaks_8.30.1_linux_arm64.tar.gz: OK
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | 8.30.1
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   ✅  Success - Main Install Gitleaks (checksum verified) [1.874453292s]
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ] ⭐ Run Main Scan this folder for secrets
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | 12:19PM INF scanned ~64007 bytes (64.01 KB) in 10ms
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | 12:19PM INF no leaks found
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   ✅  Success - Main Scan this folder for secrets [288.01875ms]
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ] ⭐ Run Main Upload secret scan report
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   🐳  docker cp src=/Users/kp/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | (node:87) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | With the provided path, there will be 1 file uploaded
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | Artifact name is valid!
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | Root directory input is valid!
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | Beginning upload of artifact content to blob storage
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | (node:87) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | Uploaded bytes 145
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | Finished uploading artifact content to blob storage!
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | SHA256 digest of uploaded artifact zip is 116d017d1641b16fe74d2377548eadc1d31d7e0f21ab77589c5dc2be2239d57f
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | Finalizing artifact upload
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | Artifact secret-scan-report.zip successfully finalized. Artifact ID 761529410
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | Artifact secret-scan-report has been successfully uploaded! Final size is 145 bytes. Artifact ID is 761529410
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   | Artifact download URL: https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/761529410
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   ✅  Success - Main Upload secret scan report [642.656708ms]
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   ⚙  ::set-output:: artifact-id=761529410
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   ⚙  ::set-output:: artifact-digest=116d017d1641b16fe74d2377548eadc1d31d7e0f21ab77589c5dc2be2239d57f
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   ⚙  ::set-output:: artifact-url=https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/761529410
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ] ⭐ Run Complete job
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ] Cleaning up container for job 5. Secret Scan (Gitleaks)
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ]   ✅  Success - Complete job
+[S17 DevSecOps Pipeline/5. Secret Scan (Gitleaks)    ] 🏁  Job succeeded
+[S17 DevSecOps Pipeline/6. Docker Build              ] ⭐ Run Set up job
+[S17 DevSecOps Pipeline/6. Docker Build              ] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ✅  Success - Set up job
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ☁  git clone 'https://github.com/docker/setup-buildx-action' # ref=v4
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ☁  git clone 'https://github.com/docker/build-push-action' # ref=v7
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[S17 DevSecOps Pipeline/6. Docker Build              ] ⭐ Run Main Checkout source code
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ✅  Success - Main Checkout source code [1.56828175s]
+[S17 DevSecOps Pipeline/6. Docker Build              ] ⭐ Run Main Set up Docker Buildx
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker cp src=/Users/kp/.cache/act/docker-setup-buildx-action@v4/ dst=/var/run/act/actions/docker-setup-buildx-action@v4/
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/docker-setup-buildx-action@v4/dist/index.cjs] user= workdir=
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Docker info
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | [command]/usr/bin/docker version
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Client:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Version:           29.7.2-1
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  API version:       1.55
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Go version:        go1.26.5
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Git commit:        a7dcaa6fdb6ed04aacbfdc76357fdae01605609e
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Built:             Fri Aug  7 10:40:54 2026
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  OS/Arch:           linux/arm64
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Context:           default
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Server: Docker Desktop 4.87.0 (236836)
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Engine:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Version:          29.7.2
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   API version:      1.55 (minimum version 1.40)
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Go version:       go1.26.5
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Git commit:       6a43e3d
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Built:            Wed Aug  5 18:28:35 2026
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   OS/Arch:          linux/arm64
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Experimental:     false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  containerd:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Version:          v2.2.5
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   GitCommit:        e53c7c1516c3b2bff98eb76f1f4117477e6f4e66
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  runc:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Version:          1.3.6
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   GitCommit:        v1.3.6-0-g491b69ba
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  docker-init:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Version:          0.19.0
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   GitCommit:        de40ad0
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | [command]/usr/bin/docker info
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Client:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Version:    29.7.2-1
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Context:    default
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Debug Mode: false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Plugins:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   buildx: Docker Buildx (Docker Inc.)
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     Version:  0.36.1-1
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   compose: Docker Compose (Docker Inc.)
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     Version:  5.4.0-2
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     Path:     /usr/libexec/docker/cli-plugins/docker-compose
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Server:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Containers: 25
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Running: 6
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Paused: 0
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Stopped: 19
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Images: 94
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Server Version: 29.7.2
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Storage Driver: overlayfs
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   driver-type: io.containerd.snapshotter.v1
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Logging Driver: json-file
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Cgroup Driver: cgroupfs
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Cgroup Version: 2
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Plugins:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Volume: local
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Network: bridge host ipvlan macvlan null overlay
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  CDI spec directories:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   /etc/cdi
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   /var/run/cdi
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Discovered Devices:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   cdi: docker.com/gpu=webgpu
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Swarm: inactive
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Runtimes: io.containerd.runc.v2 runc
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Default Runtime: runc
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Init Binary: docker-init
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  containerd version: e53c7c1516c3b2bff98eb76f1f4117477e6f4e66
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  runc version: v1.3.6-0-g491b69ba
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  init version: de40ad0
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Security Options:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   seccomp
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |    Profile: builtin
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   cgroupns
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Kernel Version: 7.0.12-linuxkit
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Operating System: Docker Desktop
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  OSType: linux
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Architecture: aarch64
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  CPUs: 15
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Total Memory: 11.67GiB
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Name: docker-desktop
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  ID: 9bd91c35-f158-4f23-93a7-e74dad678dac
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Docker Root Dir: /var/lib/docker
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Debug Mode: false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  HTTP Proxy: http.docker.internal:3128
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  HTTPS Proxy: http.docker.internal:3128
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  No Proxy: hubproxy.docker.internal
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Labels:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   com.docker.desktop.address=unix:///Users/kp/Library/Containers/com.docker.docker/Data/docker-cli.sock
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Experimental: false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Insecure Registries:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   hubproxy.docker.internal:5555
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   ::1/128
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   127.0.0.0/8
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Live Restore Enabled: false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Firewall Backend: iptables
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Buildx version
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | [command]/usr/bin/docker buildx version
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | github.com/docker/buildx 0.36.1-1 1d8dde89b8aba914e05e45366770736fea1fd690
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Booting builder
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | [command]/usr/bin/docker buildx inspect --bootstrap --builder default
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Name:   default
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Driver: docker
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Nodes:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Name:             default
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Endpoint:         default
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Status:           running
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | BuildKit version: v0.32.2
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Platforms:        linux/arm64, linux/amd64, linux/amd64/v2, linux/riscv64, linux/ppc64le, linux/s390x, linux/386
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Labels:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  org.mobyproject.buildkit.worker.containerd.namespace: moby
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  org.mobyproject.buildkit.worker.containerd.uuid:      901af005-849e-49c0-8694-c6cf43e5380c
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  org.mobyproject.buildkit.worker.executor:             containerd
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  org.mobyproject.buildkit.worker.hostname:             docker-desktop
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  org.mobyproject.buildkit.worker.moby.host-gateway-ip: 192.168.65.254
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  org.mobyproject.buildkit.worker.network:              host
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  org.mobyproject.buildkit.worker.selinux.enabled:      false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  org.mobyproject.buildkit.worker.snapshotter:          overlayfs
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Devices:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Name:                  docker.com/gpu=webgpu
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Automatically allowed: false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | GC Policy rule#0:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  All:            false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Filters:        type==source.local type==exec.cachemount type==source.git.checkout
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Keep Duration:  48h0m0s
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Max Used Space: 2.764GiB
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | GC Policy rule#1:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  All:            false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Keep Duration:  1440h0m0s
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Reserved Space: 20GiB
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | GC Policy rule#2:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  All:            false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Reserved Space: 20GiB
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | GC Policy rule#3:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  All:            true
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Reserved Space: 20GiB
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Inspect builder
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   "nodes": [
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "name": "default",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "endpoint": "default",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "status": "running",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "buildkit": "v0.32.2",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "platforms": "linux/arm64,linux/amd64,linux/amd64/v2,linux/riscv64,linux/ppc64le,linux/s390x,linux/386",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "features": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "Automatically load images to the Docker Engine image store": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "Cache export": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "Direct push": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "Docker exporter": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "Multi-platform build": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "OCI exporter": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "Prefer image digest": true
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "labels": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.containerd.namespace": "moby",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.containerd.uuid": "901af005-849e-49c0-8694-c6cf43e5380c",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.executor": "containerd",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.hostname": "docker-desktop",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.moby.host-gateway-ip": "192.168.65.254",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.network": "host",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.selinux.enabled": "false",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.snapshotter": "overlayfs"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "devices": [
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "name": "docker.com/gpu=webgpu",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "autoAllow": false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       ],
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "gcPolicy": [
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "all": false,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "filter": [
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |             "type==source.local type==exec.cachemount type==source.git.checkout"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           ],
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "keepDuration": "48h0m0s",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "maxUsedSpace": "2.764GiB"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "all": false,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "keepDuration": "1440h0m0s",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "reservedSpace": "20GiB"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "all": false,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "reservedSpace": "20GiB"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "all": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "reservedSpace": "20GiB"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       ]
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   ],
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   "name": "default",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   "driver": "docker"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ✅  Success - Main Set up Docker Buildx [1.332112709s]
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  ::set-output:: name=default
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  ::set-output:: driver=docker
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  ::set-output:: platforms=linux/arm64,linux/amd64,linux/amd64/v2,linux/riscv64,linux/ppc64le,linux/s390x,linux/386
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  ::set-output:: nodes=[
+  {
+    "name": "default",
+    "endpoint": "default",
+    "status": "running",
+    "buildkit": "v0.32.2",
+    "platforms": "linux/arm64,linux/amd64,linux/amd64/v2,linux/riscv64,linux/ppc64le,linux/s390x,linux/386",
+    "features": {
+      "Automatically load images to the Docker Engine image store": true,
+      "Cache export": true,
+      "Direct push": true,
+      "Docker exporter": true,
+      "Multi-platform build": true,
+      "OCI exporter": true,
+      "Prefer image digest": true
+    },
+    "labels": {
+      "org.mobyproject.buildkit.worker.containerd.namespace": "moby",
+      "org.mobyproject.buildkit.worker.containerd.uuid": "901af005-849e-49c0-8694-c6cf43e5380c",
+      "org.mobyproject.buildkit.worker.executor": "containerd",
+      "org.mobyproject.buildkit.worker.hostname": "docker-desktop",
+      "org.mobyproject.buildkit.worker.moby.host-gateway-ip": "192.168.65.254",
+      "org.mobyproject.buildkit.worker.network": "host",
+      "org.mobyproject.buildkit.worker.selinux.enabled": "false",
+      "org.mobyproject.buildkit.worker.snapshotter": "overlayfs"
+    },
+    "devices": [
+      {
+        "name": "docker.com/gpu=webgpu",
+        "autoAllow": false
+      }
+    ],
+    "gcPolicy": [
+      {
+        "all": false,
+        "filter": [
+          "type==source.local type==exec.cachemount type==source.git.checkout"
+        ],
+        "keepDuration": "48h0m0s",
+        "maxUsedSpace": "2.764GiB"
+      },
+      {
+        "all": false,
+        "keepDuration": "1440h0m0s",
+        "reservedSpace": "20GiB"
+      },
+      {
+        "all": false,
+        "reservedSpace": "20GiB"
+      },
+      {
+        "all": true,
+        "reservedSpace": "20GiB"
+      }
+    ]
+  }
+]
+[S17 DevSecOps Pipeline/6. Docker Build              ] ⭐ Run Main Build the image and export it as a tar file
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker cp src=/Users/kp/.cache/act/docker-build-push-action@v7/ dst=/var/run/act/actions/docker-build-push-action@v7/
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/docker-build-push-action@v7/dist/index.cjs] user= workdir=
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::GitHub Actions runtime token ACs
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | : write
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Docker info
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | [command]/usr/bin/docker version
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Client:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Version:           29.7.2-1
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  API version:       1.55
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Go version:        go1.26.5
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Git commit:        a7dcaa6fdb6ed04aacbfdc76357fdae01605609e
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Built:             Fri Aug  7 10:40:54 2026
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  OS/Arch:           linux/arm64
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Context:           default
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Server: Docker Desktop 4.87.0 (236836)
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Engine:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Version:          29.7.2
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   API version:      1.55 (minimum version 1.40)
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Go version:       go1.26.5
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Git commit:       6a43e3d
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Built:            Wed Aug  5 18:28:35 2026
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   OS/Arch:          linux/arm64
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Experimental:     false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  containerd:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Version:          v2.2.5
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   GitCommit:        e53c7c1516c3b2bff98eb76f1f4117477e6f4e66
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  runc:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Version:          1.3.6
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   GitCommit:        v1.3.6-0-g491b69ba
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  docker-init:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Version:          0.19.0
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   GitCommit:        de40ad0
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | [command]/usr/bin/docker info
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Client:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Version:    29.7.2-1
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Context:    default
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Debug Mode: false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Plugins:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   buildx: Docker Buildx (Docker Inc.)
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     Version:  0.36.1-1
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   compose: Docker Compose (Docker Inc.)
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     Version:  5.4.0-2
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     Path:     /usr/libexec/docker/cli-plugins/docker-compose
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Server:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Containers: 25
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Running: 6
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Paused: 0
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Stopped: 19
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Images: 94
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Server Version: 29.7.2
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Storage Driver: overlayfs
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   driver-type: io.containerd.snapshotter.v1
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Logging Driver: json-file
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Cgroup Driver: cgroupfs
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Cgroup Version: 2
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Plugins:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Volume: local
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Network: bridge host ipvlan macvlan null overlay
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  CDI spec directories:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   /etc/cdi
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   /var/run/cdi
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Discovered Devices:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   cdi: docker.com/gpu=webgpu
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Swarm: inactive
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Runtimes: runc io.containerd.runc.v2
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Default Runtime: runc
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Init Binary: docker-init
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  containerd version: e53c7c1516c3b2bff98eb76f1f4117477e6f4e66
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  runc version: v1.3.6-0-g491b69ba
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  init version: de40ad0
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Security Options:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   seccomp
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |    Profile: builtin
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   cgroupns
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Kernel Version: 7.0.12-linuxkit
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Operating System: Docker Desktop
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  OSType: linux
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Architecture: aarch64
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  CPUs: 15
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Total Memory: 11.67GiB
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Name: docker-desktop
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  ID: 9bd91c35-f158-4f23-93a7-e74dad678dac
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Docker Root Dir: /var/lib/docker
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Debug Mode: false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  HTTP Proxy: http.docker.internal:3128
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  HTTPS Proxy: http.docker.internal:3128
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  No Proxy: hubproxy.docker.internal
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Labels:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   com.docker.desktop.address=unix:///Users/kp/Library/Containers/com.docker.docker/Data/docker-cli.sock
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Experimental: false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Insecure Registries:
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   hubproxy.docker.internal:5555
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   ::1/128
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   127.0.0.0/8
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Live Restore Enabled: false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |  Firewall Backend: iptables
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Proxy configuration
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | No proxy configuration found
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Buildx version
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | [command]/usr/bin/docker buildx version
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | github.com/docker/buildx 0.36.1-1 1d8dde89b8aba914e05e45366770736fea1fd690
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Builder info
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   "nodes": [
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "name": "default",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "endpoint": "default",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "status": "running",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "buildkit": "v0.32.2",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "platforms": "linux/arm64,linux/amd64,linux/amd64/v2,linux/riscv64,linux/ppc64le,linux/s390x,linux/386",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "features": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "Automatically load images to the Docker Engine image store": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "Cache export": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "Direct push": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "Docker exporter": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "Multi-platform build": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "OCI exporter": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "Prefer image digest": true
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "labels": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.containerd.namespace": "moby",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.containerd.uuid": "901af005-849e-49c0-8694-c6cf43e5380c",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.executor": "containerd",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.hostname": "docker-desktop",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.moby.host-gateway-ip": "192.168.65.254",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.network": "host",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.selinux.enabled": "false",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "org.mobyproject.buildkit.worker.snapshotter": "overlayfs"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "devices": [
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "name": "docker.com/gpu=webgpu",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "autoAllow": false
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       ],
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "gcPolicy": [
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "all": false,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "filter": [
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |             "type==source.local type==exec.cachemount type==source.git.checkout"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           ],
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "keepDuration": "48h0m0s",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "maxUsedSpace": "2.764GiB"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "all": false,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "keepDuration": "1440h0m0s",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "reservedSpace": "20GiB"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "all": false,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "reservedSpace": "20GiB"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "all": true,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "reservedSpace": "20GiB"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       ]
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   ],
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   "name": "default",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   "driver": "docker"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | [command]/usr/bin/docker buildx build --build-arg APP_VERSION=2.0.1 --build-arg GIT_SHA=3ba758e0669b9efc0a1ecd4b57040d1310aa1eef --iidfile /tmp/docker-actions-toolkit-YkM12R/build-iidfile-f31e510975.txt --label org.opencontainers.image.source=https://github.com/kartavya37/DevOps-Assignment --label org.opencontainers.image.revision=3ba758e0669b9efc0a1ecd4b57040d1310aa1eef --output type=docker,dest=/tmp/image.tar --tag ghcr.io/kartavya37/s17-devsecops-app:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef --tag ghcr.io/kartavya37/s17-devsecops-app:latest --metadata-file /tmp/docker-actions-toolkit-YkM12R/build-metadata-84f12a8ec5.json Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #0 building with "default" instance using docker driver
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #1 [internal] load build definition from Dockerfile
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #1 transferring dockerfile: 1.39kB done
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #1 DONE 0.0s
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #2 [internal] load metadata for docker.io/library/python:3.13-alpine
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #2 DONE 0.0s
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #3 [internal] load .dockerignore
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #3 transferring context: 157B done
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #3 DONE 0.0s
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #4 [builder 1/3] FROM docker.io/library/python:3.13-alpine@sha256:2d9aefe2fef018a7eb2c13064c89c71929800fd2e5dccdbf52ea5da5bb8d929a
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #4 resolve docker.io/library/python:3.13-alpine@sha256:2d9aefe2fef018a7eb2c13064c89c71929800fd2e5dccdbf52ea5da5bb8d929a 0.0s done
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #4 DONE 0.0s
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #5 [internal] load build context
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #5 transferring context: 37.78kB done
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #5 DONE 0.0s
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #6 [stage-1 3/5] COPY --from=builder /opt/venv /opt/venv
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #6 CACHED
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #7 [stage-1 4/5] WORKDIR /app
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #7 CACHED
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #8 [builder 3/3] RUN python -m venv /opt/venv  && /opt/venv/bin/pip install --no-cache-dir -r /tmp/requirements.txt  && /opt/venv/bin/pip uninstall -y pip
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #8 CACHED
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #9 [stage-1 2/5] RUN apk upgrade --no-cache  && python -m pip uninstall -y pip  && rm -rf /usr/local/lib/python3.13/ensurepip  && adduser -D -H -u 10001 appuser
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #9 CACHED
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #10 [builder 2/3] COPY requirements.txt /tmp/requirements.txt
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #10 CACHED
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #11 [stage-1 5/5] COPY app ./app
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #11 CACHED
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #12 exporting to docker image format
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #12 exporting layers done
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #12 exporting manifest sha256:1d688afb16801ba986a64477834cee058b11e62e7c7019d813d8726e9ec4ee55 done
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #12 exporting config sha256:f5a715579bd0cf1e284b6ac36250688b3ff5842db581762c929535d1306b0ee6 done
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #12 sending tarball
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #12 sending tarball 0.4s done
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #12 DONE 0.4s
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | 
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #13 resolving provenance for metadata file
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | #13 DONE 0.0s
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::ImageID
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | sha256:f5a715579bd0cf1e284b6ac36250688b3ff5842db581762c929535d1306b0ee6
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Digest
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | sha256:1d688afb16801ba986a64477834cee058b11e62e7c7019d813d8726e9ec4ee55
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Metadata
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  ::stop-commands::83a732a9-9235-4b60-ab54-a9913ee95471
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   "buildx.build.provenance": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     "builder": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "id": ""
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     "buildType": "https://mobyproject.org/buildkit@v1",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     "materials": [
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "uri": "pkg:docker/python@3.13-alpine?platform=linux%2Farm64",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "digest": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "sha256": "2d9aefe2fef018a7eb2c13064c89c71929800fd2e5dccdbf52ea5da5bb8d929a"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     ],
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     "invocation": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "configSource": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "entryPoint": "Dockerfile"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "parameters": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "frontend": "dockerfile.v0",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "args": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "build-arg:APP_VERSION": "2.0.1",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "build-arg:GIT_SHA": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "label:org.opencontainers.image.revision": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "label:org.opencontainers.image.source": "https://github.com/kartavya37/DevOps-Assignment"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "locals": [
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |             "name": "context"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |             "name": "dockerfile"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         ],
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "root": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "configSource": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |             "path": "Dockerfile"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           "request": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |             "args": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |               "build-arg:APP_VERSION": "2.0.1",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |               "build-arg:GIT_SHA": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |               "label:org.opencontainers.image.revision": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |               "label:org.opencontainers.image.source": "https://github.com/kartavya37/DevOps-Assignment",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |               "vcs:localdir:context": "Complete-CI-CD-&-DevSecOps",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |               "vcs:localdir:dockerfile": "Complete-CI-CD-&-DevSecOps",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |               "vcs:revision": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |               "vcs:source": "https://github.com/kartavya37/DevOps-Assignment.git"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |             }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |           }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "compatibilityVersion": 30
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "environment": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "dockerfileVersion": "1.26.0",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |         "platform": "linux/arm64"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   "buildx.build.ref": "default/default/tidgwcgi4m31i74mmwrfjrug7",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   "containerimage.config.digest": "sha256:f5a715579bd0cf1e284b6ac36250688b3ff5842db581762c929535d1306b0ee6",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   "containerimage.descriptor": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     "mediaType": "application/vnd.oci.image.manifest.v1+json",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     "digest": "sha256:1d688afb16801ba986a64477834cee058b11e62e7c7019d813d8726e9ec4ee55",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     "size": 1813,
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     "annotations": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "org.opencontainers.image.created": "2026-10-07T12:19:42Z"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     "platform": {
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "architecture": "arm64",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |       "os": "linux"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |     }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   },
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   "containerimage.digest": "sha256:1d688afb16801ba986a64477834cee058b11e62e7c7019d813d8726e9ec4ee55",
+[S17 DevSecOps Pipeline/6. Docker Build              ]   |   "image.name": "ghcr.io/kartavya37/s17-devsecops-app:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef,ghcr.io/kartavya37/s17-devsecops-app:latest"
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | }
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  ::83a732a9-9235-4b60-ab54-a9913ee95471::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Reference
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | default/default/tidgwcgi4m31i74mmwrfjrug7
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Check build summary support
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Build summary supported!
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ✅  Success - Main Build the image and export it as a tar file [3.25175525s]
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  ::set-output:: digest=sha256:1d688afb16801ba986a64477834cee058b11e62e7c7019d813d8726e9ec4ee55
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  ::set-output:: metadata={
+  "buildx.build.provenance": {
+    "builder": {
+      "id": ""
+    },
+    "buildType": "https://mobyproject.org/buildkit@v1",
+    "materials": [
+      {
+        "uri": "pkg:docker/python@3.13-alpine?platform=linux%2Farm64",
+        "digest": {
+          "sha256": "2d9aefe2fef018a7eb2c13064c89c71929800fd2e5dccdbf52ea5da5bb8d929a"
+        }
+      }
+    ],
+    "invocation": {
+      "configSource": {
+        "entryPoint": "Dockerfile"
+      },
+      "parameters": {
+        "frontend": "dockerfile.v0",
+        "args": {
+          "build-arg:APP_VERSION": "2.0.1",
+          "build-arg:GIT_SHA": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+          "label:org.opencontainers.image.revision": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+          "label:org.opencontainers.image.source": "https://github.com/kartavya37/DevOps-Assignment"
+        },
+        "locals": [
+          {
+            "name": "context"
+          },
+          {
+            "name": "dockerfile"
+          }
+        ],
+        "root": {
+          "configSource": {
+            "path": "Dockerfile"
+          },
+          "request": {
+            "args": {
+              "build-arg:APP_VERSION": "2.0.1",
+              "build-arg:GIT_SHA": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+              "label:org.opencontainers.image.revision": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+              "label:org.opencontainers.image.source": "https://github.com/kartavya37/DevOps-Assignment",
+              "vcs:localdir:context": "Complete-CI-CD-&-DevSecOps",
+              "vcs:localdir:dockerfile": "Complete-CI-CD-&-DevSecOps",
+              "vcs:revision": "3ba758e0669b9efc0a1ecd4b57040d1310aa1eef",
+              "vcs:source": "https://github.com/kartavya37/DevOps-Assignment.git"
+            }
+          }
+        },
+        "compatibilityVersion": 30
+      },
+      "environment": {
+        "dockerfileVersion": "1.26.0",
+        "platform": "linux/arm64"
+      }
+    }
+  },
+  "buildx.build.ref": "default/default/tidgwcgi4m31i74mmwrfjrug7",
+  "containerimage.config.digest": "sha256:f5a715579bd0cf1e284b6ac36250688b3ff5842db581762c929535d1306b0ee6",
+  "containerimage.descriptor": {
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "digest": "sha256:1d688afb16801ba986a64477834cee058b11e62e7c7019d813d8726e9ec4ee55",
+    "size": 1813,
+    "annotations": {
+      "org.opencontainers.image.created": "2026-10-07T12:19:42Z"
+    },
+    "platform": {
+      "architecture": "arm64",
+      "os": "linux"
+    }
+  },
+  "containerimage.digest": "sha256:1d688afb16801ba986a64477834cee058b11e62e7c7019d813d8726e9ec4ee55",
+  "image.name": "ghcr.io/kartavya37/s17-devsecops-app:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef,ghcr.io/kartavya37/s17-devsecops-app:latest"
+}
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  ::set-output:: imageid=sha256:f5a715579bd0cf1e284b6ac36250688b3ff5842db581762c929535d1306b0ee6
+[S17 DevSecOps Pipeline/6. Docker Build              ] ⭐ Run Main Upload the image tar (the same image goes to scan, push and deploy)
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker cp src=/Users/kp/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | (node:525) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | With the provided path, there will be 1 file uploaded
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Artifact name is valid!
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Root directory input is valid!
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Beginning upload of artifact content to blob storage
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | (node:525) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Uploaded bytes 8388608
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Uploaded bytes 16777216
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Uploaded bytes 22664762
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Finished uploading artifact content to blob storage!
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | SHA256 digest of uploaded artifact zip is 3451ac6618b810a179e2c1ca5d4a0d5ea4b5e22e5b038b13439e4731200e17b1
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Finalizing artifact upload
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Artifact docker-image.zip successfully finalized. Artifact ID 3572604477
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Artifact docker-image has been successfully uploaded! Final size is 22664762 bytes. Artifact ID is 3572604477
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Artifact download URL: https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3572604477
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ✅  Success - Main Upload the image tar (the same image goes to scan, push and deploy) [1.264633459s]
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  ::set-output:: artifact-id=3572604477
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  ::set-output:: artifact-digest=3451ac6618b810a179e2c1ca5d4a0d5ea4b5e22e5b038b13439e4731200e17b1
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  ::set-output:: artifact-url=https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/3572604477
+[S17 DevSecOps Pipeline/6. Docker Build              ] ⭐ Run Post Build the image and export it as a tar file
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/docker-build-push-action@v7/dist/index.cjs] user= workdir=
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Generating build summary
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | exporting build record to /tmp/docker-actions-toolkit-IsNkwi/export
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | [command]/usr/bin/docker buildx history export --builder default --output /tmp/docker-actions-toolkit-IsNkwi/export/kartavya37~DevOps-Assignment~TIDGWC.dockerbuild tidgwcgi4m31i74mmwrfjrug7 --finalize
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Build record written to /tmp/docker-actions-toolkit-IsNkwi/export/kartavya37~DevOps-Assignment~TIDGWC.dockerbuild (15.48 KB)
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | Writing summary
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Removing temp folder /tmp/docker-actions-toolkit-YkM12R
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Post cache
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | State not set
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ✅  Success - Post Build the image and export it as a tar file [551.318125ms]
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ⚙  Summary - <h2>Docker Build summary</h2>
+<p>The following table provides a brief summary of your build.<br>
+For a detailed look at the build, including timing, dependencies, results, logs, traces, and other information, consider enabling the export of the build record so you can import it into Docker Desktop's Builds view. <a href="https://www.docker.com/blog/new-beta-feature-deep-dive-into-github-actions-docker-builds-with-docker-desktop/?utm_source=github&utm_medium=actions">Learn more</a></p><p>Find this useful? <a href="https://docs.docker.com/feedback/gha-build-summary">Let us know</a></p><p><table><tr><th>ID</th><th>Name</th><th>Status</th><th>Cached</th><th>Duration</th></tr><tr><td><code>TIDGWC</code></td><td><strong>&#x43;&#x6f;&#x6d;&#x70;&#x6c;&#x65;&#x74;&#x65;&#x2d;&#x43;&#x49;&#x2d;&#x43;&#x44;&#x2d;&#x26;&#x2d;&#x44;&#x65;&#x76;&#x53;&#x65;&#x63;&#x4f;&#x70;&#x73;</strong></td><td>:white_check_mark: completed</td><td>50%</td><td>0s</td></tr></table>
+</p><details><summary><strong>Build inputs</strong></summary><pre lang="yaml"><code>build-args:
+  - APP_VERSION=2.0.1
+  - GIT_SHA=3ba758e0669b9efc0a1ecd4b57040d1310aa1eef
+context: Complete-CI-CD-&-DevSecOps
+labels:
+  - org.opencontainers.image.source=https://github.com/kartavya37/DevOps-Assignment
+  - org.opencontainers.image.revision=3ba758e0669b9efc0a1ecd4b57040d1310aa1eef
+outputs:
+  - type=docker,dest=/tmp/image.tar
+tags:
+  - ghcr.io/kartavya37/s17-devsecops-app:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef
+  - ghcr.io/kartavya37/s17-devsecops-app:latest
+</code></pre>
+</details><hr>
+[S17 DevSecOps Pipeline/6. Docker Build              ] ⭐ Run Post Set up Docker Buildx
+[S17 DevSecOps Pipeline/6. Docker Build              ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/docker-setup-buildx-action@v4/dist/index.cjs] user= workdir=
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Cleaning up certificates
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::group::Post cache
+[S17 DevSecOps Pipeline/6. Docker Build              ]   | State not set
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ✅  Success - Post Set up Docker Buildx [189.513041ms]
+[S17 DevSecOps Pipeline/6. Docker Build              ] ⭐ Run Complete job
+[S17 DevSecOps Pipeline/6. Docker Build              ] Cleaning up container for job 6. Docker Build
+[S17 DevSecOps Pipeline/6. Docker Build              ]   ✅  Success - Complete job
+[S17 DevSecOps Pipeline/6. Docker Build              ] 🏁  Job succeeded
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Set up job
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Set up job
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ☁  git clone 'https://github.com/aquasecurity/trivy-action' # ref=ed142fd0673e97e23eac54620cfb913e5ce36c25
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Pre Scan the image (Trivy)
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ☁  git clone 'https://github.com/aquasecurity/setup-trivy' # ref=3fb12ec12f41e471780db15c232d5dd185dcb514
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Pre Install Trivy
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ☁  git clone 'https://github.com/actions/cache' # ref=9255dc7a253b0ccc959486e2bca901246202afeb
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ☁  git clone 'https://github.com/actions/checkout' # ref=8e8c483db84b4bee98b60c0593521ed34d9990e8
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ☁  git clone 'https://github.com/actions/cache' # ref=9255dc7a253b0ccc959486e2bca901246202afeb
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Pre Install Trivy [4.305093875s]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ☁  git clone 'https://github.com/actions/cache' # ref=27d5ce7f107fe9357f9df03efb73ab90386fccae
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Pre Scan the image (Trivy) [6.472480666s]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ☁  git clone 'https://github.com/actions/upload-artifact' # ref=v4
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Checkout source code
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Checkout source code [1.824661667s]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Download the image tar
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker cp src=/Users/kp/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Downloading single artifact
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Preparing to download the following artifacts:
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | - docker-image (ID: 3572604477, Size: 96, Expected Digest: undefined)
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Redirecting to blob download url: http://0.0.0.0:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Starting download of artifact to: /tmp
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | (node:31) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | SHA256 digest of downloaded artifact is 3451ac6618b810a179e2c1ca5d4a0d5ea4b5e22e5b038b13439e4731200e17b1
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Artifact download completed successfully.
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Total of 1 artifact(s) downloaded
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Download artifact has finished successfully
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Download the image tar [771.141917ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ::set-output:: download-path=/tmp
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Create the reports folder
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Create the reports folder [49.483459ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Scan the image (Trivy)
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker cp src=/Users/kp/.cache/act/aquasecurity-trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25/ dst=/var/run/act/actions/aquasecurity-trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25/
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Install Trivy
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker cp src=/Users/kp/.cache/act/aquasecurity-setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514/ dst=/var/run/act/actions/aquasecurity-setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514/
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Binary dir
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-0-composite-binary-dir.sh] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Binary dir [49.999166ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ::set-output:: dir=/root/.local/bin/trivy-bin
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Restore Trivy binary from cache
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker cp src=/Users/kp/.cache/act/actions-cache-restore@9255dc7a253b0ccc959486e2bca901246202afeb/ dst=/var/run/act/actions/actions-cache-restore@9255dc7a253b0ccc959486e2bca901246202afeb/
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-cache-restore@9255dc7a253b0ccc959486e2bca901246202afeb/dist/restore-only/index.js] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ***
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Cache Size: ~41 MB (42628276 B)
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/tar -xf /tmp/01c96719-0209-41c9-b174-8ab8b4faa242/cache.tzst -P -C /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment --use-compress-program unzstd
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | /usr/bin/tar: Year/Devops/SST-Assignments/DevOps-Assignment: Not found in archive
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | /usr/bin/tar: Exiting with failure status due to previous errors
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🚧  ::warning::Failed to restore: "/usr/bin/tar" failed with error: The process '/usr/bin/tar' failed with exit code 2
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Cache not found for input keys: trivy-binary-v0.75.0-Linux-ARM64
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Restore Trivy binary from cache [1.500052333s]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ::set-output:: cache-primary-key=trivy-binary-v0.75.0-Linux-ARM64
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Checkout install script
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker cp src=/Users/kp/.cache/act/actions-checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8/ dst=/var/run/act/actions/actions-checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8/
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8/dist/index.js] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓ add-matcher /run/act/actions/actions-checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8/dist/problem-matcher.json
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Syncing repository: aquasecurity/trivy
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::group::Getting Git version info
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Working directory is '/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/trivy'
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git version
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | git version 2.55.0
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ***
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Temporarily overriding HOME='/tmp/3f02d9cd-e6c2-4c49-bc83-d94110355143' before making global git config changes
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Adding repository directory to the temporary git global config as a safe directory
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git config --global --add safe.directory /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/trivy
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::group::Initializing the repository
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git init /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/trivy
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint: Using 'master' as the name for the initial branch. This default branch name
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint: will change to "main" in Git 3.0. To configure the initial branch name
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint: to use in all of your new repositories, which will suppress this warning,
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint: call:
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint:
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint: 	git config --global init.defaultBranch <name>
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint:
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint: 'development'. The just-created branch can be renamed via this command:
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint:
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint: 	git branch -m <name>
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint:
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | hint: Disable this message with "git config set advice.defaultBranchName false"
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Initialized empty Git repository in /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/trivy/.git/
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git remote add origin https://github.com/aquasecurity/trivy
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::group::Disabling automatic garbage collection
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git config --local gc.auto 0
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::group::Setting up auth
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Removing SSH command configuration
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Removing HTTP extra header
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Removing includeIf entries pointing to credentials config files
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git config --file /tmp/git-credentials-cb880de2-0c3e-4fad-8214-e497141a8c2b.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git config --local includeIf.gitdir:/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/trivy/.git.path /tmp/git-credentials-cb880de2-0c3e-4fad-8214-e497141a8c2b.config
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git config --local includeIf.gitdir:/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/trivy/.git/worktrees/*.path /tmp/git-credentials-cb880de2-0c3e-4fad-8214-e497141a8c2b.config
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/trivy/.git.path /github/runner_temp/git-credentials-cb880de2-0c3e-4fad-8214-e497141a8c2b.config
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/trivy/.git/worktrees/*.path /github/runner_temp/git-credentials-cb880de2-0c3e-4fad-8214-e497141a8c2b.config
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::group::Fetching the repository
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --filter=blob:none --depth=1 origin 75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | From https://github.com/aquasecurity/trivy
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   |  * branch            75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a -> FETCH_HEAD
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::group::Determining the checkout info
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::group::Setting up sparse checkout
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git sparse-checkout set contrib
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::group::Checking out the ref
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git checkout --progress --force 75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Note: switching to '75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a'.
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | 
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | You are in 'detached HEAD' state. You can look around, make experimental
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | changes and commit them, and you can discard any commits you make in this
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | state without impacting any branches by switching back to a branch.
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | 
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | If you want to create a new branch to retain commits you create, you may
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | do so (now or later) by using -c with the switch command. Example:
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | 
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   |   git switch -c <new-branch-name>
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | 
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Or undo this operation with:
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | 
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   |   git switch -
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | 
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Turn off this advice by setting config variable advice.detachedHead to false
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | 
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | HEAD is now at 75c4dc0 chore: add client option to install script (#9962)
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::endgroup::
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/git log -1 --format=%H
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | 75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ❓  ::remove-matcher owner=checkout-git::
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Checkout install script [2.8311265s]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ::set-output:: commit=75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ::set-output:: ref=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Install Trivy
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-0-composite-4.sh] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | installing Trivy binary
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | aquasecurity/trivy info checking GitHub for tag 'v0.75.0'
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | aquasecurity/trivy info found version: 0.75.0 for v0.75.0/Linux/ARM64
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | aquasecurity/trivy info installed /root/.local/bin/trivy-bin/trivy
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Install Trivy [2.947705792s]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Add Trivy binary to $GITHUB_PATH
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-0-composite-5.sh] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Add Trivy binary to $GITHUB_PATH [71.778458ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ::add-path:: /root/.local/bin/trivy-bin
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Save Trivy binary to cache
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker cp src=/Users/kp/.cache/act/actions-cache-save@9255dc7a253b0ccc959486e2bca901246202afeb/ dst=/var/run/act/actions/actions-cache-save@9255dc7a253b0ccc959486e2bca901246202afeb/
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-cache-save@9255dc7a253b0ccc959486e2bca901246202afeb/dist/save-only/index.js] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment --files-from manifest.txt --use-compress-program zstdmt
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | /usr/bin/tar: /Users/kp/SST/3rd: Cannot open: No such file or directory
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | /usr/bin/tar: Error is not recoverable: exiting now
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🚧  ::warning::Failed to save: "/usr/bin/tar" failed with error: The process '/usr/bin/tar' failed with exit code 2
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🚧  ::warning::Cache save failed.
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Save Trivy binary to cache [1.661187875s]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Install Trivy [9.506203334s]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Get current date
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-date.sh] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Get current date [86.0225ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ::set-output:: date=2026-10-07
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Restore DB from cache
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker cp src=/Users/kp/.cache/act/actions-cache@27d5ce7f107fe9357f9df03efb73ab90386fccae/ dst=/var/run/act/actions/actions-cache@27d5ce7f107fe9357f9df03efb73ab90386fccae/
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-cache@27d5ce7f107fe9357f9df03efb73ab90386fccae/dist/restore/index.js] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Cache not found for input keys: cache-trivy-2026-10-07, cache-trivy-
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Restore DB from cache [1.606995708s]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Set GitHub Path
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-3.sh] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Set GitHub Path [75.016583ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ::add-path:: /var/run/act/actions/aquasecurity-trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Clear Trivy Envs file
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-4.sh] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Clear Trivy Envs file [86.2545ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Set Trivy environment variables
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-5.sh] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Set Trivy environment variables [98.657417ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Run Trivy
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-6.sh] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Found ignorefile 'Complete-CI-CD-&-DevSecOps/security/.trivyignore':
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | # Trivy ignore file (used by the SCA "trivy fs" scan and the container image scan).
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | #
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | # Add one vulnerability ID per line ONLY when the risk is accepted, with a reason and an expiry date:
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | #   CVE-2099-12345  exp:2026-12-31   # reason: code path not reachable, fix not released yet
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | #
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | # This file is empty on purpose: the current image has no HIGH or CRITICAL finding to accept.
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Running Trivy with options: trivy image .
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Run Trivy [9.74998075s]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Remove Trivy Envs file
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/3-composite-7.sh] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Remove Trivy Envs file [95.6845ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Scan the image (Trivy) [22.114106875s]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Show the scan result as a table
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/4.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | 2026-10-07T12:20:21Z	WARN	[report] No enabled scanners found. Summary table will not be displayed.
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Show the scan result as a table [201.233666ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Main Upload image scan report
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker cp src=/Users/kp/.cache/act/actions-upload-artifact@v4/ dst=/var/run/act/actions/actions-upload-artifact@v4/
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-upload-artifact@v4/dist/upload/index.js] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | (node:417) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | With the provided path, there will be 1 file uploaded
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Artifact name is valid!
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Root directory input is valid!
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Beginning upload of artifact content to blob storage
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | (node:417) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Uploaded bytes 14840
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Finished uploading artifact content to blob storage!
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | SHA256 digest of uploaded artifact zip is 44bc8e3ae39f1dfc21902d74cd8081e6e4652a9c37807d14fba1e3ea3ed595bf
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Finalizing artifact upload
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Artifact image-scan-report.zip successfully finalized. Artifact ID 4235555473
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Artifact image-scan-report has been successfully uploaded! Final size is 14840 bytes. Artifact ID is 4235555473
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | Artifact download URL: https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/4235555473
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Main Upload image scan report [1.28819775s]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ::set-output:: artifact-url=https://github.com/kartavya37/DevOps-Assignment/actions/runs/1/artifacts/4235555473
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ::set-output:: artifact-id=4235555473
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ⚙  ::set-output:: artifact-digest=44bc8e3ae39f1dfc21902d74cd8081e6e4652a9c37807d14fba1e3ea3ed595bf
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Post Scan the image (Trivy)
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker cp src=/Users/kp/.cache/act/aquasecurity-trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25/ dst=/var/run/act/actions/aquasecurity-trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25/
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Post Restore DB from cache
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-cache@27d5ce7f107fe9357f9df03efb73ab90386fccae/dist/save/index.js] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment --files-from manifest.txt --use-compress-program zstdmt
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | /usr/bin/tar: /Users/kp/SST/3rd: Cannot open: No such file or directory
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   | /usr/bin/tar: Error is not recoverable: exiting now
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🚧  ::warning::Failed to save: "/usr/bin/tar" failed with error: The process '/usr/bin/tar' failed with exit code 2
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Post Restore DB from cache [258.160166ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Post Install Trivy
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker cp src=/Users/kp/.cache/act/aquasecurity-setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514/ dst=/var/run/act/actions/aquasecurity-setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514/
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Post Checkout install script
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8/dist/index.js] user= workdir=
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Post Checkout install script [98.690834ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Post Install Trivy [181.872084ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Post Scan the image (Trivy) [742.962625ms]
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] ⭐ Run Complete job
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] Cleaning up container for job 7. Container Image Scan (Trivy)
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)]   ✅  Success - Complete job
+[S17 DevSecOps Pipeline/7. Container Image Scan (Trivy)] 🏁  Job succeeded
+[S17 DevSecOps Pipeline/8. Security Gate               ] ⭐ Run Set up job
+[S17 DevSecOps Pipeline/8. Security Gate               ] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S17 DevSecOps Pipeline/8. Security Gate               ]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S17 DevSecOps Pipeline/8. Security Gate               ]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/8. Security Gate               ]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/8. Security Gate               ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S17 DevSecOps Pipeline/8. Security Gate               ]   ✅  Success - Set up job
+[S17 DevSecOps Pipeline/8. Security Gate               ]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[S17 DevSecOps Pipeline/8. Security Gate               ] ⭐ Run Main Checkout source code
+[S17 DevSecOps Pipeline/8. Security Gate               ]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S17 DevSecOps Pipeline/8. Security Gate               ]   ✅  Success - Main Checkout source code [1.908740333s]
+[S17 DevSecOps Pipeline/8. Security Gate               ] ⭐ Run Main Download all scan reports
+[S17 DevSecOps Pipeline/8. Security Gate               ]   🐳  docker cp src=/Users/kp/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[S17 DevSecOps Pipeline/8. Security Gate               ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Found 6 artifact(s)
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Filtering artifacts by pattern '*-report'
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Preparing to download the following artifacts:
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | - image-scan-report (ID: 4235555473, Size: 96, Expected Digest: undefined)
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | - sca-report (ID: 3243087279, Size: 96, Expected Digest: undefined)
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | - unit-test-report (ID: 3167768447, Size: 96, Expected Digest: undefined)
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | - secret-scan-report (ID: 761529410, Size: 96, Expected Digest: undefined)
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | - sast-report (ID: 574075399, Size: 96, Expected Digest: undefined)
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Redirecting to blob download url: http://0.0.0.0:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Starting download of artifact to: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/reports
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | (node:31) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Redirecting to blob download url: http://0.0.0.0:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Starting download of artifact to: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/reports
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Redirecting to blob download url: http://0.0.0.0:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Starting download of artifact to: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/reports
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Redirecting to blob download url: http://0.0.0.0:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Starting download of artifact to: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/reports
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Redirecting to blob download url: http://0.0.0.0:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Starting download of artifact to: /Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/reports
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | SHA256 digest of downloaded artifact is ad6e0011f910daff888948d4018a718158d5cdf2391731adfdf2bdd31cd8ce9f
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Artifact download completed successfully.
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | SHA256 digest of downloaded artifact is 1aa41dc4f52ef454bc0c1e1cf86654c1bf2fa418cee423b30a6dbb10c60f247a
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Artifact download completed successfully.
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | SHA256 digest of downloaded artifact is 090fe8c02ec1f3b905bbffe18b2e77c43ab4bca0400ea3f6aeed99d4a1bd8930
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Artifact download completed successfully.
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | SHA256 digest of downloaded artifact is 116d017d1641b16fe74d2377548eadc1d31d7e0f21ab77589c5dc2be2239d57f
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Artifact download completed successfully.
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | SHA256 digest of downloaded artifact is 44bc8e3ae39f1dfc21902d74cd8081e6e4652a9c37807d14fba1e3ea3ed595bf
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Artifact download completed successfully.
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Total of 5 artifact(s) downloaded
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Download artifact has finished successfully
+[S17 DevSecOps Pipeline/8. Security Gate               ]   ✅  Success - Main Download all scan reports [612.271791ms]
+[S17 DevSecOps Pipeline/8. Security Gate               ]   ⚙  ::set-output:: download-path=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/Complete-CI-CD-&-DevSecOps/reports
+[S17 DevSecOps Pipeline/8. Security Gate               ] ⭐ Run Main Apply the security policy
+[S17 DevSecOps Pipeline/8. Security Gate               ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | ============================================================
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | SECURITY GATE (block on HIGH/CRITICAL, any secret, fail closed)
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | ============================================================
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Stage        Tool         Findings  Blocking  Result
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | -----------  -----------  --------  --------  ------
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | SAST         Bandit       0         0         PASS  
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | SCA          pip-audit    0         0         PASS  
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | SCA          Trivy fs     0         0         PASS  
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Secret scan  Gitleaks     0         0         PASS  
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Image scan   Trivy image  0         0         PASS  
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | 
+[S17 DevSecOps Pipeline/8. Security Gate               ]   | Security gate PASSED: the image can be pushed and deployed.
+[S17 DevSecOps Pipeline/8. Security Gate               ]   ✅  Success - Main Apply the security policy [94.865875ms]
+[S17 DevSecOps Pipeline/8. Security Gate               ]   ⚙  Summary - ### Security gate
+
+| Stage | Tool | Findings | Blocking | Result |
+|---|---|---|---|---|
+| SAST | Bandit | 0 | 0 | PASS |
+| SCA | pip-audit | 0 | 0 | PASS |
+| SCA | Trivy fs | 0 | 0 | PASS |
+| Secret scan | Gitleaks | 0 | 0 | PASS |
+| Image scan | Trivy image | 0 | 0 | PASS |
+
+**Security gate PASSED: the image can be pushed and deployed.**
+[S17 DevSecOps Pipeline/8. Security Gate               ] ⭐ Run Complete job
+[S17 DevSecOps Pipeline/8. Security Gate               ] Cleaning up container for job 8. Security Gate
+[S17 DevSecOps Pipeline/8. Security Gate               ]   ✅  Success - Complete job
+[S17 DevSecOps Pipeline/8. Security Gate               ] 🏁  Job succeeded
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ] ⭐ Run Set up job
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   ✅  Success - Set up job
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   ☁  git clone 'https://github.com/docker/login-action' # ref=v4
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ] ⭐ Run Main Download the scanned image tar
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   🐳  docker cp src=/Users/kp/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | Downloading single artifact
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | Preparing to download the following artifacts:
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | - docker-image (ID: 3572604477, Size: 96, Expected Digest: undefined)
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | Redirecting to blob download url: http://0.0.0.0:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | Starting download of artifact to: /tmp
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | (node:31) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | SHA256 digest of downloaded artifact is 3451ac6618b810a179e2c1ca5d4a0d5ea4b5e22e5b038b13439e4731200e17b1
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | Artifact download completed successfully.
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | Total of 1 artifact(s) downloaded
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | Download artifact has finished successfully
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   ✅  Success - Main Download the scanned image tar [914.416875ms]
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   ⚙  ::set-output:: download-path=/tmp
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ] ⭐ Run Main Load the image
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/1.sh] user= workdir=/tmp
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | Loaded image: ghcr.io/kartavya37/s17-devsecops-app:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | Loaded image: ghcr.io/kartavya37/s17-devsecops-app:latest
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | IMAGE                                                                           ID             DISK USAGE   CONTENT SIZE   EXTRA
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | ghcr.io/kartavya37/s17-devsecops-app:2.0.0                                      e03cdd942b3e       95.3MB         22.7MB        
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | ghcr.io/kartavya37/s17-devsecops-app:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef   1d688afb1680       95.3MB         22.7MB        
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | ghcr.io/kartavya37/s17-devsecops-app:latest                                     1d688afb1680       95.3MB         22.7MB        
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   | ghcr.io/kartavya37/s17-devsecops-app:local                                      38ab5588327b       95.3MB         22.7MB        
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   ✅  Success - Main Load the image [450.389958ms]
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ] ⭐ Run Complete job
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ] Cleaning up container for job 9. Push Image (GHCR)
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ]   ✅  Success - Complete job
+[S17 DevSecOps Pipeline/9. Push Image (GHCR)           ] 🏁  Job succeeded
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)] ⭐ Run Set up job
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)] 🚀  Start image=catthehacker/ubuntu:act-latest
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   🐳  docker pull image=catthehacker/ubuntu:act-latest platform=linux/arm64 username= forcePull=false
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   🐳  docker create image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   🐳  docker run image=catthehacker/ubuntu:act-latest platform=linux/arm64 entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   🐳  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   ✅  Success - Set up job
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   ☁  git clone 'https://github.com/actions/download-artifact' # ref=v4
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   ☁  git clone 'https://github.com/helm/kind-action' # ref=v1.15.1
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)] ⭐ Run Main Checkout source code
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   🐳  docker cp src=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment/. dst=/Users/kp/SST/3rd Year/Devops/SST-Assignments/DevOps-Assignment
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   ✅  Success - Main Checkout source code [1.586913125s]
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)] ⭐ Run Main Download the scanned image tar
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   🐳  docker cp src=/Users/kp/.cache/act/actions-download-artifact@v4/ dst=/var/run/act/actions/actions-download-artifact@v4/
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   🐳  docker exec cmd=[/opt/acttoolcache/node/24.19.0/arm64/bin/node /var/run/act/actions/actions-download-artifact@v4/dist/index.js] user= workdir=
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | Downloading single artifact
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | (node:31) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | (Use `node --trace-deprecation ...` to show where the warning was created)
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | Preparing to download the following artifacts:
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | - docker-image (ID: 3572604477, Size: 96, Expected Digest: undefined)
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | Redirecting to blob download url: http://0.0.0.0:34567/twirp/github.actions.results.api.v1.ArtifactService/DownloadArtifact
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | Starting download of artifact to: /tmp
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | (node:31) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | SHA256 digest of downloaded artifact is 3451ac6618b810a179e2c1ca5d4a0d5ea4b5e22e5b038b13439e4731200e17b1
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | Artifact download completed successfully.
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | Total of 1 artifact(s) downloaded
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | Download artifact has finished successfully
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   ✅  Success - Main Download the scanned image tar [814.59375ms]
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   ⚙  ::set-output:: download-path=/tmp
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)] ⭐ Run Main Show the manifests and the image to deploy
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   🐳  docker exec cmd=[bash --noprofile --norc -e -o pipefail /var/run/act/workflow/2.sh] user= workdir=Complete-CI-CD-&-DevSecOps
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | 27:          image: ghcr.io/kartavya37/s17-devsecops-app:latest
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | Deploy image: ghcr.io/kartavya37/s17-devsecops-app:3ba758e0669b9efc0a1ecd4b57040d1310aa1eef
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   | -rw-r--r-- 1 root root 22759424 Oct  7 12:20 /tmp/image.tar
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   ✅  Success - Main Show the manifests and the image to deploy [93.941875ms]
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)] ⭐ Run Complete job
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)] Cleaning up container for job 10. Deploy to Kubernetes (kind)
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)]   ✅  Success - Complete job
+[S17 DevSecOps Pipeline/10. Deploy to Kubernetes (kind)] 🏁  Job succeeded

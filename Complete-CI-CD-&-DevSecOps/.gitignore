@@ -1,0 +1,7 @@
+reports/
+build/
+image.tar
+.coverage
+coverage.xml
+__pycache__/
+.pytest_cache/

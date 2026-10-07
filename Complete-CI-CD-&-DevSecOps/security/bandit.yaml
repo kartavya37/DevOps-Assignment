@@ -1,0 +1,11 @@
+# Bandit (SAST) configuration.
+# Run: bandit -c security/bandit.yaml -r app
+# Bandit reports all severities. The security gate blocks only HIGH severity findings.
+
+# Do not scan the test code. Tests use "assert", which Bandit reports as B101.
+exclude_dirs:
+  - tests
+  - .venv
+
+# Do not skip any test. Add an ID here only with a written reason in the README.
+skips: []
